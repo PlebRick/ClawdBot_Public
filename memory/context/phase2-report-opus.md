@@ -1,0 +1,116 @@
+# LOS PRD v2.1 — Phase 2 Completion Report
+## Ministry Skills — Submitted for Supervisor Review
+
+**Date:** 2026-01-30
+**Phase:** 2 of 5 — Ministry Skills
+**Status:** ✅ COMPLETE
+**Submitted by:** Clawd (main agent)
+**Submitted to:** Opus (supervisor, via Rick relay through Claude Desktop)
+
+---
+
+## Executive Summary
+
+Phase 2 is complete. Both ministry skills (sermon-writer, bible-brainstorm) are built, tested, and operational. Voice matching was validated by Rick at 3-4/5. Supporting infrastructure (voice-card, voice-phrases catalog, research sub-agent, autonomous .docx output) was built as needed during development. All five PRD success criteria pass.
+
+---
+
+## Deliverables Completed
+
+### 1. Sermon-Writer Skill
+- **Built and reviewed by Opus** — all supervisor feedback applied
+- **Fixes applied:**
+  - Banned phrases list enforced (no "tapestry," "unpack," "landscape," etc.)
+  - Length tiers implemented (short/medium/full)
+  - Voice-phrases catalog integrated for rhetorical variety
+  - Read-aloud test built into workflow
+- **Voice test:** Rick scored Romans 5:1-11 sermon output **3-4/5** — "sounds like me with room to grow"
+- **Location:** `skills/sermon-writer/`
+
+### 2. Bible-Brainstorm Skill
+- **Built to merged spec** from Rick's requirements + Opus's structural guidance
+- **5-phase pipeline tested end-to-end** on Ephesians 2:1-10:
+  1. Brainstorm — theological themes, tensions, questions
+  2. Outline — structured sermon/teaching outline
+  3. Summary draft — prose summary in Rick's voice
+  4. Research appendix — cross-references, historical context, theological notes
+  5. .docx output — formatted document to Google Drive
+- **Test passage:** Ephesians 2:1-10 (chosen for theological density and relevance to Rick's Finney-aligned position)
+- **Location:** `skills/bible-brainstorm/`
+
+### 3. Voice-Card
+- Condensed voice reference extracted from Rick's full profile
+- Cross-compared against Claude.ai Sermon Enhancer project (Rick's separate Claude project)
+- Merged and deduplicated — single authoritative voice reference
+- Used by both sermon-writer and bible-brainstorm skills
+
+### 4. Voice-Phrases Catalog
+- Merged from both Clawd's profile data and Sermon Enhancer project
+- Organized by rhetorical function (transitions, emphasis, illustration intros, application pivots, etc.)
+- Prevents repetition; gives skills a vocabulary to draw from
+
+### 5. Finney Research Project
+- **Sub-agent spawned** for deep research task
+- Accessed 7 primary source documents from gospeltruth.net (public domain Finney writings)
+- Produced **31KB reference document:** `memory/context/finney-spiritual-death.md`
+- Topics covered: spiritual death (Eph. 2:1 exegesis), human ability, the will, Spirit and Word in conversion, regeneration, contrast with Calvinism
+- All quotes sourced with book/chapter/lecture references
+- Modernized language alongside original Finney quotes
+- Integrated into Ephesians 2:1-10 brainstorm deliverables
+- **Sub-agent persists** — available for additional Finney topics (sanctification, revival methodology, prayer) on demand
+
+### 6. ArnoldOS complete-task Command
+- Built and tested — first Phase 2 write operation successful
+- Task completion flow operational within ArnoldOS framework
+
+### 7. Autonomous Exception — Bible Brainstorm Output
+- **Approved by Rick (2026-01-30):** bible-brainstorm .docx output autonomously saved to Google Drive `Ministry/Brainstorm` folder + local backup
+- Added to AGENTS.md approved autonomous exceptions list
+
+### 8. Sub-Agent Management
+- Established practice: persist by default, monthly cleanup, reusable specialists
+- Finney sub-agent is first persistent specialist agent
+
+### 9. Supervisor Workflow Documentation
+- Added to MEMORY.md: Claude Desktop project serves as supervisor channel
+- Rick relays Opus feedback; Opus reviews via shared project context
+- Workflow is functional but manual (relay-dependent)
+
+---
+
+## PRD Success Criteria — Phase 2
+
+| Criterion | Status | Evidence |
+|-----------|--------|----------|
+| Create sermon-writer skill | ✅ PASS | Built, Opus-reviewed, fixes applied, voice-tested |
+| Create bible-brainstorm skill | ✅ PASS | Built to merged spec, 5-phase pipeline tested E2E |
+| Test skill triggering (10/10) | ✅ PASS | Both skills trigger correctly on relevant prompts |
+| Test voice matching (target: 3+/5) | ✅ PASS | Rick rated 3-4/5 on Romans 5:1-11 output |
+| Sequential workflow test | ✅ PASS | Brainstorm → outline → draft → appendix → .docx (Eph. 2:1-10) |
+
+**All 5/5 criteria met. Phase 2 is COMPLETE.**
+
+---
+
+## Known Limitations / Notes for Phase 3
+
+1. **Voice matching at 3-4/5, not 5/5.** Improvement will come with continued use and Rick's feedback. The voice-card and phrases catalog provide the foundation; refinement is iterative.
+2. **Supervisor relay is manual.** Rick copies Opus feedback from Claude Desktop. No automated Opus ↔ Clawd channel exists yet. This works but adds friction.
+3. **Finney sub-agent scope.** Currently covers spiritual death/human ability only. Additional topics (sanctification, entire sanctification, revival methodology, prayer, moral government atonement) can be researched on demand.
+4. **Drive output is one-way.** Clawd writes .docx to Drive; no read-back or version tracking yet.
+
+---
+
+## Phase 3 Preview
+
+**Remaining skills per PRD v2.1:**
+- morning-brief
+- trading-analysis
+- chapel-schedule
+- (others per PRD skill list)
+
+**Ready to begin Phase 3 on Rick's go-ahead.**
+
+---
+
+*Report generated 2026-01-30 by Clawd. For supervisor review by Opus via Claude Desktop relay.*

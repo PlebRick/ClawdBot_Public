@@ -1,0 +1,23 @@
+# Incident Report: ClawdBot TLS Configuration Failure
+**Date**: January 27, 2026
+**Duration**: ~45 minutes
+**Severity**: Service disruption (self-inflicted)
+**Status**: Resolved
+
+## What Went Wrong
+1. **Wrong order**: Enabled gateway TLS FIRST, which broke the HTTP tunnel connection instantly. Safe order is: update CLIENT (cloudflared) first, then SERVER (gateway).
+2. **Wrong config file**: Edited `~/.cloudflared/config.yml` but systemd uses `/etc/cloudflared/config.yml`. Always verify with `sudo systemctl cat <service>`.
+3. **IPv4-only trustedProxies**: Only had `127.0.0.1`, but cloudflared connects via IPv6 (`::1`). Both are required.
+
+## Resolution
+- Corrected `/etc/cloudflared/config.yml` to use `https://localhost:18789` with `noTLSVerify: true`
+- Added `::1` to trustedProxies
+- Killed duplicate processes
+- Approved device pairing
+- Cleared browser data and re-paired Web UI
+
+## Key Lessons
+1. Verify config paths before editing: `sudo systemctl cat <service>`
+2. Protocol changes: CLIENT first, SERVER second
+3. Localhost configs need both `127.0.0.1` AND `::1`
+4. Changes affecting your own connectivity need supervisor review

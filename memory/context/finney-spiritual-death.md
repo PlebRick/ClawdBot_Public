@@ -1,0 +1,371 @@
+# Charles Finney on Spiritual Death, Human Ability, and Regeneration
+## A Comprehensive Reference for Pastoral Study
+
+---
+
+## Table of Contents
+1. [What Does "Dead in Trespasses" Mean?](#1-what-does-dead-in-trespasses-mean)
+2. [Human Ability — What Faculties Does the Sinner Retain?](#2-human-ability--what-faculties-does-the-sinner-retain)
+3. [The Role of the Will — Can the Sinner Respond?](#3-the-role-of-the-will--can-the-sinner-respond)
+4. [The Role of the Spirit and the Word — How Does Conversion Happen?](#4-the-role-of-the-spirit-and-the-word--how-does-conversion-happen)
+5. [Regeneration — What Is It and When Does It Occur?](#5-regeneration--what-is-it-and-when-does-it-occur)
+6. [Contrast with Calvinism](#6-contrast-with-calvinism)
+7. [Key Scripture References Finney Uses](#7-key-scripture-references-finney-uses)
+
+---
+
+## 1. What Does "Dead in Trespasses" Mean?
+
+### Finney's Position (Modern Summary)
+
+Spiritual death is **moral**, not **physical or constitutional**. The sinner is not a corpse lacking faculties or the ability to respond. Rather, "dead in trespasses and sins" (Eph. 2:1) is a **figurative** description of the sinner's terrible moral apathy — a voluntary state of self-imposed blindness to God and spiritual realities. The sinner is dead **to God**, not dead in the sense of having no capacity to act. He is intensely alive to worldly things but voluntarily insensible to God, truth, and duty.
+
+This death is:
+- **Voluntary** — the sinner chose it and continues choosing it
+- **Moral, not physical** — it affects the direction of the will, not the substance of the soul
+- **Self-inflicted** — the sinner is a suicide, not a murder victim
+- **A minding of the flesh** — Romans 8:6 defines it as giving the mind over to the demands of appetite and passion instead of God
+
+### Original Finney Quotes
+
+> "This Epistle, chapter 2:1, gives us a safe and satisfactory answer. 'And you hath He quickened (that is, made alive,) who were dead in trespasses and sins.' This shows what sort of death is contemplated — a death in sin. The general scope of the Epistle shows that the apostle is conceiving of the state of lost sinners, fearfully depraved, as being dead; that is, he uses the term, death, **by a figure of speech**, to denote their terrible apathy on the subject of their guilt and danger."
+> — *"Awaking from the Sleep of Spiritual Death"* (Oberlin Evangelist, Sept. 24, 1851)
+
+> "Let it not be understood that this death is a state of perfect unconsciousness — by no means; nor is it a state in which all power of voluntary action is destroyed or even suspended; but it is a state in which no right moral action takes place. It is death in trespasses and sins."
+> — *"Awaking from the Sleep of Spiritual Death"* (1851)
+
+> "The dead sinner is regardless of God and of God's rightful authority as one physically dead is of the natural world. The man physically dead is unconscious of what passes around him; he is borne to his grave, but he knows not by whom; — so the spiritually dead are **voluntarily** insensible to the great facts of the spiritual world — insensible to God, to truth, and to their own relations to both. They may be intensely alive to the things of the natural world, to everything relating to earthly pleasure; but to God and duty, they are dead."
+> — *"Awaking from the Sleep of Spiritual Death"* (1851)
+
+> "If sinners are dead, who has killed them? Are they suicides, or has somebody else killed them? ... Now the sinner's death is clearly proved to be **a case of suicide**. For, by the very nature of his death, nobody else could have caused it — no agency in the universe can be the cause of it but himself. For the cause of the death lies in his own voluntary action."
+> — *"Awaking from the Sleep of Spiritual Death"* (1851)
+
+> "If the death is moral, and the sleep moral, why suppose that a physical influence is needed to correct a moral evil? Cannot truth, when urged and pressed by the Holy Spirit, effect the requisite change?"
+> — *Systematic Theology* (1851), Lecture XLIII
+
+### Contrast with Calvinist Position
+
+| | Finney | Calvinism (Westminster Standards) |
+|---|---|---|
+| **Nature of death** | Moral/voluntary — apathy toward God | Constitutional — "wholly defiled in all the faculties and parts of soul and body" |
+| **Cause** | Self-inflicted (voluntary selfishness) | Inherited from Adam as a corrupted nature |
+| **Result** | Cannot produce right moral action while selfishly oriented | "Utterly indisposed, disabled, and made opposite to all good" |
+| **Remedy needed** | Moral influence — light, truth, persuasion by the Spirit | Physical/constitutional change — new nature implanted before any response |
+
+---
+
+## 2. Human Ability — What Faculties Does the Sinner Retain?
+
+### Finney's Position (Modern Summary)
+
+The sinner retains **every faculty necessary for moral agency and obedience to God**. Nothing is missing from his constitution. He has intellect (understanding), sensibility (feeling), and will (the power of free choice). His problem is not a lack of equipment but a misuse of equipment. He has all the hardware; the software is set in the wrong direction by his own voluntary choice.
+
+Finney insists that if any faculty were lacking or damaged to the point of inability, moral obligation would be reduced or eliminated. God cannot justly command what is impossible, and God does command the sinner to repent — therefore the sinner **can** repent.
+
+The sinner's "inability" is entirely **moral** (a disinclination of the will), never **natural** (a lack of faculties). It is the difference between "I can't" and "I won't."
+
+### Original Finney Quotes
+
+> "It is not a change in the substance of soul or body. If it were, sinners could not be required to effect it. Such a change would not constitute a change of moral character. No such change is needed, as **the sinner has all the faculties and natural attributes requisite to render perfect obedience to God. All he needs is to be induced to use these powers and attributes as he ought.**"
+> — *Systematic Theology* (1851), Lecture XLII — Regeneration
+
+> "We have all the powers of moral agency, that are needed to render perfect obedience to God. If there were any want of faculties, in our nature, our responsibility would cease; and we could not be justly blamed, for not doing that, for the performance of which, we do not possess the appropriate moral powers."
+> — *"Total Depravity, Pt. 1"* (Sermons on Important Subjects, 1836)
+
+> "Total depravity does not consist, in a mutilated state of our moral powers. Neither our powers of body, or mind, are in a maimed, or mutilated state. If they were so, our obligation to obedience, would be diminished, precisely in proportion to the imperfection of the faculties of moral agency, which we possess."
+> — *"Total Depravity, Pt. 1"* (1836)
+
+> "We need nothing added to the constitution of our body or mind; nor is it true in experience, that those who have a new heart, have any constitutional alteration of their powers whatever. They are the same identical persons, so far as both body and mind are concerned, that they were before. **The alteration lies in the manner in which they are disposed to use, and do actually employ, their moral and physical powers.**"
+> — *"Sinners Bound to Change Their Own Hearts"* (Sermons on Important Subjects, 1836)
+
+> "He has understanding to perceive and weigh; he has conscience to decide upon the nature of moral opposites; he has the power and liberty of choice. Now, to this moral agent, possessing these faculties, the motives of the Gospel are addressed; and there is plainly a natural tendency in these weighty considerations to influence him to obey his Maker."
+> — *"Sinners Bound to Change Their Own Hearts"* (1836)
+
+### Key Distinction: Physical vs. Moral Depravity
+
+Finney makes a sharp distinction that is central to his entire system:
+
+> "Physical depravity, as the word denotes, is the depravity of constitution, or substance, as distinguished from depravity of free moral action. ... Physical depravity, being depravity of substance as opposed to depravity of the actions of free-will, **can have no moral character**. ... Moral depravity is the depravity of free-will, not of the faculty itself, but of its free action. It consists in a violation of moral law."
+> — *Systematic Theology* (1851), Lecture XXXVIII
+
+**In modern terms:** Finney distinguishes between disease (physical depravity — the body and mind being out of order, which is real but has no moral guilt) and sin (moral depravity — the will's voluntary choice of self over God, which is guilty because it's chosen). Calvinism, in Finney's analysis, conflates these two, treating a voluntary moral condition as if it were a constitutional disease.
+
+### Contrast with Calvinist Position
+
+| | Finney | Calvinism |
+|---|---|---|
+| **Faculties** | Fully intact — intellect, conscience, will all present | "Wholly defiled in all faculties" — all faculties corrupted |
+| **Nature of inability** | Moral only (unwillingness) — "won't," not "can't" | Natural inability flows from moral corruption — can't because won't, and won't because nature is corrupt |
+| **Obligation** | Full, because ability is full | Full despite inability (debtor analogy — still owe even if bankrupt) |
+| **What's needed** | Inducement to use existing powers rightly | New nature/faculties must be given before any right use is possible |
+
+---
+
+## 3. The Role of the Will — Can the Sinner Respond?
+
+### Finney's Position (Modern Summary)
+
+**Yes, absolutely.** The will is free in the libertarian sense — the moral agent is the originating cause of his own choices. No one compels the sinner to sin; no one prevents the sinner from repenting. The sinner's will is not bound by a corrupt nature in such a way that it *cannot* choose God. It is voluntarily committed to self-gratification, and that commitment **can be changed** — indeed, the sinner is **commanded** to change it.
+
+Finney's key argument: God commands sinners to "make to yourselves a new heart" (Ezek. 18:31). If the sinner could not obey, this command would be unjust tyranny. Since God is just, the command proves the ability.
+
+However, Finney does not minimize the difficulty. The sinner's will is deeply committed to selfishness, and the pull of appetite and habit is strong. The sinner **needs** the Spirit's illumination — but the need arises from the sinner's own stubbornness, not from a constitutional inability.
+
+### Original Finney Quotes
+
+> "A change of heart, then, consists in changing the controlling preference of the mind in regard to the end of pursuit. The selfish heart is a preference of self-interest to the glory of God and the interests of his kingdom. A new heart consists in a preference of the glory of God and the interests of his kingdom to one's own happiness. In other words, it is **a change from selfishness to benevolence**, from having a supreme regard to one's own interest to an absorbing and controlling choice of the happiness and glory of God and his kingdom."
+> — *"Sinners Bound to Change Their Own Hearts"* (1836)
+
+> "It is so far from being true that men have no power to rise from spiritual death, that they can scarcely summon power enough to keep themselves from rising. They can scarcely resist the appeal which God makes to their hearts."
+> — *"Awaking from the Sleep of Spiritual Death"* (1851)
+
+> "Every man affirms to himself that he ought to rise from this state of spiritual death — ought to be and become a Christian. His own reason affirms to him that he has no right to remain in a state of voluntary spiritual death. He knows that the only reason why he does not rise at once out of this death is **his own voluntary refusal to do so**."
+> — *"Awaking from the Sleep of Spiritual Death"* (1851)
+
+> "The sinner is dead in trespasses and sins. God calls on him, 'Awake thou that sleepest, and arise from the dead, and Christ shall give thee light.' Eph. v. 14. God calls; the sinner hears and answers, Here am I. God says, Arise from the dead. **The sinner puts forth his activity, and God draws him into life; or rather, God draws, and the sinner comes forth to life.**"
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "It is of most fatal tendency to represent the sinner as under a necessity of waiting to be passively regenerated, before he gives himself to God."
+> — *Systematic Theology* (1851), Lecture XLII
+
+### On the Nature of the Heart as Choice/Intention
+
+Finney defines "heart" not as a faculty or constitutional disposition, but as the **supreme ultimate intention** — the deepest voluntary commitment of the soul:
+
+> "Our own consciousness, then, must inform us that the heart of the mind that possesses these characteristics, can be nothing else than the supreme ultimate intention of the soul."
+> — *Systematic Theology* (1851), Lecture XLII
+
+**In modern terms:** Your "heart" in the biblical/moral sense is not your emotions, your nature, or your constitution. It's your deepest chosen commitment — what you're ultimately living for. That's why God can command you to change it: it's a choice, not an organ.
+
+### Contrast with Calvinist Position
+
+| | Finney | Calvinism |
+|---|---|---|
+| **Freedom of will** | Libertarian — agent originates choices | Compatibilist — free to act on desires, but desires are determined by nature |
+| **Can the sinner choose God?** | Yes — has full power; refuses voluntarily | No — not until nature is changed by irresistible grace |
+| **"Heart"** | Supreme voluntary intention/choice | Deep disposition/nature that governs all choices |
+| **Command to repent proves...** | Ability to repent | Duty, not ability (God commands what we ought to do, not what we can do) |
+
+---
+
+## 4. The Role of the Spirit and the Word — How Does Conversion Happen?
+
+### Finney's Position (Modern Summary)
+
+Conversion involves a **combination of agencies working simultaneously**: the Holy Spirit, the truth of the Word, human preachers/instruments, and the sinner himself. None of these works alone. The Spirit's role is to **present truth clearly to the mind** — to illuminate, convict, and persuade. This is a **moral** influence (persuasion through truth), not a **physical** influence (changing the constitution or overriding the will).
+
+Finney's preferred view is the **"divine moral suasion"** theory of regeneration: the Holy Spirit regenerates through truth addressed to the intelligence and conscience. The Spirit "takes of the things of Christ and shows them to the soul" (John 16:14). When the truth is clearly seen and felt under the Spirit's illumination, the sinner is induced to change his choice — to turn from selfishness to love of God.
+
+The Spirit is absolutely necessary — but His necessity arises from the sinner's voluntary stubbornness, not from a constitutional inability. The sinner's dependence on the Spirit is a moral dependence (he won't turn without the Spirit's light and persuasion), not a physical one (he can't turn because he lacks the equipment).
+
+### Original Finney Quotes
+
+> "Truth. This must, from the nature of regeneration, be employed in effecting it, for **regeneration is nothing else than the will being duly influenced by truth.**"
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "Being born again, not of corruptible seed, but of incorruptible, by the word of God, which liveth and abideth for ever." — 1 Peter i. 23. "Of his own will begat he us with the word of truth." — James i. 18. "For though ye have ten thousand instructors in Christ, yet have ye not many fathers: for in Christ Jesus I have begotten you through the gospel." — 1 Cor. iv. 15.
+> — Cited repeatedly in *Systematic Theology* (1851), Lectures XLII-XLIII
+
+> "There are then always two, and generally more than two agents employed in effecting the work. ... The fact is, when Dr. Woods and others insist that regeneration is the work, or a work of God, they tell the truth, but not the whole truth. For it is also the work of man and of the subject."
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "We may see in what sense we are dependent upon God's Spirit. It is in this sense simply — **to induce him to do what he ought to do of himself**. With no other light than God has given to all men in his word, they ought to see their duty, and duty being seen, they ought at once to do it. And yet they are dependent upon the light of the Spirit. Why? **Because they will not admit to their own minds the light of God's word without the Spirit's extra aid, and because light seen is resisted.**"
+> — *"Awaking from the Sleep of Spiritual Death"* (1851)
+
+> "The sinner's dependence upon the Holy Spirit arises entirely out of his own voluntary stubbornness, and his guilt is all the greater, by how much the more perfect this kind of dependence is."
+> — *Systematic Theology* (1851), Lecture XLIII, Remarks
+
+> "If sinners are to be regenerated by the influence of truth, argument, and persuasion, then ministers can see what they have to do, and how it is that they are to be 'workers together with God.'"
+> — *Systematic Theology* (1851), Lecture XLIII, Remarks
+
+### How Multiple Agencies Work Together
+
+Finney's illustration from the healing of the lame man (Acts 3):
+
+> "Peter, fixing his eyes upon the cripple said — 'In the name of Jesus Christ of Nazareth, rise up and walk.' Forthwith, the cripple begins to make effort; Peter takes him by the right hand to lift him up; his feet and ankle bones receive strength; then he, leaping up, stood, and then walked. Here was a real miracle — a supernatural exertion of physical power, yet with it, there was also an exercise of the mind and of the muscular powers of the subject."
+> — *"Awaking from the Sleep of Spiritual Death"* (1851)
+
+**In modern terms:** God provides the power and the light. The preacher presents the truth. But the sinner must respond — must choose — must arise. All three are active simultaneously. It is not sequential (God acts, then the sinner responds) but simultaneous (God draws, the sinner comes forth).
+
+### Contrast with Calvinist Position
+
+| | Finney | Calvinism |
+|---|---|---|
+| **Spirit's agency** | Moral persuasion through truth and illumination | Effectual/irresistible — changes the nature directly |
+| **Role of truth** | The instrument through which the Spirit works; essential to regeneration | Means of grace, but regeneration can precede hearing the gospel (in infants, etc.) |
+| **Order** | Simultaneous — Spirit illuminates, sinner responds | Sequential — Spirit regenerates, then sinner believes |
+| **Can the Spirit's work be resisted?** | Yes — sinners resist the Spirit constantly (Acts 7:51) | Effectual call cannot ultimately be resisted by the elect |
+| **Preacher's role** | True co-worker with God; aims at immediate conversion | Instrument; God alone determines the result |
+
+---
+
+## 5. Regeneration — What Is It and When Does It Occur?
+
+### Finney's Position (Modern Summary)
+
+Regeneration is **a change of the supreme controlling choice of the will** — from selfishness (self as the ultimate end) to benevolence (God and the good of the universe as the ultimate end). It is:
+
+- **Not** a change of substance, constitution, or nature
+- **Not** the implantation of a new faculty or "principle"
+- **Not** a physical or miraculous operation on the soul
+- **Not** something that happens while the sinner is passive
+
+It **is**:
+- A change of the moral heart (= the ultimate intention/choice)
+- A turning from self-gratification to consecration to God
+- Synonymous with conversion (Finney rejects the Calvinist distinction between regeneration and conversion)
+- **Instantaneous** — a change of choice is instantaneous by nature
+- Both the work of God and the work of the sinner simultaneously
+- Effected through truth, by the Spirit's illumination
+
+Regeneration and conversion are **the same event** viewed from different angles. There is no prior, passive "regeneration" that precedes active "conversion."
+
+### Original Finney Quotes
+
+> "Regeneration then is a radical change of the ultimate intention, and, of course, of the end or object of life. ... Regeneration, to have the characteristics ascribed to it in the Bible, must consist in **a change in the attitude of the will**, or a change in its ultimate choice, intention, or preference; a change from selfishness to benevolence; from choosing self-gratification as the supreme and ultimate end of life to the supreme and ultimate choice of the highest well-being of God and of the universe."
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "The thing done implies the turning or activity of the subject. **It is nonsense to affirm that his moral character is changed without any activity or agency of his own. Passive holiness is impossible.** Holiness is obedience to the law of God, the law of love, and of course consists in the activity of the creature."
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "Sinners are required to make to themselves a new heart, which they could not do, if they were not active in this change. If the work is a work of God, in such a sense, that He must first regenerate the heart or soul before the agency of the sinner begins, **it were absurd and unjust to require him to make to himself a new heart, until he is first regenerated.**"
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "Both conversion and regeneration are sometimes in the Bible ascribed to God, sometimes to man, and sometimes to the subject; which shows clearly that the distinction under examination is arbitrary and theological, rather than biblical."
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "As the distinction is not only arbitrary, but anti-scriptural and injurious, and inasmuch as it is founded in, and is designed to teach, a philosophy false and pernicious on the subject of depravity and regeneration, **I shall drop and discard the distinction; and in our investigations henceforth, let it be understood, that I use regeneration and conversion as synonymous terms.**"
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "God works or draws, and the sinner yields or turns, or which is the same thing, changes his heart, or, in other words, is born again."
+> — *Systematic Theology* (1851), Lecture XLII
+
+### On Why Passive Regeneration Is Dangerous
+
+> "It leads the sinner to wait to be regenerated, before he repents or turns to God. It is of most fatal tendency to represent the sinner as under a necessity of waiting to be passively regenerated, before he gives himself to God."
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "What! call on him, on pain of eternal death, to believe; to embrace the gospel; to love God with all his heart, and at the same time represent him as entirely helpless, and constitutionally the enemy of God and of the gospel, and as being under the necessity of waiting for God to regenerate his nature, before it is possible for him to do otherwise than to hate God with all his heart?"
+> — *Systematic Theology* (1851), Lecture XLII
+
+> "While the sinner believes this, it is impossible, if he has it in mind, that he should be regenerated. He stands and waits for God to do what God requires him to do, and which no one can do for him."
+> — *Systematic Theology* (1851), Lecture XLII
+
+### Contrast with Calvinist Position
+
+| | Finney | Calvinism |
+|---|---|---|
+| **Nature of regeneration** | Change of the will's supreme choice (moral) | Change of the soul's nature/disposition (physical/constitutional) |
+| **Regeneration vs. conversion** | Synonymous — same event | Distinct — regeneration (God's act, passive) precedes conversion (human act, active) |
+| **Sinner's role** | Active participant — chooses to turn | Passive recipient — acted upon by the Spirit |
+| **Timing** | Instantaneous, at the moment the sinner believes/turns | Logically prior to faith; may be temporally prior |
+| **Means** | Truth presented by the Spirit | Direct, unmediated act of the Spirit on the soul |
+| **Can sinner be commanded to regenerate?** | Yes — Ezek. 18:31 proves it | Regeneration is God's sovereign work; sinner is commanded to repent/believe (which flows from regeneration) |
+
+---
+
+## 6. Contrast with Calvinism — Summary
+
+### Finney's Critique of the "Taste Scheme" (Reformed/Calvinist Regeneration)
+
+Finney's most systematic critique of Calvinist soteriology is found in Lecture XLIII of the 1851 Systematic Theology, where he examines what he calls the **"taste scheme"** — the view that:
+
+1. Moral depravity is constitutional (a "taste" or "craving" for sin built into the fallen nature)
+2. Therefore regeneration must be a constitutional change (implanting a new "taste" for holiness)
+3. This change is wrought by the direct, irresistible, physical power of the Holy Spirit
+4. The sinner is entirely passive in regeneration
+5. The gospel has no tendency to regenerate — it only inflames the sinner's constitutional enmity until the Spirit first changes the nature
+
+**Finney's objections (summarized in modern language):**
+
+1. **It was already refuted in the lectures on depravity.** If depravity is voluntary (selfishness), not constitutional, then the whole system falls.
+2. **It confuses temptation with sin.** Appetite is not sinful; the will's consent to unlawful indulgence is sinful. "The sin never lies in the appetite, but in the will's consent to unlawful indulgence."
+3. **It contradicts God's command to sinners.** "Make you a new heart" (Ezek. 18:31) would be absurd and unjust if the sinner cannot obey.
+4. **It contradicts Scripture's teaching that men regenerate each other.** Paul says "I have begotten you through the gospel" (1 Cor. 4:15).
+5. **It throws the blame for the sinner's unregeneracy upon God.** If the sinner is entirely passive and God must do it all, then God alone is responsible for anyone remaining unregenerate.
+6. **It makes regeneration a miracle** with no philosophical connection to the gospel.
+7. **It makes holiness after regeneration physically necessary** (just gratifying the new appetite), destroying all virtue.
+8. **It would destroy personal identity** — a constitutional change makes you a different person.
+
+> "What must be the effect of inculcating the dogma, that the gospel has nothing to do with regenerating the sinner? Instead of telling him that regeneration is nothing else than his embracing the gospel, to tell him that he must wait, and first have his constitution recreated before he can possibly do anything but oppose God? **This is to tell him the greatest and most abominable and ruinous of falsehoods.** It is to mock his intelligence."
+> — *Systematic Theology* (1851), Lecture XLII
+
+### Finney's Critique of the "Divine Efficiency Scheme" (Hyper-Calvinism/Determinism)
+
+This is the view that God directly and irresistibly causes all events, including all human choices (both holy and sinful). Finney's objections:
+
+- It makes God the author of sin
+- It destroys moral agency and accountability
+- It contradicts consciousness — we know we originate our own choices
+- It makes the gospel an insult — offering salvation men have no power to accept
+- It makes all beings mere puppets, not moral agents
+
+### What Finney Affirms That Calvinists Also Affirm
+
+Finney is not a Pelagian. He agrees with Calvinists on several key points:
+- **Universal depravity is real.** All unregenerate moral agents are totally depraved (entirely selfish, without any true love to God).
+- **The Holy Spirit is necessary.** No one is regenerated without the Spirit's agency.
+- **Human effort alone is insufficient.** The sinner needs divine illumination.
+- **The new birth is essential.** No one enters heaven without regeneration.
+
+**Where Finney differs is on the _nature_ of depravity (voluntary vs. constitutional) and the _mode_ of the Spirit's work (moral persuasion vs. irresistible physical power).**
+
+---
+
+## 7. Key Scripture References Finney Uses
+
+### On Spiritual Death
+- **Ephesians 2:1-6** — "Dead in trespasses and sins" — Finney's primary text; death is moral apathy, not constitutional inability
+- **Ephesians 5:14** — "Awake thou that sleepest, and arise from the dead" — proves the dead are commanded to arise (therefore they can)
+- **Romans 8:6-7** — "To be carnally minded is death" — defines death as minding the flesh (voluntary)
+- **Genesis 6:5** — "Every imagination of the thoughts of his heart was only evil continually"
+- **Ecclesiastes 9:3** — "The heart of the sons of men is full of evil"
+- **Jeremiah 17:9** — "The heart is deceitful above all things"
+
+### On Human Ability and the Command to Repent
+- **Ezekiel 18:31** — "Make you a new heart and a new spirit, for why will ye die?" — Finney's foundational proof that the sinner CAN change
+- **Deuteronomy 30:19** — "Choose life" — implies ability to choose
+- **Joshua 24:15** — "Choose you this day whom ye will serve"
+- **Acts 17:30** — "God now commandeth all men every where to repent"
+
+### On the Agencies of Regeneration
+- **John 3:3-6** — Born again / born of the Spirit — Spirit's agency
+- **1 Peter 1:23** — "Born again... by the word of God" — truth as instrument
+- **James 1:18** — "Of his own will begat he us with the word of truth" — Word as means
+- **1 Corinthians 4:15** — "I have begotten you through the gospel" — human agency
+- **Psalm 19:7** — "The law of the Lord is perfect, converting the soul" — truth converts
+- **James 5:19-20** — "He which converteth the sinner" — man converts man
+- **John 15:3** — "Now ye are clean through the word which I have spoken" — truth cleanses
+- **John 17:17** — "Sanctify them through the truth" — truth sanctifies
+
+### On the Nature of Regeneration/Heart
+- **Matthew 15:18-19** — "Out of the heart proceed evil thoughts" — heart as fountain of moral action
+- **Matthew 12:34-35** — "Out of the abundance of the heart the mouth speaketh"
+- **John 3:3** — Universal necessity of new birth
+- **Galatians 6:15** — "Neither circumcision... but a new creature"
+
+### On Depravity as Voluntary
+- **Romans 3:9-20** — Universal sinfulness
+- **Hosea 11:7** — "My people are bent to backsliding" (voluntary)
+- **Jeremiah 2:13** — "My people have committed two evils" (chosen)
+- **Isaiah 1:4** — "They have forsaken the Lord" (volitional)
+
+---
+
+## Source Index
+
+| Source | Date | Key Topics |
+|--------|------|------------|
+| *Systematic Theology* (1851 edition), Lecture XXXVIII | 1851 | Moral Depravity — definition, physical vs. moral distinction, universality, totality |
+| *Systematic Theology* (1851), Lecture XXXIX | 1851 | Moral Depravity — how to account for it; refutation of constitutional depravity |
+| *Systematic Theology* (1851), Lecture XLII | 1851 | Regeneration — nature, agencies, instrumentalities, active/passive subject |
+| *Systematic Theology* (1851), Lecture XLIII | 1851 | Philosophical theories of regeneration — taste scheme, divine efficiency, moral suasion |
+| *"Sinners Bound to Change Their Own Hearts"* (Sermons on Important Subjects) | 1836 | Heart as voluntary preference; sinner's ability and obligation to change |
+| *"Total Depravity, Pt. 1"* (Sermons on Important Subjects) | 1836 | What total depravity is NOT (constitutional) and IS (voluntary selfishness) |
+| *"Awaking from the Sleep of Spiritual Death"* (Oberlin Evangelist) | Sept. 24, 1851 | Ephesians 2:1 exegesis; death as moral/voluntary; sinner as suicide; Spirit's role |
+
+All texts available in the public domain at [gospeltruth.net](https://www.gospeltruth.net).
+
+---
+
+*Compiled as pastoral research material. Last updated: January 2026.*

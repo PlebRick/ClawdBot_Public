@@ -1,0 +1,48 @@
+# Business Opportunity — Ongoing Search
+*Created: 2026-01-27 | Status: ACTIVELY LOOKING*
+
+## What Rick Wants
+- Legitimate, serious business built with AI + laptop
+- **NOT:** influencer, public-facing, content creator personality brand
+- **Target income:** $100K+/year
+- **Low startup cost, low/no inventory**
+- Willing to constantly learn new skills
+- **Core strength:** Can sit alone and grind at a computer for hours with intense focus — this is a superpower, lean into it
+
+## Constraints
+- Not public-facing / no personal brand marketing
+- No high startup capital
+- No physical inventory business
+- Must be buildable with AI tools + a laptop
+- Rick is technical (Linux, crypto, trading, theology) and learning fast
+- **Must be a BUSINESS, not a job** — own boss, builds equity/assets, scalable
+- **NOT gig work or freelancing** — no trading hours for dollars
+- Has a good day job already — this is about building something he owns
+
+## What I Know About Rick So Far
+- Part-time pastor (small liturgical country church)
+- Bitcoin and stock/options trader
+- Deep theological knowledge (Driscoll, Stott, Finney, Wright, Craig, Keller, Comfort)
+- Prison chaplain background
+- Tesla enthusiast
+- Comfortable with tech (set up his own AI assistant infrastructure from scratch)
+- Protonmail user (privacy-conscious)
+- Southern Illinois based
+
+## Ideas to Explore (add as they come)
+*Evaluate each against: realistic $100K path, low startup, no public face, AI-leverageable, deep-focus friendly*
+
+### ⭐ LEAD IDEA: AI-Powered Bible Study & Theological Resource Platform
+- Full business plan: `memory/context/business-plan-bible-study-app.md`
+- Leverages Rick's 7,500-book library, pastoral experience, chaplaincy background
+- Subscription model: $10-25/month → 700 subscribers = $100K/year
+- Low startup (~$2-4K), no inventory, no public face needed
+- **Name: SACRED** — existing open source app Rick built, transitioning to commercial
+- Has ElevenLabs subscription + custom deep conservative AI voice for audio sermons
+- YouTube channel planned for audio sermons → drives app subscriptions (no camera needed)
+- Rick has sermon outlines + manuscripts, actively developing more
+- Books exportable 100 pages at a time (rich text/HTML) for knowledge base building
+- Status: PLANNING — reviewing existing SACRED codebase, open questions remaining
+
+---
+*This is a living document. Clawd adds ideas here as they emerge from conversations, research, and getting to know Rick better.*

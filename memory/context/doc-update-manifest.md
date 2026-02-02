@@ -1,0 +1,138 @@
+# Doc Update Manifest
+
+**Purpose:** When Rick says "update docs" / "update documentation," read THIS file first.
+Then scan each listed doc against recent work and update only what's changed.
+
+---
+
+## Updatable Documents
+
+### Supervisor Project Docs (canonical location: `supervisor-project/`)
+These are verbatim copies of the Opus Claude Desktop project files. Clawd updates them as work happens. Rick syncs them back to Claude Desktop when starting a new supervisor chat.
+
+| File | Tracks | Update When |
+|------|--------|-------------|
+| `supervisor-project/los-prd-v2.1.md` | LOS project status, phases, milestones | Phase status changes, scope changes |
+| `supervisor-project/future-integrations-roadmap.md` | Future features, priority order, open questions | Items start/complete, new ideas added, questions answered |
+| `supervisor-project/safe-change-protocol.md` | Change management rules, emergency procedures | New incident lessons, process changes |
+| `supervisor-project/Clawdbot supervisor current state.md` | System state, what's running, what's broken | Infrastructure changes, new services, outages |
+| `supervisor-project/Clawdbot technical reference.md` | How ClawdBot works — skills, memory, sub-agents, etc. | Architecture changes |
+| `supervisor-project/workspace-tree.md` | File structure | New files/directories added or removed |
+
+### Clawd Operating Docs (canonical location: workspace root + `memory/context/`)
+
+| File | Tracks | Update When |
+|------|--------|-------------|
+| `memory/context/arnoldos-integration-prd.md` | ArnoldOS/Google integration status | Integration changes, proving period updates |
+| `memory/context/moltbot-migration-plan.md` | Migration from MoltBot to Clawdbot | Migration milestones |
+| `MEMORY.md` | Long-term curated knowledge | New durable facts, preferences, decisions |
+| `AGENTS.md` | Operating rules, hard constraints | New guardrails, rule changes (careful — auto-injected) |
+| `SOUL.md` | Persona, tone, voice | Voice/persona refinements |
+| `USER.md` | Rick's profile, depth pointers | New life facts, preference changes |
+
+## NOT Updated (reference only)
+- `memory/training/voice-profile.md` — Static artifact from Grok harvest
+- `memory/training/ai-voice-calibration.md` — Static Rick Test
+- Skill SKILL.md files — Updated separately when skill changes are made
+- Daily logs `memory/YYYY-MM-DD.md` — Written in real-time, not during doc updates
+- Supervisor reports — Write-once memos, conclusions flow into living docs
+
+## Update Process
+
+1. Read this manifest
+2. `memory_search` for recent work/decisions since last known update
+3. Check today's and recent daily logs for changes
+4. For each doc in the table: does recent work affect what it tracks?
+5. Update only files where content has actually changed
+6. Note the date in each updated file's header
+7. Report to Rick: "Updated X, Y. No changes needed for Z."
+
+## Rules for `supervisor-project/` Files
+- **Save verbatim when Rick pastes them.** Never summarize. Never compress.
+- **Update in place** as work happens (same as any other living doc).
+- **No duplicates.** These are the canonical copies. Do not create copies in `memory/context/`.
+
+## Last Full Update
+- **Date:** July 19, 2025 (API Migration completion docs)
+- **By:** Clawd (live test run — OpenRouter, Proton remediation, Drive Images, doc update manifest system)
+
+---
+
+## Change-Type Routing Table
+
+When processing "update docs," match each changelog entry's tag to this table to determine which files need updating.
+
+| Tag | Change Type | Affected Docs |
+|-----|------------|---------------|
+| `[api]` | New API, provider, or external service | tools.md, tech reference, current state, RECOVERY.md, MEMORY.md |
+| `[cron]` | New or modified cron job | current state, tech reference |
+| `[script]` | New or modified script | workspace-tree, tech reference |
+| `[skill]` | New or modified skill | tech reference, current state, roadmap, skill SKILL.md |
+| `[config]` | Config file change | current state, RECOVERY.md, MEMORY.md |
+| `[rule]` | New operational rule or process | MEMORY.md, AGENTS.md, safe-change-protocol |
+| `[security]` | Security-related change | RECOVERY.md, safe-change-protocol, MEMORY.md |
+| `[drive]` | Drive structure or sync change | arnoldos-integration-prd, tech reference |
+| `[model]` | Model added, removed, or reassigned | tools.md, current state, tech reference, MEMORY.md |
+| `[roadmap]` | Roadmap item started or completed | future-integrations-roadmap, current state |
+| `[todo]` | TODO added or completed | todo.md, roadmap (if applicable) |
+| `[fix]` | Bug fix or incident | current state, safe-change-protocol (if lessons learned) |
+| `[other]` | Unmapped — flag for manual review | Surface in update summary for Rick to confirm |
+
+### Routing Rules
+- Each changelog entry can have multiple tags: `[api][config] Added OpenRouter key`
+- A file appears in the update list if ANY of its triggering tags are present
+- After routing, deduplicate the file list before updating
+- `workspace-tree` is ALWAYS refreshed on "update docs"
+- `git push` + `sync-supervisor-to-drive.sh` is ALWAYS the final step
+
+### Maintenance Rule
+**When creating a new documentation file, add it to the routing table.** Otherwise the table rots.
+
+## Session Changelog Format
+
+Located in daily log (`memory/YYYY-MM-DD.md`) under `## Session Changelog`:
+
+```markdown
+## Session Changelog
+- [api] Added OpenRouter API key to clawdbot.json
+- [cron] Created 3 Proton reminder cron jobs (Gemini Flash)
+- [script] New script: scripts/proton-reminder.sh
+- [config] Changed X email to chaplaincen@gmail.com
+- [rule] New operational rule: file edit cost optimization
+- [other] Something unusual — needs manual review
+```
+
+Tags are bracketed, one per line, greppable. Multiple tags allowed per line.
+
+## "Update Docs" Full Process (Revised)
+
+1. Read `memory/context/doc-update-manifest.md` (this file)
+2. Read today's Session Changelog from daily log
+3. Route each entry through the mapping table → build deduplicated file list
+4. For each affected file, update using cheapest method:
+   - **Append** (`cat >>`) for chronological/additive files (MEMORY.md, daily logs)
+   - **Sed with pattern anchor** for surgical mid-file inserts
+   - **Full read → modify → write** only when restructuring or validating no duplicates
+5. Surface any `[other]` entries for Rick's manual review
+6. Refresh workspace-tree
+7. `git add -A && git commit && git push`
+8. `bash scripts/sync-supervisor-to-drive.sh`
+9. Update "Last Full Update" in this manifest
+10. Report: "Updated X, Y, Z. No changes needed for A, B. Flagged [other] items: ..."
+
+## File Inventory
+
+| File | Last Updated | Notes |
+|------|-------------|-------|
+| `MEMORY.md` | 2026-02-01 | Frequent — appended each session |
+| `AGENTS.md` | 2026-01-30 | Rare — only new hard rules |
+| `RECOVERY.md` | 2026-02-01 | Security/config/API changes |
+| `memory/context/tools.md` | 2026-02-01 | Model/API changes |
+| `memory/context/arnoldos-integration-prd.md` | 2026-02-01 | Drive structure changes |
+| `supervisor-project/Clawdbot supervisor current state.md` | 2026-02-01 | Infrastructure/service changes |
+| `supervisor-project/Clawdbot technical reference.md` | 2026-02-01 | Architecture/workflow changes |
+| `supervisor-project/safe-change-protocol.md` | 2026-02-01 | Incident lessons |
+| `supervisor-project/future-integrations-roadmap.md` | 2026-02-01 | Roadmap item completions |
+| `supervisor-project/workspace-tree.md` | 2026-02-01 | Always refreshed on update |
+| `supervisor-project/los-prd-v2.1.md` | 2026-02-01 | Phase/milestone changes |
+| `memory/context/moltbot-migration-plan.md` | 2026-01-30 | Migration milestones |

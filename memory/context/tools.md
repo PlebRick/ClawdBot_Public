@@ -1,0 +1,80 @@
+# Tools & Setup
+
+## Machine
+- System76 laptop | Ubuntu Linux | user: ubuntu76 | always-on server
+- Sudo: full NOPASSWD
+- Services: `clawdbot.service`, `cloudflared.service` (tunnel to ai.btctx.us)
+- Web UI: https://ai.btctx.us | Local: http://localhost:18789
+
+## Telegram
+- Rick is @rickarnold (id: 1458942775)
+
+## TTS
+- Skill: `sag` (ElevenLabs)
+
+## Google Drive
+- Account: chaplaincen@gmail.com
+- Brain folder: My Drive > 02_ClawdBot (00_Inbox, 01_Memory, 02_Projects, 03_Reference, 04_Sermons_Research, 05_Repos, 06_Investments, 07_Prison_Chaplain)
+- Browser: Chrome + Clawdbot Browser Relay extension
+- CLI: `rclone` as `gdrive:` remote
+
+## X/Twitter
+- Account: @FaithFreedmBTC (id: 1817541720118087680)
+- CLI: `bird` v0.8.0 (cookie auth)
+- Config: `~/.config/bird/config.json5` (600 perms)
+- Backup: `~/.clawdbot/bird-env` (600 perms)
+- Monitored: @elonmusk, @realDonaldTrump, @PastorMark (Driscoll), @LynAldenContact
+- Posting: available but hit rate limit on first attempt — needs browser diagnosis
+
+## Memory Backup
+- `~/clawd/scripts/sync-memory-to-drive.sh` → every 6h (cron)
+- Logs: `~/clawd/logs/memory-sync.log`
+
+## X/Twitter
+- Account: @FaithFreedmBTC | Command: `xbird`
+- Creds: `~/clawd/scripts/bird-auth.sh`
+- Cookies may expire — re-extract from clawd browser if needed
+
+## Projects → Drive Sync
+- Script: `scripts/sync-projects-to-drive.sh` (called by `backup-to-github.sh` on git push)
+- Drive target: `02_ClawdBot/ricks-projects/` (ID: `1mLsMxY5rsTeE8J85VjQu2AIhVx-YqDYG`)
+- **Whitelist-based**: only named projects sync. Edit the `PROJECTS=` line in the script to add new ones.
+- Sync rule: ministry/research text projects → YES. Code repos, dashboards, dev tools → NO.
+- .md files upload as Google Docs. Other text files (.txt, .json, .py, .sh, etc.) upload as-is.
+- Skips: .git, node_modules, __pycache__, .trash
+
+## Model Providers (February 2026)
+
+### Three-Provider Architecture
+1. **Anthropic (direct)** — Claude Opus 4.5 (primary for all interactive work)
+2. **Google (direct, free)** — Gemini 2.5 Flash (lightweight cron jobs)
+3. **OpenRouter** — Multi-model gateway (Qwen3, Grok, Gemini Pro, Nano Banana)
+
+### Available Models & Aliases
+| Alias | Model | Provider | Cost (in/out /M) |
+|-------|-------|----------|-------------------|
+| opus | Claude Opus 4.5 | Anthropic | $5/$25 |
+| flash | Gemini 2.5 Flash | Google | Free |
+| qwen3 | Qwen3 235B A22B | OpenRouter | $0.07/$0.46 |
+| grok | Grok 4.1 Fast | OpenRouter | $0.20/$0.50 |
+| grok-think | Grok 4 | OpenRouter | $3/$15 |
+| gemini-pro | Gemini 3 Pro | OpenRouter | $2/$12 |
+| nano-banana | Gemini 3 Pro Image | OpenRouter | $2/$12 |
+
+### Key Config
+- Anthropic auth: `~/.clawdbot/agents/main/agent/auth-profiles.json`
+- Google API key: `~/.clawdbot/clawdbot.json` → `env.vars.GEMINI_API_KEY`
+- OpenRouter API key: `~/.clawdbot/clawdbot.json` → `env.vars.OPENROUTER_API_KEY`
+- Models allowlist: `~/.clawdbot/clawdbot.json` → `agents.defaults.models`
+- Adding new models: add to allowlist + restart gateway
+
+### Cron Job Assignments
+- Morning Brief / Market Analysis / Ara → Opus
+- Proton reminders / Update check → Gemini Flash
+- Weekend Weather Digest → Qwen3 (OpenRouter test)
+- Swap with: `clawdbot cron edit <id> --model <alias-or-full-ref>`
+
+### Rules
+- Never route Claude through OpenRouter
+- Grok, Gemini Pro, Nano Banana = on-demand only (Rick's command)
+- OpenRouter spend cap in dashboard
