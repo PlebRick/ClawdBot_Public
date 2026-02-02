@@ -21,6 +21,12 @@ Usage:
   python3 arnoldos.py drive-read <file_id>        # Read a Drive file's content
   python3 arnoldos.py drive-read --folder Ministry/Brainstorm --prefix 2026-02-15
   python3 arnoldos.py complete-task "Task title"  # Mark a task as completed
+  python3 arnoldos.py create-event <domain> <summary> <start> <end>  # Create calendar event
+  python3 arnoldos.py update-event <domain> <event_id> [--summary ...] [--description ...]  # Update event
+  python3 arnoldos.py create-task <title> [--notes ...] [--due YYYY-MM-DD]  # Create a task
+  python3 arnoldos.py drive-upload <folder_key> <filename> <local_path>     # Upload file to Drive
+  python3 arnoldos.py quick <text> [--domain DOMAIN]                         # Quick task with auto-domain
+  python3 arnoldos.py quick-event <text> [--domain DOMAIN]                   # Quick event with auto-domain
 """
 
 import sys
@@ -158,6 +164,33 @@ def api_patch(creds: Credentials, url: str, body: dict) -> Optional[dict]:
     except requests.RequestException as e:
         print(f"  ⚠️ Network error: {e}")
         return None
+
+def api_post(creds: Credentials, url: str, body: dict) -> Optional[dict]:
+    """Make an authenticated POST request. Returns None on failure."""
+    try:
+        headers = {"Authorization": f"Bearer {creds.token}", "Content-Type": "application/json"}
+        r = requests.post(url, headers=headers, json=body, timeout=15)
+        if r.status_code == 401:
+            try:
+                creds.refresh(Request())
+                with open(TOKEN_FILE) as f:
+                    t = json.load(f)
+                t["token"] = creds.token
+                with open(TOKEN_FILE, "w") as f:
+                    json.dump(t, f, indent=2)
+                headers["Authorization"] = f"Bearer {creds.token}"
+                r = requests.post(url, headers=headers, json=body, timeout=15)
+            except Exception:
+                pass
+        if r.status_code not in (200, 201):
+            print(f"  ⚠️ API error ({r.status_code}) for POST {url.split('/')[-1]}: {r.text[:200]}")
+            return None
+        return r.json()
+    except requests.RequestException as e:
+        print(f"  ⚠️ Network error: {e}")
+        return None
+
+
 
 
 # --- Calendar ---
@@ -537,6 +570,88 @@ def drive_find_and_read(creds, folder_key: str, filename_prefix: str) -> dict:
             "error": f"No file matching '{filename_prefix}*' in {folder_key}"}
 
 
+
+def drive_upload_file(creds, folder_key: str, filename: str, content_bytes: bytes, 
+                      mime_type: str = "application/vnd.openxmlformats-officedocument.wordprocessingml.document") -> dict:
+    """Upload a file to a Drive folder.
+    
+    Args:
+        folder_key: Folder key from DRIVE_FOLDERS or DRIVE_SUBFOLDERS (e.g., "Ministry/Brainstorm")
+        filename: Name for the file (e.g., "2026-02-15-romans-8.docx")
+        content_bytes: File content as bytes
+        mime_type: MIME type of the file
+    
+    Returns:
+        dict with success status and file details or error
+    """
+    folder_id = DRIVE_SUBFOLDERS.get(folder_key) or DRIVE_FOLDERS.get(folder_key)
+    if not folder_id:
+        return {"command": "drive-upload", "success": False,
+                "error": f"Unknown folder: {folder_key}. Valid: {list(DRIVE_FOLDERS.keys()) + list(DRIVE_SUBFOLDERS.keys())}"}
+    
+    # Multipart upload
+    import io
+    boundary = "===BOUNDARY==="
+    
+    metadata = json.dumps({
+        "name": filename,
+        "parents": [folder_id]
+    })
+    
+    body = (
+        f"--{boundary}\r\n"
+        f"Content-Type: application/json; charset=UTF-8\r\n\r\n"
+        f"{metadata}\r\n"
+        f"--{boundary}\r\n"
+        f"Content-Type: {mime_type}\r\n\r\n"
+    ).encode('utf-8') + content_bytes + f"\r\n--{boundary}--".encode('utf-8')
+    
+    headers = {
+        "Authorization": f"Bearer {creds.token}",
+        "Content-Type": f"multipart/related; boundary={boundary}"
+    }
+    
+    try:
+        r = requests.post(
+            "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+            headers=headers,
+            data=body,
+            timeout=30
+        )
+        if r.status_code in (200, 201):
+            result = r.json()
+            return {
+                "command": "drive-upload",
+                "success": True,
+                "file": {
+                    "id": result.get("id"),
+                    "name": result.get("name"),
+                    "folder": folder_key,
+                    "webViewLink": f"https://drive.google.com/file/d/{result.get('id')}/view"
+                }
+            }
+        else:
+            return {"command": "drive-upload", "success": False,
+                    "error": f"API error ({r.status_code}): {r.text[:200]}"}
+    except Exception as e:
+        return {"command": "drive-upload", "success": False,
+                "error": f"Upload failed: {e}"}
+
+
+def drive_upload_text(creds, folder_key: str, filename: str, text_content: str) -> dict:
+    """Upload a text file to Drive (convenience wrapper).
+    
+    Args:
+        folder_key: Folder key from DRIVE_FOLDERS or DRIVE_SUBFOLDERS
+        filename: Name for the file
+        text_content: Text content to upload
+    
+    Returns:
+        dict with success status and file details or error
+    """
+    return drive_upload_file(creds, folder_key, filename, text_content.encode('utf-8'), "text/plain")
+
+
 # --- Output Formatters ---
 def print_today():
     creds = get_creds()
@@ -789,6 +904,588 @@ def complete_task_json(creds, search_title: str) -> dict:
                 "task": {"id": task["id"], "title": task.get("title", "")}}
 
 
+
+def create_task(creds, title: str, notes: str = None, due: str = None) -> dict:
+    """Create a new task in 00_Inbox.
+    
+    Args:
+        title: Task title (should include [DOMAIN] tag, e.g., "[MINISTRY] Sermon prep")
+        notes: Optional notes/description
+        due: Optional due date in YYYY-MM-DD format
+    
+    Returns:
+        dict with success status and task details or error
+    """
+    task_body = {"title": title}
+    
+    if notes:
+        task_body["notes"] = notes
+    if due:
+        # Tasks API expects RFC 3339 date format
+        task_body["due"] = f"{due}T00:00:00.000Z"
+    
+    url = f"https://www.googleapis.com/tasks/v1/lists/{TASK_LIST_ID}/tasks"
+    result = api_post(creds, url, task_body)
+    
+    if result:
+        return {
+            "command": "create-task",
+            "success": True,
+            "task": {
+                "id": result.get("id"),
+                "title": result.get("title"),
+                "notes": result.get("notes"),
+                "due": result.get("due"),
+                "status": result.get("status")
+            }
+        }
+    else:
+        return {"command": "create-task", "success": False, 
+                "error": "API call failed to create task"}
+
+
+
+# --- Quick Capture ---
+
+DOMAIN_KEYWORDS = {
+    "CHAPEL": [
+        "ucg", "passover", "chapel", "prison", "chaplain", "systematic theology",
+        "sys theo", "unleavened", "feast", "sabbath", "holy day", "atonement",
+        "tabernacles", "trumpets", "pentecost", "incarcerated", "correctional"
+    ],
+    "MINISTRY": [
+        "sermon", "preach", "st. peter", "st peter", "stone church", "brainstorm",
+        "manuscript", "liturgy", "congregation", "pastor", "ministry", "homily",
+        "exegesis", "hermeneutic", "expository", "devotional", "bible study"
+    ],
+    "TRADING": [
+        "bitcoin", "btc", "crypto", "tsla", "tesla", "stock", "market", "portfolio",
+        "trade", "invest", "etf", "chart", "technical analysis", "ta", "dca",
+        "bull", "bear", "position", "hodl", "exchange", "coinbase", "glassnode"
+    ],
+    "DEV": [
+        "code", "deploy", "dashboard", "api", "bug", "feature", "github", "git",
+        "script", "python", "clawdbot", "clawd", "server", "debug", "refactor",
+        "pr", "merge", "branch", "test", "sacred", "btctx"
+    ],
+    "FAMILY": [
+        "groceries", "grocery", "kids", "household", "doctor", "appointment",
+        "dentist", "school", "family", "home", "repair", "maintenance", "chore",
+        "errand", "pickup", "drop off", "wife", "husband", "son", "daughter"
+    ],
+    "CONTENT": [
+        "youtube", "video", "record", "edit", "upload", "thumbnail", "channel",
+        "subscriber", "content", "film", "camera", "audio", "podcast"
+    ],
+    "PERSONAL": [
+        "workout", "gym", "exercise", "health", "read", "book", "personal",
+        "hobby", "vacation", "travel", "birthday", "anniversary"
+    ]
+}
+
+# Words that should never match (too generic)
+STOPWORDS = {"the", "a", "an", "to", "for", "and", "or", "on", "in", "at", "by", "with", "about"}
+
+
+def infer_domain(text: str) -> tuple:
+    """Infer domain from text using keyword matching.
+    
+    Returns:
+        tuple: (domain, confidence, matched_keywords)
+        - domain: Best matching domain or None if ambiguous
+        - confidence: "high" (1 match), "medium" (multiple same domain), "low" (multiple domains), "none"
+        - matched_keywords: list of keywords that matched
+    """
+    text_lower = text.lower()
+    matches = {}  # domain -> list of matched keywords
+    
+    for domain, keywords in DOMAIN_KEYWORDS.items():
+        matched = []
+        for kw in keywords:
+            if kw in text_lower:
+                matched.append(kw)
+        if matched:
+            matches[domain] = matched
+    
+    if not matches:
+        return (None, "none", [])
+    
+    if len(matches) == 1:
+        domain = list(matches.keys())[0]
+        keywords = matches[domain]
+        confidence = "high" if len(keywords) >= 1 else "medium"
+        return (domain, confidence, keywords)
+    
+    # Multiple domains matched — pick the one with most keyword matches
+    sorted_matches = sorted(matches.items(), key=lambda x: len(x[1]), reverse=True)
+    top_domain, top_keywords = sorted_matches[0]
+    second_domain, second_keywords = sorted_matches[1]
+    
+    # If clear winner (2+ more matches), use it with medium confidence
+    if len(top_keywords) >= len(second_keywords) + 2:
+        return (top_domain, "medium", top_keywords)
+    
+    # Too close to call
+    return (None, "low", list(matches.keys()))
+
+
+def parse_date_from_text(text: str) -> tuple:
+    """Extract date from natural language text.
+    
+    Returns:
+        tuple: (date_str or None, cleaned_text)
+        - date_str: YYYY-MM-DD format or None
+        - cleaned_text: text with date phrase removed
+    """
+    import re
+    from datetime import datetime, timedelta
+    
+    text_lower = text.lower()
+    today = datetime.now(CST)
+    date_found = None
+    phrase_to_remove = ""
+    
+    # Month name + day: "March 31", "Feb 15", "january 1st"
+    month_pattern = r'\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+(\d{1,2})(?:st|nd|rd|th)?\b'
+    match = re.search(month_pattern, text_lower)
+    if match:
+        month_str, day_str = match.groups()
+        month_map = {
+            'jan': 1, 'january': 1, 'feb': 2, 'february': 2, 'mar': 3, 'march': 3,
+            'apr': 4, 'april': 4, 'may': 5, 'jun': 6, 'june': 6, 'jul': 7, 'july': 7,
+            'aug': 8, 'august': 8, 'sep': 9, 'sept': 9, 'september': 9,
+            'oct': 10, 'october': 10, 'nov': 11, 'november': 11, 'dec': 12, 'december': 12
+        }
+        month = month_map.get(month_str)
+        day = int(day_str)
+        year = today.year
+        try:
+            candidate = datetime(year, month, day, tzinfo=CST)
+            if candidate.date() < today.date():
+                candidate = datetime(year + 1, month, day, tzinfo=CST)
+            date_found = candidate.strftime("%Y-%m-%d")
+            phrase_to_remove = match.group(0)
+        except ValueError:
+            pass
+    
+    # Day of week: "thursday", "friday", etc.
+    if not date_found:
+        days_of_week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+        for i, day_name in enumerate(days_of_week):
+            if re.search(r'\b' + day_name + r'\b', text_lower):
+                days_ahead = i - today.weekday()
+                if days_ahead <= 0:
+                    days_ahead += 7
+                date_found = (today + timedelta(days=days_ahead)).strftime("%Y-%m-%d")
+                phrase_to_remove = day_name
+                break
+    
+    # Relative: "tomorrow", "today", "next week"
+    if not date_found:
+        if re.search(r'\btomorrow\b', text_lower):
+            date_found = (today + timedelta(days=1)).strftime("%Y-%m-%d")
+            phrase_to_remove = "tomorrow"
+        elif re.search(r'\btoday\b', text_lower):
+            date_found = today.strftime("%Y-%m-%d")
+            phrase_to_remove = "today"
+        elif re.search(r'\bnext week\b', text_lower):
+            date_found = (today + timedelta(days=7)).strftime("%Y-%m-%d")
+            phrase_to_remove = "next week"
+    
+    # Clean up text - remove date phrase
+    cleaned = text
+    if phrase_to_remove:
+        cleaned = re.sub(re.escape(phrase_to_remove), '', text, flags=re.IGNORECASE).strip()
+        # Clean up dangling prepositions
+        cleaned = re.sub(r'\s+(by|on|for|due|before)\s*$', '', cleaned, flags=re.IGNORECASE).strip()
+        cleaned = re.sub(r'^(by|on|for|due|before)\s+', '', cleaned, flags=re.IGNORECASE).strip()
+        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    
+    return (date_found, cleaned)
+
+
+
+
+def quick_capture(creds, text: str, force_domain: str = None) -> dict:
+    """Parse natural language and create a task with inferred domain.
+    
+    Args:
+        text: Natural language input like "UCG Passover reminder March 31"
+        force_domain: Override domain inference (optional)
+    
+    Returns:
+        dict with success status, created task, and inference details
+    """
+    # Parse date first
+    due_date, cleaned_text = parse_date_from_text(text)
+    
+    # Infer domain
+    if force_domain:
+        domain = force_domain.upper()
+        confidence = "forced"
+        matched = []
+    else:
+        domain, confidence, matched = infer_domain(text)
+    
+    # Handle low/no confidence
+    if confidence in ("none", "low"):
+        if confidence == "none":
+            return {
+                "command": "quick",
+                "success": False,
+                "error": "Could not determine domain. Please specify: --domain CHAPEL|MINISTRY|TRADING|DEV|FAMILY|CONTENT|PERSONAL",
+                "parsed": {
+                    "text": cleaned_text,
+                    "due": due_date,
+                    "domain_candidates": matched if matched else ["PERSONAL (default)"]
+                }
+            }
+        else:  # low confidence - multiple domains matched
+            return {
+                "command": "quick",
+                "success": False,
+                "error": f"Ambiguous domain. Matched: {', '.join(matched)}. Please specify: --domain <DOMAIN>",
+                "parsed": {
+                    "text": cleaned_text,
+                    "due": due_date,
+                    "domain_candidates": matched
+                }
+            }
+    
+    # Build task title
+    title = f"[{domain}] {cleaned_text}"
+    
+    # Create the task
+    result = create_task(creds, title, notes=None, due=due_date)
+    
+    if result["success"]:
+        return {
+            "command": "quick",
+            "success": True,
+            "task": result["task"],
+            "inference": {
+                "domain": domain,
+                "confidence": confidence,
+                "matched_keywords": matched,
+                "parsed_date": due_date,
+                "original_text": text
+            }
+        }
+    else:
+        return {
+            "command": "quick",
+            "success": False,
+            "error": result.get("error", "Failed to create task"),
+            "inference": {
+                "domain": domain,
+                "confidence": confidence,
+                "matched_keywords": matched
+            }
+        }
+
+
+
+def parse_time_from_text(text: str) -> tuple:
+    """Extract time from natural language text.
+    
+    Returns:
+        tuple: (start_time, end_time, cleaned_text)
+        - Times in HH:MM format (24hr) or None
+        - Default duration: 1 hour if only start given
+    """
+    import re
+    
+    text_lower = text.lower()
+    start_time = None
+    end_time = None
+    phrase_to_remove = ""
+    
+    # Pattern: "2pm", "2:30pm", "14:00", "2 pm"
+    time_pattern = r'\b(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b'
+    matches = list(re.finditer(time_pattern, text_lower))
+    
+    if matches:
+        # First match is start time
+        m = matches[0]
+        hour = int(m.group(1))
+        minute = int(m.group(2)) if m.group(2) else 0
+        ampm = m.group(3)
+        
+        if ampm == 'pm' and hour < 12:
+            hour += 12
+        elif ampm == 'am' and hour == 12:
+            hour = 0
+        elif not ampm and hour < 8:  # Assume PM for times like "2" without am/pm
+            hour += 12
+            
+        start_time = f"{hour:02d}:{minute:02d}"
+        phrase_to_remove = m.group(0)
+        
+        # If second time match, that's end time
+        if len(matches) > 1:
+            m2 = matches[1]
+            hour2 = int(m2.group(1))
+            minute2 = int(m2.group(2)) if m2.group(2) else 0
+            ampm2 = m2.group(3)
+            
+            if ampm2 == 'pm' and hour2 < 12:
+                hour2 += 12
+            elif ampm2 == 'am' and hour2 == 12:
+                hour2 = 0
+            elif not ampm2 and hour2 < 8:
+                hour2 += 12
+                
+            end_time = f"{hour2:02d}:{minute2:02d}"
+            phrase_to_remove = text_lower[m.start():m2.end()]
+        else:
+            # Default 1 hour duration
+            end_hour = hour + 1
+            end_time = f"{end_hour:02d}:{minute:02d}"
+    
+    # Clean text
+    cleaned = text
+    if phrase_to_remove:
+        cleaned = re.sub(re.escape(phrase_to_remove), '', text, flags=re.IGNORECASE).strip()
+        cleaned = re.sub(r'\s+(at|from|@)\s*$', '', cleaned, flags=re.IGNORECASE).strip()
+        cleaned = re.sub(r'^(at|from|@)\s+', '', cleaned, flags=re.IGNORECASE).strip()
+        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    
+    return (start_time, end_time, cleaned)
+
+
+def quick_event(creds, text: str, force_domain: str = None) -> dict:
+    """Parse natural language and create a calendar event with inferred domain.
+    
+    Args:
+        text: Natural language input like "meeting with John Thursday 2pm"
+        force_domain: Override domain inference (optional)
+    
+    Returns:
+        dict with success status, created event, and inference details
+    """
+    # Parse date first
+    due_date, text_after_date = parse_date_from_text(text)
+    
+    # Parse time
+    start_time, end_time, cleaned_text = parse_time_from_text(text_after_date)
+    
+    # If no time found, can't create event
+    if not start_time:
+        return {
+            "command": "quick-event",
+            "success": False,
+            "error": "No time found. Include a time like '2pm' or '14:00'. For tasks without time, use 'quick' instead.",
+            "parsed": {
+                "text": cleaned_text,
+                "date": due_date
+            }
+        }
+    
+    # If no date, default to today
+    if not due_date:
+        from datetime import datetime
+        due_date = datetime.now(CST).strftime("%Y-%m-%d")
+    
+    # Infer domain
+    if force_domain:
+        domain = force_domain.upper()
+        confidence = "forced"
+        matched = []
+    else:
+        domain, confidence, matched = infer_domain(text)
+    
+    # Handle low/no confidence - default to PERSONAL for events
+    if confidence in ("none", "low"):
+        if confidence == "none":
+            domain = "PERSONAL"
+            confidence = "default"
+            matched = []
+        else:  # low - multiple matched, pick first or default
+            domain = matched[0] if matched else "PERSONAL"
+            confidence = "low-picked"
+    
+    # Build datetime strings
+    start_dt = f"{due_date}T{start_time}:00"
+    end_dt = f"{due_date}T{end_time}:00"
+    
+    # Map domain to calendar (CONTENT uses Personal calendar)
+    # Calendar keys are title case: Chapel, Ministry, Trading, Dev, Family, Personal
+    cal_domain = domain.title() if domain != "CONTENT" else "Personal"
+    
+    # Create the event
+    result = create_calendar_event(creds, cal_domain, cleaned_text, start_dt, end_dt)
+    
+    if result["success"]:
+        return {
+            "command": "quick-event",
+            "success": True,
+            "event": result["event"],
+            "inference": {
+                "domain": domain,
+                "calendar": cal_domain,
+                "confidence": confidence,
+                "matched_keywords": matched,
+                "parsed_date": due_date,
+                "parsed_time": f"{start_time}-{end_time}",
+                "original_text": text
+            }
+        }
+    else:
+        return {
+            "command": "quick-event",
+            "success": False,
+            "error": result.get("error", "Failed to create event"),
+            "inference": {
+                "domain": domain,
+                "confidence": confidence,
+                "matched_keywords": matched
+            }
+        }
+
+
+def create_calendar_event(creds, domain: str, summary: str, start: str, end: str, 
+                          description: str = None, location: str = None) -> dict:
+    """Create a calendar event.
+    
+    Args:
+        domain: Calendar domain (Chapel, Ministry, Trading, Dev, Family, Personal)
+        summary: Event title
+        start: Start time in ISO format (YYYY-MM-DDTHH:MM:SS) or date (YYYY-MM-DD for all-day)
+        end: End time in ISO format or date
+        description: Optional event description
+        location: Optional location
+    
+    Returns:
+        dict with success status and event details or error
+    """
+    if domain not in CALENDARS:
+        return {"command": "create-event", "success": False, 
+                "error": f"Unknown domain: {domain}. Valid: {', '.join(CALENDARS.keys())}"}
+    
+    calendar_id = CALENDARS[domain]
+    
+    # Determine if all-day event (date only) or timed event (datetime)
+    is_all_day = len(start) == 10  # YYYY-MM-DD format
+    
+    event_body = {"summary": summary}
+    
+    if is_all_day:
+        event_body["start"] = {"date": start}
+        event_body["end"] = {"date": end}
+    else:
+        # Ensure timezone
+        if not start.endswith('Z') and '+' not in start and '-' not in start[-6:]:
+            start = start + "-06:00"  # CST
+        if not end.endswith('Z') and '+' not in end and '-' not in end[-6:]:
+            end = end + "-06:00"  # CST
+        event_body["start"] = {"dateTime": start, "timeZone": "America/Chicago"}
+        event_body["end"] = {"dateTime": end, "timeZone": "America/Chicago"}
+    
+    if description:
+        event_body["description"] = description
+    if location:
+        event_body["location"] = location
+    
+    url = f"https://www.googleapis.com/calendar/v3/calendars/{calendar_id}/events"
+    result = api_post(creds, url, event_body)
+    
+    if result:
+        return {
+            "command": "create-event",
+            "success": True,
+            "event": {
+                "id": result.get("id"),
+                "summary": result.get("summary"),
+                "start": result.get("start"),
+                "end": result.get("end"),
+                "htmlLink": result.get("htmlLink"),
+                "domain": domain
+            }
+        }
+    else:
+        return {"command": "create-event", "success": False, 
+                "error": f"API call failed for calendar: {domain}"}
+
+
+def update_calendar_event(creds, domain: str, event_id: str, 
+                          summary: str = None, start: str = None, end: str = None,
+                          description: str = None, location: str = None) -> dict:
+    """Update an existing calendar event.
+    
+    Args:
+        domain: Calendar domain
+        event_id: The event ID to update
+        summary: New title (optional)
+        start: New start time (optional)
+        end: New end time (optional)
+        description: New description (optional)
+        location: New location (optional)
+    
+    Returns:
+        dict with success status and updated event details or error
+    """
+    if domain not in CALENDARS:
+        return {"command": "update-event", "success": False,
+                "error": f"Unknown domain: {domain}. Valid: {', '.join(CALENDARS.keys())}"}
+    
+    calendar_id = CALENDARS[domain]
+    
+    # First, get the existing event
+    url = f"https://www.googleapis.com/calendar/v3/calendars/{calendar_id}/events/{event_id}"
+    existing = api_get(creds, url)
+    if not existing:
+        return {"command": "update-event", "success": False,
+                "error": f"Event not found: {event_id}"}
+    
+    # Build update body with only provided fields
+    update_body = {}
+    if summary is not None:
+        update_body["summary"] = summary
+    if description is not None:
+        update_body["description"] = description
+    if location is not None:
+        update_body["location"] = location
+    if start is not None:
+        is_all_day = len(start) == 10
+        if is_all_day:
+            update_body["start"] = {"date": start}
+        else:
+            if not start.endswith('Z') and '+' not in start and '-' not in start[-6:]:
+                start = start + "-06:00"
+            update_body["start"] = {"dateTime": start, "timeZone": "America/Chicago"}
+    if end is not None:
+        is_all_day = len(end) == 10
+        if is_all_day:
+            update_body["end"] = {"date": end}
+        else:
+            if not end.endswith('Z') and '+' not in end and '-' not in end[-6:]:
+                end = end + "-06:00"
+            update_body["end"] = {"dateTime": end, "timeZone": "America/Chicago"}
+    
+    if not update_body:
+        return {"command": "update-event", "success": False,
+                "error": "No fields to update"}
+    
+    result = api_patch(creds, url, update_body)
+    
+    if result:
+        return {
+            "command": "update-event",
+            "success": True,
+            "event": {
+                "id": result.get("id"),
+                "summary": result.get("summary"),
+                "start": result.get("start"),
+                "end": result.get("end"),
+                "htmlLink": result.get("htmlLink"),
+                "domain": domain
+            }
+        }
+    else:
+        return {"command": "update-event", "success": False,
+                "error": f"API call failed updating event: {event_id}"}
+
+
 # --- CLI ---
 if __name__ == "__main__":
     # Parse --json flag
@@ -959,6 +1656,273 @@ if __name__ == "__main__":
                 print(f"📄 {result['name']}\n{'=' * 60}\n{result['content']}")
             else:
                 print(f"❌ {result.get('error', 'Unknown error')}")
+
+    elif cmd == "create-event":
+        # create-event <domain> <summary> <start> <end> [--description "..."] [--location "..."]
+        if len(args) < 5:
+            msg = "Usage: arnoldos.py create-event <domain> <summary> <start> <end> [--description ...] [--location ...]"
+            if use_json:
+                json_output({"command": "create-event", "success": False, "error": msg})
+            else:
+                print(msg)
+                print("  domain: Chapel, Ministry, Trading, Dev, Family, Personal")
+                print("  start/end: YYYY-MM-DD (all-day) or YYYY-MM-DDTHH:MM:SS (timed)")
+                print("Example: arnoldos.py create-event Ministry 'Team Meeting' 2026-02-03T14:00:00 2026-02-03T15:00:00")
+            sys.exit(1)
+        domain = args[1]
+        summary = args[2]
+        start = args[3]
+        end = args[4]
+        description = None
+        location = None
+        i = 5
+        while i < len(args):
+            if args[i] == "--description" and i + 1 < len(args):
+                description = args[i + 1]
+                i += 2
+            elif args[i] == "--location" and i + 1 < len(args):
+                location = args[i + 1]
+                i += 2
+            else:
+                i += 1
+        creds = get_creds()
+        result = create_calendar_event(creds, domain, summary, start, end, description, location)
+        if use_json:
+            json_output(result)
+        else:
+            if result["success"]:
+                print(f"✅ Created event: {result['event']['summary']}")
+                print(f"   Domain: {result['event']['domain']}")
+                print(f"   Start: {result['event']['start']}")
+                print(f"   Link: {result['event'].get('htmlLink', 'N/A')}")
+            else:
+                print(f"❌ Failed: {result['error']}")
+
+    elif cmd == "update-event":
+        # update-event <domain> <event_id> [--summary "..."] [--description "..."] [--start ...] [--end ...] [--location "..."]
+        if len(args) < 3:
+            msg = "Usage: arnoldos.py update-event <domain> <event_id> [--summary ...] [--description ...] [--start ...] [--end ...] [--location ...]"
+            if use_json:
+                json_output({"command": "update-event", "success": False, "error": msg})
+            else:
+                print(msg)
+            sys.exit(1)
+        domain = args[1]
+        event_id = args[2]
+        summary = None
+        description = None
+        start = None
+        end = None
+        location = None
+        i = 3
+        while i < len(args):
+            if args[i] == "--summary" and i + 1 < len(args):
+                summary = args[i + 1]
+                i += 2
+            elif args[i] == "--description" and i + 1 < len(args):
+                description = args[i + 1]
+                i += 2
+            elif args[i] == "--start" and i + 1 < len(args):
+                start = args[i + 1]
+                i += 2
+            elif args[i] == "--end" and i + 1 < len(args):
+                end = args[i + 1]
+                i += 2
+            elif args[i] == "--location" and i + 1 < len(args):
+                location = args[i + 1]
+                i += 2
+            else:
+                i += 1
+        creds = get_creds()
+        result = update_calendar_event(creds, domain, event_id, summary, start, end, description, location)
+        if use_json:
+            json_output(result)
+        else:
+            if result["success"]:
+                print(f"✅ Updated event: {result['event']['summary']}")
+                print(f"   Domain: {result['event']['domain']}")
+            else:
+                print(f"❌ Failed: {result['error']}")
+
+
+    elif cmd == "create-task":
+        # create-task <title> [--notes "..."] [--due YYYY-MM-DD]
+        if len(args) < 2:
+            msg = "Usage: arnoldos.py create-task <title> [--notes ...] [--due YYYY-MM-DD]"
+            if use_json:
+                json_output({"command": "create-task", "success": False, "error": msg})
+            else:
+                print(msg)
+                print("Example: arnoldos.py create-task '[MINISTRY] Sermon prep: Feb 15' --due 2026-02-14")
+            sys.exit(1)
+        # Parse title (may be quoted)
+        title = args[1]
+        notes = None
+        due = None
+        i = 2
+        while i < len(args):
+            if args[i] == "--notes" and i + 1 < len(args):
+                notes = args[i + 1]
+                i += 2
+            elif args[i] == "--due" and i + 1 < len(args):
+                due = args[i + 1]
+                i += 2
+            else:
+                i += 1
+        creds = get_creds()
+        result = create_task(creds, title, notes, due)
+        if use_json:
+            json_output(result)
+        else:
+            if result["success"]:
+                print(f"✅ Created task: {result['task']['title']}")
+                if result['task'].get('due'):
+                    print(f"   Due: {result['task']['due']}")
+            else:
+                print(f"❌ Failed: {result['error']}")
+
+    elif cmd == "quick":
+        # quick <natural language text> [--domain DOMAIN]
+        if len(args) < 2:
+            msg = "Usage: arnoldos.py quick <text> [--domain DOMAIN]"
+            if use_json:
+                json_output({"command": "quick", "success": False, "error": msg})
+            else:
+                print(msg)
+                print('Example: arnoldos.py quick "UCG Passover reminder March 31"')
+                print('Example: arnoldos.py quick "finish sermon draft by Friday" --domain MINISTRY')
+            sys.exit(1)
+        
+        # Parse args - everything before --domain is the text
+        text_parts = []
+        force_domain = None
+        i = 1
+        while i < len(args):
+            if args[i] == "--domain" and i + 1 < len(args):
+                force_domain = args[i + 1]
+                i += 2
+            else:
+                text_parts.append(args[i])
+                i += 1
+        
+        text = " ".join(text_parts)
+        creds = get_creds()
+        result = quick_capture(creds, text, force_domain)
+        
+        if use_json:
+            json_output(result)
+        else:
+            if result["success"]:
+                task = result["task"]
+                inf = result["inference"]
+                print(f"✅ Created: {task['title']}")
+                if task.get('due'):
+                    print(f"   Due: {task['due'][:10]}")
+                print(f"   Domain: {inf['domain']} (confidence: {inf['confidence']})")
+                if inf.get('matched_keywords'):
+                    print(f"   Matched: {', '.join(inf['matched_keywords'])}")
+            else:
+                print(f"❌ {result['error']}")
+                if result.get('parsed'):
+                    p = result['parsed']
+                    print(f"   Parsed text: {p.get('text', 'N/A')}")
+                    print(f"   Parsed date: {p.get('due', 'None')}")
+                    print(f"   Candidates: {', '.join(p.get('domain_candidates', []))}")
+
+
+    elif cmd == "quick-event":
+        # quick-event <natural language text> [--domain DOMAIN]
+        if len(args) < 2:
+            msg = "Usage: arnoldos.py quick-event <text> [--domain DOMAIN]"
+            if use_json:
+                json_output({"command": "quick-event", "success": False, "error": msg})
+            else:
+                print(msg)
+                print('Example: arnoldos.py quick-event "meeting with John Thursday 2pm"')
+                print('Example: arnoldos.py quick-event "bitcoin review Friday 10am" --domain TRADING')
+            sys.exit(1)
+        
+        # Parse args
+        text_parts = []
+        force_domain = None
+        i = 1
+        while i < len(args):
+            if args[i] == "--domain" and i + 1 < len(args):
+                force_domain = args[i + 1]
+                i += 2
+            else:
+                text_parts.append(args[i])
+                i += 1
+        
+        text = " ".join(text_parts)
+        creds = get_creds()
+        result = quick_event(creds, text, force_domain)
+        
+        if use_json:
+            json_output(result)
+        else:
+            if result["success"]:
+                evt = result["event"]
+                inf = result["inference"]
+                print(f"✅ Created event: {evt['summary']}")
+                print(f"   Calendar: {inf['calendar']}")
+                print(f"   Date: {inf['parsed_date']}")
+                print(f"   Time: {inf['parsed_time']}")
+                print(f"   Domain: {inf['domain']} (confidence: {inf['confidence']})")
+                if inf.get('matched_keywords'):
+                    print(f"   Matched: {', '.join(inf['matched_keywords'])}")
+                if evt.get('htmlLink'):
+                    print(f"   Link: {evt['htmlLink']}")
+            else:
+                print(f"❌ {result['error']}")
+                if result.get('parsed'):
+                    p = result['parsed']
+                    print(f"   Parsed text: {p.get('text', 'N/A')}")
+                    print(f"   Parsed date: {p.get('date', 'None')}")
+
+
+    elif cmd == "drive-upload":
+        # drive-upload <folder_key> <filename> <local_file_path>
+        if len(args) < 4:
+            msg = "Usage: arnoldos.py drive-upload <folder_key> <filename> <local_file_path>"
+            if use_json:
+                json_output({"command": "drive-upload", "success": False, "error": msg})
+            else:
+                print(msg)
+                print("Folder keys: Ministry, Ministry/Brainstorm, Ministry/Sermons, Chapel, Trading, Dev, etc.")
+                print("Example: arnoldos.py drive-upload Ministry/Brainstorm 2026-02-15-romans-8.docx ./output.docx")
+            sys.exit(1)
+        folder_key = args[1]
+        filename = args[2]
+        local_path = args[3]
+        if not os.path.exists(local_path):
+            result = {"command": "drive-upload", "success": False, "error": f"File not found: {local_path}"}
+        else:
+            with open(local_path, 'rb') as f:
+                content_bytes = f.read()
+            # Detect mime type from extension
+            if filename.endswith('.docx'):
+                mime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            elif filename.endswith('.txt'):
+                mime = "text/plain"
+            elif filename.endswith('.md'):
+                mime = "text/markdown"
+            elif filename.endswith('.pdf'):
+                mime = "application/pdf"
+            else:
+                mime = "application/octet-stream"
+            creds = get_creds()
+            result = drive_upload_file(creds, folder_key, filename, content_bytes, mime)
+        if use_json:
+            json_output(result)
+        else:
+            if result["success"]:
+                print(f"✅ Uploaded: {result['file']['name']}")
+                print(f"   Folder: {result['file']['folder']}")
+                print(f"   Link: {result['file']['webViewLink']}")
+            else:
+                print(f"❌ Failed: {result['error']}")
+
 
     else:
         if use_json:
