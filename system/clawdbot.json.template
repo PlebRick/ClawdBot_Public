@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.1.24-3",
+    "lastTouchedAt": "2026-01-31T17:32:20.488Z"
+  },
+  "env": {
+    "vars": {
+      "GEMINI_API_KEY": "<REDACTED>",
+      "OPENROUTER_API_KEY": "<REDACTED>"
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-01-27T01:12:13.720Z",
+    "lastRunVersion": "2026.1.24-3",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "anthropic:default": {
+        "provider": "anthropic",
+        "mode": "token"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-opus-4-5",
+        "fallbacks": [
+          "google/gemini-2.5-flash"
+        ]
+      },
+      "models": {
+        "anthropic/claude-opus-4-5": {
+          "alias": "opus"
+        },
+        "openrouter/qwen/qwen3-235b-a22b-2507": {
+          "alias": "qwen3"
+        },
+        "google/gemini-2.5-flash": {
+          "alias": "flash"
+        },
+        "openrouter/x-ai/grok-4.1-fast": {
+          "alias": "grok"
+        },
+        "openrouter/x-ai/grok-4": {
+          "alias": "grok-think"
+        },
+        "openrouter/google/gemini-3-pro-preview": {
+          "alias": "gemini-pro"
+        },
+        "openrouter/google/gemini-3-pro-image-preview": {
+          "alias": "nano-banana"
+        }
+      },
+      "workspace": "/home/ubuntu76/clawd",
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "1h"
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "1h"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "default": true,
+        "name": "Clawd",
+        "identity": {
+          "name": "Clawd",
+          "emoji": "\ud83d\udc3e"
+        }
+      },
+      {
+        "id": "ara",
+        "name": "Ara",
+        "workspace": "/home/ubuntu76/clawd-ara",
+        "identity": {
+          "name": "Ara",
+          "emoji": "\ud83c\udf36\ufe0f"
+        }
+      }
+    ]
+  },
+  "tools": {
+    "allow": [
+      "exec"
+    ],
+    "web": {
+      "search": {
+        "apiKey": "<REDACTED>"
+      }
+    }
+  },
+  "bindings": [
+    {
+      "agentId": "ara",
+      "match": {
+        "channel": "telegram",
+        "accountId": "ara"
+      }
+    }
+  ],
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "session-memory": {
+          "enabled": true
+        },
+        "command-logger": {
+          "enabled": true
+        },
+        "boot-md": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "botToken": "<REDACTED>",
+      "groupPolicy": "allowlist",
+      "streamMode": "partial",
+      "accounts": {
+        "main": {
+          "dmPolicy": "pairing",
+          "botToken": "<REDACTED>",
+          "groupPolicy": "allowlist",
+          "streamMode": "partial"
+        },
+        "ara": {
+          "dmPolicy": "pairing",
+          "botToken": "<REDACTED>",
+          "groupPolicy": "allowlist",
+          "streamMode": "partial"
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "controlUi": {
+      "enabled": true,
+      "allowInsecureAuth": true
+    },
+    "auth": {
+      "mode": "password",
+      "token": "<REDACTED>",
+      "password": "<REDACTED>"
+    },
+    "trustedProxies": [
+      "127.0.0.1",
+      "::1"
+    ],
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "tls": {
+      "enabled": true,
+      "autoGenerate": true
+    }
+  },
+  "skills": {
+    "install": {
+      "nodeManager": "npm"
+    },
+    "entries": {
+      "sag": {
+        "apiKey": "<REDACTED>"
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      },
+      "google-gemini-cli-auth": {
+        "enabled": true
+      }
+    }
+  }
+}

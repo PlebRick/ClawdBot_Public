@@ -1,0 +1,23 @@
+# /etc/systemd/system/clawdbot.service
+# Install: sudo cp this /etc/systemd/system/clawdbot.service
+# Enable:  sudo systemctl enable --now clawdbot
+# Note: Also need /etc/clawdbot-env with Bird/Twitter tokens (AUTH_TOKEN, CT0)
+
+[Unit]
+Description=Clawdbot Gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu76
+Environment=HOME=/home/ubuntu76
+Environment=PATH=/home/ubuntu76/.nvm/versions/node/v22.22.0/bin:/usr/local/bin:/usr/bin:/bin
+EnvironmentFile=/etc/clawdbot-env
+WorkingDirectory=/home/ubuntu76
+ExecStart=/home/ubuntu76/.nvm/versions/node/v22.22.0/bin/node /home/ubuntu76/.nvm/versions/node/v22.22.0/bin/clawdbot gateway
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

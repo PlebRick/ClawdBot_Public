@@ -1,0 +1,12 @@
+0 0 * * * crontab -l > /home/ubuntu76/clawd/system/crontab.bak 2>&1
+0 */6 * * * /home/ubuntu76/clawd/scripts/sync-memory-to-drive.sh >> /home/ubuntu76/clawd/logs/memory-sync.log 2>&1
+*/5 * * * * /home/ubuntu76/clawd/scripts/cache-preaching.sh
+*/5 * * * * /home/ubuntu76/clawd/scripts/cache-week.sh
+* * * * * /home/ubuntu76/clawd/scripts/cache-cron.sh
+* * * * * /home/ubuntu76/clawd/scripts/cache-gateway-status.sh
+* * * * * /home/ubuntu76/clawd/scripts/cache-tasks.sh
+* * * * * /home/ubuntu76/clawd/scripts/cache-tree.sh
+* * * * * sleep 30 && /home/ubuntu76/clawd/scripts/cache-today.sh
+0 2 * * * /home/ubuntu76/clawd/scripts/backup-config-encrypted.sh >> /home/ubuntu76/clawd/logs/config-backup.log 2>&1
+*/5 * * * * /usr/bin/python3 /home/ubuntu76/clawd/scripts/openrouter-spend-monitor.py >> /home/ubuntu76/clawd/logs/or-monitor.log 2>&1
+*/15 * * * * /home/ubuntu76/clawd/scripts/arnoldos-sync.sh pull >> /home/ubuntu76/clawd/memory/logs/arnoldos-sync.log 2>&1

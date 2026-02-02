@@ -1,0 +1,173 @@
+# Voice Phrases Catalog — Rick's Actual Language
+# Organized by rhetorical function. Use as lookup during sermon writing.
+# Source: Claude.ai Sermon Enhancer project + ClawdBot calibration guide, merged and deduplicated.
+# Banned phrases removed. See voice-card.md DO NOT list for full ban list.
+
+## Opening Hooks
+- "Have you ever stopped to consider why it is that..."
+- "2,000 years ago an event happened that would change history forever."
+- "Our passage today is perhaps one of the most significant statements ever written by Paul."
+- "This week I was thinking and praying about..."
+- "As I was preparing this week I felt the Holy Spirit impress upon me..."
+- Scene-setting (present tense, cinematic): "Noon. The sun is brutal."
+- Big Question / Paradox opening
+- Historical Chain: Augustine → Luther → Wesley — weight through succession
+
+## Structural Transitions
+- "So the first thing we see is..."
+- "The second thing to take note of..."
+- "That leads us to our next point..."
+- "Let's move on to verse..."
+- "In this verse we see a very interesting phrase..."
+- "Notice what Paul says — he doesn't say ___, he says ___."
+- "Here's where it gets interesting."
+- "Let's unpack them."
+- "Let me push this further."
+- "Here's the principle:"
+- "Here is the point:"
+- "So how do we..."
+- "Notice:"
+
+## Naming What You See
+- "That is a picture of God's grace."
+- "That is the power of God's grace."
+- "That is God's grace in action."
+- "That is the paradox of the gospel."
+- Pattern: "That is a picture of..." / "That is the power of..."
+
+## Transitions to Application
+- "So how does this apply to us?"
+- "So in light of all of this, how are we to respond?"
+- "What does this mean for us?"
+- "What does God expect from us?"
+- "What should my response be?"
+
+## Direct Address Shifts
+- "Here's what I want us to notice."
+- "Here's what I want us to see."
+- "Here's the reality check."
+- "Now here's a question for us:"
+
+## Anticipated Objections (Finney-style)
+- "Someone might say..."
+- "Now you might be thinking..."
+- "But what about...?"
+- "The objection here is obvious:"
+- "I can hear the pushback already:"
+
+## Callbacks
+- "Remember what we said about..."
+- "As I said before..."
+- "Again we are reminded..."
+
+## Slowing Down for Reflection
+- "I mean, if we really stop and think about it..."
+- "Let's pause and reflect on this for a moment."
+- "Take some time and give this serious thought."
+- "Really think about that."
+- "Give that some thought."
+- "Meditate on that."
+- "That should pierce our hearts."
+
+## Expressing Wonder/Awe
+- "I love this."
+- "I never cease to be amazed by..."
+- "I am in continuous wonder by..."
+- "It's hard to fathom..."
+- "We can never exhaust the mystery of..."
+
+## Urgency Without Manipulation
+- "Today is the day of salvation."
+- "We must all stand before God and give an account."
+- "This is a weighty matter with an eternal consequence."
+- "We cannot afford to take it lightly."
+
+## Naming Cultural/Spiritual Drift
+- "Something has gone terribly wrong."
+- "Today we call good evil and evil good."
+
+## Challenging Complacency
+- "We often settle for so much less than what God has for us."
+- "We are as close to God as we want to be."
+- "What many view as radical should be ordinary."
+
+## Preaching Hard Truth with Love
+- "This is convicting..."
+- "The truth can be painful but the truth will set you free."
+- "Don't run from the light — run to it."
+- "I know this is not comfortable, but God speaks truth to us because he loves us."
+- "A real friend doesn't just tell you what you want to hear — they tell you the truth even if it is painful."
+- "The Spirit doesn't say this to condemn us but to convict us."
+- "I'm not saying this to condemn you. The Spirit convicts us because he loves us."
+
+## Light Moments / Release of Tension
+- "And I'm preaching to myself here..."
+- "I struggle with this."
+
+## Correcting Misunderstanding
+- "This passage is often misunderstood..."
+- "Many people overlook this..."
+
+## Connecting to Daily Life
+- "Think about when you're at work and..."
+- "Now suppose..."
+
+## Introducing Quotes/Sources
+- "One commentator describes it this way..."
+- "According to..."
+- Credit by name, explain insight, then own it: "changed how I think about this."
+
+## Gospel Invitation
+- "You may feel far from God, but he is not far from you."
+- "Whatever your past is, come to Jesus, surrender to him."
+- "He will receive you as you are — he won't leave you as you are, but he will receive you as you are."
+- "Come to the end of yourself and confess: God, you are 100% right and I am wrong."
+- "Jesus, I give you my life."
+- "Jesus, I surrender my heart and will to you."
+
+## Ending with Hope (After Conviction)
+- "But here's the good news..."
+- "This message should not lead us to despair but to desperation for God."
+
+## Closing the Sermon
+- "As we leave from here..."
+- "Let's respond to God's word with..."
+- Binary close — no escape hatch.
+
+## Signature Theological Phrases (use sparingly)
+- "There is nothing more valuable than an eternal soul."
+- "Jesus is the single most important person in human history."
+- "Every major religion, philosophy, ideology has an opinion about who Jesus was. He is so consequential that he can't be avoided."
+- "Jesus was either a liar, a lunatic, or he is in fact who he said he was — Lord!"
+- "World religions are all about what you need to do to reach up to God. Christianity is about what God has done to reach down to you."
+- "The greatest act of love in human history."
+- "If we are stronger in God than the sinner is in his sin, we will dominate the atmosphere."
+- "If we are walking in the Spirit, our presence brings light."
+- "The gospel is not advice. It is power."
+
+## Prison-Specific (Chapel)
+- "I could have easily been in prison..."
+- Direct identification with their situation — authentic, not performative.
+
+## Landing Phrases (Short Punches)
+- "This is huge."
+- "This matters."
+- "This changes everything."
+- "That's the gospel."
+- "I love this."
+- "Why?"
+- "Nothing more. Nothing less."
+
+## BANNED — Do NOT Use
+- "Did you catch that?"
+- "Stay with me here."
+- "Dangerous question" — use "Challenging question" instead. "Dangerous" was an AI artifact from earlier system.
+- "Let that land."
+- "Let that sink in."
+- "And yet."
+- "Now watch this." / "Now watch what happens." — AI artifact, not Rick's phrase.
+- "Isn't that wonderful?"
+- "Give God a hand!"
+- "God showed up."
+- "Blessed and highly favored."
+- "I just want to say..."

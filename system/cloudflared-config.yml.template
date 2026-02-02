@@ -1,0 +1,13 @@
+# /etc/cloudflared/config.yml (or ~/.cloudflared/config.yml)
+# Prereq: cloudflared tunnel create <name> → generates credentials-file
+# Then:   cloudflared tunnel route dns <name> ai.btctx.us
+
+tunnel: clawd
+credentials-file: /home/ubuntu76/.cloudflared/<TUNNEL-UUID>.json
+
+ingress:
+  - hostname: ai.btctx.us
+    service: https://localhost:18789
+    originRequest:
+      noTLSVerify: true
+  - service: http_status:404
