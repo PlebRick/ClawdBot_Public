@@ -150,3 +150,14 @@ Draft naming convention: append `-draft-clawd`, `-draft-rick`, `-v2`, etc. to di
 
 ### Note
 Drive upload (`drive-upload` command) not yet implemented in arnoldos.py. Currently saves locally only.
+
+## Sermon Prep Reminder Cron
+
+**Schedule:** Mondays 8:00 AM CST
+**Model:** Gemini Flash (free tier, lightweight)
+**Script:** `scripts/sermon-prep-reminder.sh`
+
+Checks `preaching.json` for upcoming sermons within 7 days and sends a Telegram reminder if any are in "not_started" or "brainstorm" status without a draft.
+
+Example output:
+> 📅 Sermon prep reminder: You're preaching at St. Peter's on Saturday (Feb 15) — Romans 8:1-11. Brainstorm done, no draft yet. ~6 days to go.

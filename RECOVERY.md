@@ -623,6 +623,7 @@ ls ~/clawd/skills/web-scout/cookies/*.json
 | Gateway password | `~/.clawdbot/clawdbot.json` | Rick chooses |
 | Gateway token | `~/.clawdbot/clawdbot.json` | `openssl rand -hex 20` |
 | Cloudflare tunnel | `~/.cloudflared/<UUID>.json` | `cloudflared tunnel login` |
+| File server token | `~/.config/systemd/user/clawd-files.service` (env) | `openssl rand -hex 20` |
 | Web-scout cookies | `~/clawd/skills/web-scout/cookies/` | `extract-cookies.py` |
 
 ---
@@ -634,3 +635,50 @@ ls ~/clawd/skills/web-scout/cookies/*.json
 - **TUI quirk:** Local TUI connections require `NODE_TLS_REJECT_UNAUTHORIZED=0` due to self-signed TLS cert. Not a security issue.
 - **Fail2ban:** Consider re-enabling on new hardware: `sudo apt install fail2ban`.
 - **Sudo:** Current setup has full NOPASSWD sudo. Reconfigure per security needs on new hardware.
+
+---
+
+## Phase 4.6 — File Server Setup (Optional)
+
+The file server provides read-only HTTP access to `~/clawd/` for the dashboard file browser.
+
+### 4.6.1 Create the service file
+```bash
+mkdir -p ~/.config/systemd/user
+cp ~/clawd/system/clawd-files.service.template ~/.config/systemd/user/clawd-files.service
+# Edit to set FILE_SERVER_TOKEN (generate with: openssl rand -hex 20)
+```
+
+### 4.6.2 Enable and start
+```bash
+systemctl --user daemon-reload
+systemctl --user enable clawd-files
+systemctl --user start clawd-files
+systemctl --user status clawd-files  # should be active
+```
+
+### 4.6.3 Update Cloudflare tunnel config
+Add path routing to `/etc/cloudflared/config.yml`:
+```yaml
+ingress:
+  - hostname: ai.btctx.us
+    path: /files/*
+    service: http://localhost:18790
+    originRequest:
+      httpHostHeader: ai.btctx.us
+  # ... existing gateway ingress ...
+```
+
+Then restart cloudflared:
+```bash
+sudo systemctl restart cloudflared
+```
+
+### 4.6.4 Update Vercel env vars
+Add `FILE_SERVER_TOKEN` to dashboard Vercel deployment.
+
+### ✅ Verification
+```bash
+curl -H "Authorization: Bearer <TOKEN>" http://localhost:18790/AGENTS.md | head -5
+# Should return first 5 lines of AGENTS.md
+```

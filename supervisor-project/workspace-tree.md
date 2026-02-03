@@ -1,233 +1,428 @@
-/home/ubuntu76/clawd
-├── AGENTS.md
-├── canvas
-│   └── index.html
-├── grok-mika1.txt
-├── grok-mika-full.txt
+clawd/
+├── .trash/
+│   ├── canvas/
+│   │   └── index.html (3.6KB)
+│   ├── drafts/
+│   │   └── 2026-02-15-spirit-who-speaks-draft.md (14.8KB)
+│   ├── rick_profile/
+│   │   ├── organized/
+│   │   │   ├── segment_01_filtered.md (9.9KB)
+│   │   │   ├── segment_02_filtered.md (19.1KB)
+│   │   │   ├── segment_03_filtered.md (10.6KB)
+│   │   │   ├── segment_04_filtered.md (22.2KB)
+│   │   │   └── segment_05_filtered.md (14.1KB)
+│   │   ├── raw/
+│   │   │   ├── chunk_001.txt (5.6KB)
+│   │   │   ├── chunk_002.txt (6.9KB)
+│   │   │   ├── chunk_003.txt (16.6KB)
+│   │   │   ├── grok-chat.md (639.1KB)
+│   │   │   ├── segment_01.txt (67.3KB)
+│   │   │   ├── segment_02.txt (107.8KB)
+│   │   │   ├── segment_03.txt (87.1KB)
+│   │   │   ├── segment_04.txt (240.4KB)
+│   │   │   └── segment_05.txt (117.5KB)
+│   │   └── progress.txt
+│   ├── tasks/
+│   │   └── chapel_schedule_tasks.txt
+│   └── sermon-lamp.png (1.5MB)
+├── arnoldos/
+│   ├── Images/
+│   │   └── Ministry/
+│   │       └── 2026-02-15-spirit-who-speaks-lamp.png (1.5MB)
+│   ├── Ministry/
+│   │   ├── Brainstorm/
+│   │   │   ├── 2026-02-15-2-peter-1-16-21-brainstorm.docx (37.3KB)
+│   │   │   └── Ephesians-2-brainstorm-2026-01-30.docx (45.5KB)
+│   │   ├── Research/
+│   │   │   ├── Walking_in_the_Spirit_Complete.docx (2.0MB)
+│   │   │   └── Walking_in_the_Spirit_Complete_Outline.docx (25.2KB)
+│   │   ├── Sermons/
+│   │   │   ├── 2026_Romans/ (10 items)
+│   │   │   ├── Drafts/ (4 items)
+│   │   │   ├── 2025-00-00-art-of-dying-to-live-rom-12-merged-final.docx (24.1KB)
+│   │   │   ├── 2025-00-00-evangelism-jesus-way-john-4.docx (17.2KB)
+│   │   │   ├── 2025-00-00-jesus-wonderful-savior-rom-5.md (17.7KB)
+│   │   │   ├── 2025-00-00-praying-jesus-luke.docx (24.1KB)
+│   │   │   ├── 2025-00-00-true-false-repentance.docx (15.8KB)
+│   │   │   ├── 2025-12-24-christmas-eve-service.docx (17.7KB)
+│   │   │   ├── 2026-01-11-spirit-filled-jesus-manuscript.docx (16.4KB)
+│   │   │   ├── 2026-01-11-spirit-filled-jesus-outline.docx (558.4KB)
+│   │   │   ├── 2026-01-11-spirit-filled-jesus-trimmed.docx (13.5KB)
+│   │   │   ├── 2026-01-18-spirit-who-remains-manuscript.docx (11.6KB)
+│   │   │   ├── 2026-01-18-spirit-who-remains-outline-final.gdoc.docx (9.1KB)
+│   │   │   ├── 2026-01-18-spirit-who-remains-outline.docx (10.0KB)
+│   │   │   ├── 2026-01-18-spirit-who-remains-pulpit-outline.docx (16.3KB)
+│   │   │   └── 2026-01-18-spirit-who-remains.gdoc.docx (17.2KB)
+│   │   └── St Peter's Stone Church/
+│   │       ├── 2026 Schedule.docx (6.7KB)
+│   │       ├── 2026_Lectionary_Readings_Full_Text.docx (40.3KB)
+│   │       ├── 26-01-11_Liturgy_Baptism_of_the_Lord.docx (12.1KB)
+│   │       └── 26-01-18_Liturgy_The Spirit that Remains.docx (10.7KB)
+│   ├── Personal/
+│   │   ├── grok-chat.md (639.1KB)
+│   │   └── Untitled document.docx (6.4KB)
+│   └── Trading/
+│       ├── 2026-01-29_Market_Analysis.docx (37.6KB)
+│       └── 2026-01-30_Weekly_Market_Analysis.docx (41.7KB)
+├── logs/
+│   ├── backup.log
+│   ├── config-backup.log
+│   ├── memory-sync.log (283.3KB)
+│   ├── or-monitor.log (7.8KB)
+│   └── upgrade-20260127-010000.log (52.3KB)
+├── memory/
+│   ├── cache/
+│   │   ├── cron.json (6.4KB)
+│   │   ├── cron.json.tmp
+│   │   ├── gateway-status.json (6.1KB)
+│   │   ├── gateway-status.json.tmp
+│   │   ├── or-spend-state.json
+│   │   ├── preaching.json (1.3KB)
+│   │   ├── tasks.json (3.9KB)
+│   │   ├── tasks.json.tmp
+│   │   ├── today.json (1.5KB)
+│   │   ├── tree.json (88.2KB)
+│   │   ├── tree.json.tmp
+│   │   └── week.json (13.4KB)
+│   ├── context/
+│   │   ├── .trash-morning-brief-old.md (2.4KB)
+│   │   ├── api-audit-report.md (7.7KB)
+│   │   ├── api-migration-phase2-report.md (5.1KB)
+│   │   ├── api-routing-prd-briefing.md (2.5KB)
+│   │   ├── arnoldos-integration-prd.md (11.5KB)
+│   │   ├── business-ideas.md (2.4KB)
+│   │   ├── business-plan-bible-study-app.md (25.2KB)
+│   │   ├── claude-code-governance.md (8.1KB)
+│   │   ├── claude-code-usage.md (2.2KB)
+│   │   ├── clawd-dashboard-spec.md (14.9KB)
+│   │   ├── clawdbot-auth-incident-report_opus.md (10.2KB)
+│   │   ├── current-configuration.md (1.1KB)
+│   │   ├── dashboard-command-center-prd.md (23.4KB)
+│   │   ├── doc-update-manifest.md (7.5KB)
+│   │   ├── drive-ministry-reorg-plan.md (6.8KB)
+│   │   ├── finney-spiritual-death.md (31.1KB)
+│   │   ├── grok-harvest-plan.md (5.1KB)
+│   │   ├── identity.md (1.2KB)
+│   │   ├── incident-report-auth-2026-01-28.md (2.7KB)
+│   │   ├── incident-report-tls-2026-01-27.md (1.1KB)
+│   │   ├── moltbot-migration-plan.md (10.6KB)
+│   │   ├── morning-brief-spec.md (3.8KB)
+│   │   ├── multi-provider-api-migration-prd.md (34.3KB)
+│   │   ├── phase2-report-opus.md (5.5KB)
+│   │   ├── recurring-themes.md (12.6KB)
+│   │   ├── ricks-bio.md (30.5KB)
+│   │   ├── ricks-theological-framework.md (6.0KB)
+│   │   ├── ricks-voice-profile.md (29.7KB)
+│   │   ├── security-remediation-plan.md (10.7KB)
+│   │   ├── sermon-pipeline-spec.md (5.9KB)
+│   │   ├── supervisor-report-2026-01-29.md (5.3KB)
+│   │   ├── supervisor-report-2026-02-01.md (8.5KB)
+│   │   ├── supervisor-report-doc-update-system-2026-01-30.md (4.5KB)
+│   │   ├── supervisor-report-phase2-2026-01-30.md (1.2KB)
+│   │   ├── supervisor-report-recovery-audit-2026-02-01.md (7.7KB)
+│   │   ├── theological-positions.md (17.8KB)
+│   │   ├── todo-ministry.md (3.0KB)
+│   │   ├── todo.md (11.5KB)
+│   │   ├── tools.md (3.3KB)
+│   │   ├── user.md (2.8KB)
+│   │   ├── voice-profile.md (20.8KB)
+│   │   ├── web-scout-scope.md (11.2KB)
+│   │   └── weekly-market-report-spec.md (6.2KB)
+│   ├── logs/
+│   │   ├── arnoldos-sync.log (35.7KB)
+│   │   ├── claude-code-costs.log
+│   │   ├── openrouter-spend.log (18.0KB)
+│   │   └── supervisor-sync.log (3.1KB)
+│   ├── todos/
+│   │   ├── finney-research-project.md (1.4KB)
+│   │   ├── sermon-content-training-plan.md (13.1KB)
+│   │   └── voice-profile-calibration.md (4.4KB)
+│   ├── training/
+│   │   ├── sermon-archive/
+│   │   │   ├── 2025-00-00-art-of-dying-to-live-rom-12-1-2-FULL.md
+│   │   │   ├── 2025-00-00-art-of-dying-to-live-rom-12-1-2.md (5.4KB)
+│   │   │   ├── 2025-00-00-evangelism-jesus-way-john-4-FULL.md (12.2KB)
+│   │   │   ├── 2025-00-00-evangelism-jesus-way-john-4.md (3.6KB)
+│   │   │   ├── 2025-00-00-gold-standard-rom-3-21-26-FULL.md
+│   │   │   ├── 2025-00-00-gold-standard-rom-3-21-26.md (3.8KB)
+│   │   │   ├── 2025-00-00-gospel-shaped-living-rom-13-16-FULL.md
+│   │   │   ├── 2025-00-00-gospel-shaped-living-rom-13-16.md (4.2KB)
+│   │   │   ├── 2025-00-00-gospels-power-rom-1-16-17-FULL.md
+│   │   │   ├── 2025-00-00-gospels-power-rom-1-16-17.md (3.1KB)
+│   │   │   ├── 2025-00-00-jesus-wonderful-savior-rom-5-FULL.md
+│   │   │   ├── 2025-00-00-jesus-wonderful-savior-rom-5.md (3.6KB)
+│   │   │   ├── 2025-00-00-living-sacrifice-rom-12-FULL.md
+│   │   │   ├── 2025-00-00-living-sacrifice-rom-12.md (3.0KB)
+│   │   │   ├── 2025-00-00-moralists-trap-rom-2-1-11-FULL.md
+│   │   │   ├── 2025-00-00-moralists-trap-rom-2-1-11.md (3.1KB)
+│   │   │   ├── 2025-00-00-praying-jesus-luke-FULL.md
+│   │   │   ├── 2025-00-00-praying-jesus-luke.md (4.9KB)
+│   │   │   ├── 2025-00-00-spiral-of-sin-rom-1-18-32-FULL.md
+│   │   │   ├── 2025-00-00-spiral-of-sin-rom-1-18-32.md (3.8KB)
+│   │   │   ├── 2025-00-00-true-false-repentance-FULL.md
+│   │   │   ├── 2025-00-00-true-false-repentance.md (3.5KB)
+│   │   │   ├── 2025-07-12-heart-of-missionary-FULL.md (23.4KB)
+│   │   │   ├── 2025-07-12-heart-of-missionary-romans-1-8-15.md (2.8KB)
+│   │   │   ├── 2025-07-12-model-missionary-romans-1-1-7-FULL.md (19.8KB)
+│   │   │   ├── 2025-07-12-model-missionary-romans-1-1-7.md (2.8KB)
+│   │   │   ├── 2025-12-24-christmas-eve-service-FULL.md (2.5KB)
+│   │   │   ├── 2025-12-24-christmas-eve-service.md (3.1KB)
+│   │   │   ├── 2026-01-11-spirit-filled-jesus-FULL.md
+│   │   │   ├── 2026-01-11-spirit-filled-jesus.md (3.8KB)
+│   │   │   ├── 2026-01-18-spirit-who-remains-FULL.md
+│   │   │   ├── 2026-01-18-spirit-who-remains.md (3.0KB)
+│   │   │   ├── 2026-02-15-spirit-who-speaks-FULL.md
+│   │   │   ├── 2026-02-15-spirit-who-speaks.md (3.2KB)
+│   │   │   └── INDEX.md (10.4KB)
+│   │   ├── sermon-raw/
+│   │   │   ├── christmas_eve_2025.txt (3.1KB)
+│   │   │   ├── claude_rom12_docx.txt (25.2KB)
+│   │   │   ├── feb15_spirit_speaks.txt (22.7KB)
+│   │   │   ├── framework_1_16_folder.txt (9.5KB)
+│   │   │   ├── gdoc_2026 Schedule.txt
+│   │   │   ├── gdoc_Gemini SE Romans 12_1-2.txt (18.0KB)
+│   │   │   ├── gdoc_Grok SE Romans 12_1-2.txt (10.3KB)
+│   │   │   ├── gdoc_Original Romans 12_1-2 Art of Dying to Live.txt (18.1KB)
+│   │   │   ├── gdoc_Romans 1_16-17 quick start prompt.txt (4.7KB)
+│   │   │   ├── gdoc_Romans 1_7-17 Stott Commentary.txt (25.1KB)
+│   │   │   ├── gdoc_Romans 1_8-23 Wright Commentary.txt (29.9KB)
+│   │   │   ├── gdoc_Romans 1_8-32 Spiral of Sin (GDoc).txt (27.6KB)
+│   │   │   ├── gdoc_Romans_Series_Framework_v2 (Archived GDoc).txt (3.0KB)
+│   │   │   ├── gdoc_Romans_Series_Framework_v2 (GDoc).txt (7.9KB)
+│   │   │   ├── gdoc_Sermon Dev Prompt Romans 1_18-32.txt (6.3KB)
+│   │   │   ├── gdoc_Spirit Who Remains Outline Final (GDoc).txt (2.1KB)
+│   │   │   ├── gdoc_The Spirit Who Remains (root).txt (17.1KB)
+│   │   │   ├── gospels_power_1_16_17.txt (17.9KB)
+│   │   │   ├── grok_rom12_uploaded.md (10.1KB)
+│   │   │   ├── heart_missionary_v2.txt (22.9KB)
+│   │   │   ├── heart_quick_start.txt (2.7KB)
+│   │   │   ├── jan18_outline_spirit_remains.txt (4.1KB)
+│   │   │   ├── jan18_pulpit_outline.txt (8.7KB)
+│   │   │   ├── jan18_spirit_remains_full.txt (8.5KB)
+│   │   │   ├── jesus_wonderful_savior.md (17.7KB)
+│   │   │   ├── john4_evangelism.txt (16.8KB)
+│   │   │   ├── lectionary_2026.txt (80.6KB)
+│   │   │   ├── liturgy_baptism_lord.txt (2.8KB)
+│   │   │   ├── liturgy_spirit_remains.txt (2.8KB)
+│   │   │   ├── merged_final_rom12.docx (24.1KB)
+│   │   │   ├── merged_final_rom12.txt (27.8KB)
+│   │   │   ├── model_missionary_copy.txt (19.3KB)
+│   │   │   ├── moralists_trap_v1.txt (19.5KB)
+│   │   │   ├── moralists_trap_v2.txt (21.2KB)
+│   │   │   ├── original_rom12_art_dying.txt (18.1KB)
+│   │   │   ├── praying_jesus_deep_dive.txt (36.4KB)
+│   │   │   ├── quick_start_1_16_17.txt (4.7KB)
+│   │   │   ├── quick_start_template.txt (2.9KB)
+│   │   │   ├── romans_12_living_sacrifice.txt (22.2KB)
+│   │   │   ├── romans_13_16_gospel_shaped.txt (30.8KB)
+│   │   │   ├── romans_1_16_32_message_missionary.md (18.2KB)
+│   │   │   ├── romans_3_21_26_gold_standard.txt (22.2KB)
+│   │   │   ├── romans_framework_v2_archived.txt (3.0KB)
+│   │   │   ├── romans_framework_v2_gdoc.txt (7.9KB)
+│   │   │   ├── romans_framework_v2_uploaded.md (8.1KB)
+│   │   │   ├── schedule_2026.txt
+│   │   │   ├── sermon_dev_prompt_1_18_32.txt (6.3KB)
+│   │   │   ├── spiral_of_sin_gdoc.txt (27.6KB)
+│   │   │   ├── spiral_sin_docx.txt (28.6KB)
+│   │   │   ├── spiral_sin_revised.txt (27.1KB)
+│   │   │   ├── spirit_filled_manuscript.txt (16.1KB)
+│   │   │   ├── spirit_filled_outline.txt (7.5KB)
+│   │   │   ├── spirit_filled_trimmed.txt (13.0KB)
+│   │   │   ├── spirit_remains_outline_final.txt (2.1KB)
+│   │   │   ├── spirit_speaks_2peter1.txt (19.3KB)
+│   │   │   ├── spirit_who_remains_root.txt (17.1KB)
+│   │   │   ├── stott_commentary.txt (25.1KB)
+│   │   │   ├── true_false_repentance.txt (17.6KB)
+│   │   │   └── wright_commentary.txt (29.9KB)
+│   │   ├── ai-voice-calibration.md (23.4KB)
+│   │   ├── drive-sermon-inventory.md (12.5KB)
+│   │   ├── operational-lessons.md (3.4KB)
+│   │   ├── sermon-structure-templates.md (10.5KB)
+│   │   ├── voice-calibration-session-1.md (5.5KB)
+│   │   ├── voice-calibration-session-2.md (6.8KB)
+│   │   └── voice-profile.md (12.0KB)
+│   ├── 2025-06-07.md (1.7KB)
+│   ├── 2025-07-19.md (1.2KB)
+│   ├── 2026-01-26.md
+│   ├── 2026-01-27-1914.md
+│   ├── 2026-01-27-1916.md
+│   ├── 2026-01-27-context-slimming.md (1.5KB)
+│   ├── 2026-01-27.md (1.4KB)
+│   ├── 2026-01-28-grok-harvest.md (3.8KB)
+│   ├── 2026-01-28-security-audit.md (6.4KB)
+│   ├── 2026-01-28-tls-lessons.md (1.8KB)
+│   ├── 2026-01-29-arnoldos-testing.md (3.1KB)
+│   ├── 2026-01-29-dashboard-fix.md (2.6KB)
+│   ├── 2026-01-29-spicy-texts.md
+│   ├── 2026-01-29-voice-profile.md (1.8KB)
+│   ├── 2026-01-29.md (4.8KB)
+│   ├── 2026-01-30-ara-break.md (1.6KB)
+│   ├── 2026-01-30-drive-sync.md (1.7KB)
+│   ├── 2026-01-30-git-backup.md (1.9KB)
+│   ├── 2026-01-30-los-closure.md (6.1KB)
+│   ├── 2026-01-30.md (6.3KB)
+│   ├── 2026-01-31-dashboard-handoff.md (1.3KB)
+│   ├── 2026-01-31-gateway-tools.md (6.2KB)
+│   ├── 2026-01-31-ministry-organization.md (3.5KB)
+│   ├── 2026-01-31-phase3-handoff.md (2.3KB)
+│   ├── 2026-01-31-phase4-handoff.md (1.8KB)
+│   ├── 2026-01-31-sermon-pipeline.md (17.4KB)
+│   ├── 2026-01-31-workspace-cleanup.md (1.4KB)
+│   ├── 2026-01-31.md (8.7KB)
+│   ├── 2026-02-01-api-routing-prd.md (1.6KB)
+│   ├── 2026-02-01-cc-guardrails.md (2.3KB)
+│   ├── 2026-02-01-doc-update.md (1.0KB)
+│   ├── 2026-02-01-doc-updates.md
+│   ├── 2026-02-01-gateway-config.md
+│   ├── 2026-02-01-model-switch.md
+│   ├── 2026-02-01-phase4.md (2.1KB)
+│   ├── 2026-02-01-phase6-handoff.md (2.1KB)
+│   ├── 2026-02-01-recovery-commit.md (2.9KB)
+│   ├── 2026-02-01-sermon-drafts.md (2.8KB)
+│   ├── 2026-02-01-sessions-cron.md (3.5KB)
+│   ├── 2026-02-01-system-status.md
+│   ├── 2026-02-01.md (5.2KB)
+│   ├── 2026-02-02-file-browser.md
+│   ├── 2026-02-02-sermon-cron.md (1.3KB)
+│   ├── 2026-02-02-webchat-routing.md (1.3KB)
+│   └── arnoldos-proving-log.md (3.6KB)
+├── outputs/
+│   ├── brainstorm/
+│   │   └── Ephesians-2-brainstorm-2026-01-30.docx (45.5KB)
+│   └── liturgy/
+│       ├── 25-02-23_Luke_6_27-38_Love_Your_Enemies.docx (37.2KB)
+│       ├── 26-02-15_2_Peter_1_16-21_The_Spirit_Who_Speaks.docx (37.3KB)
+│       └── 26-02-22_Matthew_4_1-11_The_Spirit_Who_Leads.docx (37.3KB)
+├── scripts/
+│   ├── arnoldos-push-file.sh
+│   ├── arnoldos-sync.sh (2.4KB)
+│   ├── arnoldos.py (71.1KB)
+│   ├── backup-config-encrypted.sh (3.3KB)
+│   ├── backup-to-github.sh
+│   ├── bird-auth.sh
+│   ├── cache-cron.py (1.8KB)
+│   ├── cache-cron.sh
+│   ├── cache-gateway-status.py (4.6KB)
+│   ├── cache-gateway-status.sh
+│   ├── cache-preaching.sh
+│   ├── cache-tasks.sh
+│   ├── cache-today.sh
+│   ├── cache-tree.py (3.3KB)
+│   ├── cache-tree.sh
+│   ├── cache-week.sh
+│   ├── cc-wrapper.sh (2.9KB)
+│   ├── file-server.py (3.6KB)
+│   ├── gen-brainstorm-docx.py (4.7KB)
+│   ├── google-oauth.py (5.5KB)
+│   ├── itc-data.js (2.8KB)
+│   ├── itc-data.py (2.1KB)
+│   ├── morning-brief-data.py (13.4KB)
+│   ├── openrouter-spend-monitor.py (4.2KB)
+│   ├── proton-reminder.sh
+│   ├── scheduled-upgrade.sh
+│   ├── sermon-prep-reminder.py (4.1KB)
+│   ├── supervisor-sync.sh (2.3KB)
+│   ├── sync-memory-to-drive.sh
+│   ├── sync-projects-drive.py (5.7KB)
+│   ├── sync-projects-to-drive.sh
+│   ├── sync-public-mirror.sh (1.8KB)
+│   ├── sync-supervisor-drive.py (3.5KB)
+│   ├── sync-supervisor-to-drive.sh
+│   └── youtube-latest.sh
+├── sermons/
+│   ├── 26-01-11_Spirit_Filled_Jesus_Manuscript.docx (16.4KB)
+│   ├── February_15_2026_The_Spirit_Who_Speaks.docx (17.1KB)
+│   ├── Library.csv (3.0MB)
+│   ├── New_Romans 12_1-2_The Art of Dying to Live_Manuscript.docx (17.5KB)
+│   ├── Sermon_Jan18_2026_The_Spirit_Who_Remains.docx (11.6KB)
+│   └── Walking_in_the_Spirit_Complete.docx (2.0MB)
+├── skills/
+│   ├── arnoldos/
+│   │   └── SKILL.md (4.9KB)
+│   ├── bible-brainstorm/
+│   │   └── SKILL.md (6.3KB)
+│   ├── liturgy/
+│   │   ├── references/
+│   │   ├── scripts/
+│   │   │   ├── generate-liturgy.py (8.5KB)
+│   │   │   ├── package-lock.json
+│   │   │   ├── package.json
+│   │   │   └── rcl-lookup.js (6.4KB)
+│   │   └── SKILL.md (7.8KB)
+│   ├── sermon-writer/
+│   │   ├── references/
+│   │   │   ├── voice-card.md (6.0KB)
+│   │   │   └── voice-phrases.md (6.3KB)
+│   │   └── SKILL.md (6.9KB)
+│   └── web-scout/
+│       ├── cookies/
+│       │   ├── .gitkeep
+│       │   ├── itc-cookies.json (5.5KB)
+│       │   ├── itc-firebase.json
+│       │   └── logos-cookies.json (3.9KB)
+│       ├── lib/
+│       │   ├── detect-expiry.js
+│       │   ├── navigate.js (2.5KB)
+│       │   └── session.js (1.5KB)
+│       ├── output/
+│       │   ├── logos-books-search2.png (139.0KB)
+│       │   └── logos-search-test.png (94.0KB)
+│       ├── profiles/
+│       │   ├── cnn-fg.js (2.1KB)
+│       │   ├── finney.js (7.0KB)
+│       │   ├── itc.js (5.5KB)
+│       │   └── logos.js (6.4KB)
+│       ├── scripts/
+│       │   ├── extract-cookies.py (5.0KB)
+│       │   ├── extract-cookies.sh
+│       │   └── refresh-cookies.sh
+│       ├── .gitignore
+│       ├── package-lock.json (1.7KB)
+│       ├── package.json
+│       └── SKILL.md (4.4KB)
+├── supervisor-project/
+│   ├── PRDs/
+│   │   ├── Dashboard Command Center PRD.docx (648.4KB)
+│   │   ├── los-prd-v2.1.docx (24.0KB)
+│   │   └── Multi-Provider API Migration PRD.docx (240.2KB)
+│   ├── ClawdBot Supervision Project Instructions.docx (217.9KB)
+│   ├── Clawdbot supervisor current state.docx (193.3KB)
+│   ├── Clawdbot supervisor current state.md (21.1KB)
+│   ├── Clawdbot technical reference.docx (42.4KB)
+│   ├── Clawdbot technical reference.md (39.9KB)
+│   ├── future-integrations-roadmap.docx (17.7KB)
+│   ├── future-integrations-roadmap.md (10.9KB)
+│   ├── Gateway Architecture Learnings.docx (217.6KB)
+│   ├── los-prd-v2.1.md (19.6KB)
+│   ├── opus-project-instructions.md (5.2KB)
+│   ├── safe-change-protocol.docx (14.2KB)
+│   ├── safe-change-protocol.md (7.3KB)
+│   ├── workspace-tree.docx (12.1KB)
+│   └── workspace-tree.md (9.2KB)
+├── system/
+│   ├── clawdbot.json.template (4.0KB)
+│   ├── clawdbot.service.template
+│   ├── cloudflared-config.yml.template
+│   ├── cloudflared.service.template
+│   ├── crontab.bak
+│   ├── requirements-full.txt (2.2KB)
+│   └── requirements.txt
+├── temp/
+├── tmp/
+├── .gitignore
+├── AGENTS.md (3.8KB)
+├── grok-mika-full.txt (530.6KB)
+├── grok-mika1.txt (11.6KB)
 ├── HEARTBEAT.md
 ├── IDENTITY.md
-├── logs
-│   ├── backup.log
-│   ├── memory-sync.log
-│   ├── or-monitor.log
-│   └── upgrade-20260127-010000.log
-├── memory
-│   ├── 2025-06-07.md
-│   ├── 2025-07-19.md
-│   ├── 2026-01-26.md
-│   ├── 2026-01-27-1914.md
-│   ├── 2026-01-27-1916.md
-│   ├── 2026-01-27-context-slimming.md
-│   ├── 2026-01-27.md
-│   ├── 2026-01-28-grok-harvest.md
-│   ├── 2026-01-28-security-audit.md
-│   ├── 2026-01-28-tls-lessons.md
-│   ├── 2026-01-29-arnoldos-testing.md
-│   ├── 2026-01-29-dashboard-fix.md
-│   ├── 2026-01-29.md
-│   ├── 2026-01-29-spicy-texts.md
-│   ├── 2026-01-29-voice-profile.md
-│   ├── 2026-01-30-ara-break.md
-│   ├── 2026-01-30-drive-sync.md
-│   ├── 2026-01-30-git-backup.md
-│   ├── 2026-01-30-los-closure.md
-│   ├── 2026-01-30.md
-│   ├── 2026-01-31-dashboard-handoff.md
-│   ├── 2026-01-31-gateway-tools.md
-│   ├── 2026-01-31.md
-│   ├── 2026-01-31-ministry-organization.md
-│   ├── 2026-01-31-phase3-handoff.md
-│   ├── 2026-01-31-phase4-handoff.md
-│   ├── 2026-01-31-sermon-pipeline.md
-│   ├── 2026-01-31-workspace-cleanup.md
-│   ├── 2026-02-01-api-routing-prd.md
-│   ├── 2026-02-01-cc-guardrails.md
-│   ├── 2026-02-01-doc-update.md
-│   ├── 2026-02-01-doc-updates.md
-│   ├── 2026-02-01-gateway-config.md
-│   ├── 2026-02-01.md
-│   ├── 2026-02-01-model-switch.md
-│   ├── 2026-02-01-phase4.md
-│   ├── 2026-02-01-phase6-handoff.md
-│   ├── 2026-02-01-recovery-commit.md
-│   ├── 2026-02-01-sermon-drafts.md
-│   ├── 2026-02-01-sessions-cron.md
-│   ├── 2026-02-01-system-status.md
-│   ├── arnoldos-proving-log.md
-│   ├── cache
-│   │   ├── cron.json
-│   │   ├── gateway-status.json
-│   │   ├── or-spend-state.json
-│   │   ├── preaching.json
-│   │   ├── tasks.json
-│   │   ├── today.json
-│   │   ├── tree.json
-│   │   └── week.json
-│   ├── context
-│   │   ├── api-audit-report.md
-│   │   ├── api-migration-phase2-report.md
-│   │   ├── api-routing-prd-briefing.md
-│   │   ├── arnoldos-integration-prd.md
-│   │   ├── business-ideas.md
-│   │   ├── business-plan-bible-study-app.md
-│   │   ├── claude-code-governance.md
-│   │   ├── claude-code-usage.md
-│   │   ├── clawdbot-auth-incident-report_opus.md
-│   │   ├── clawd-dashboard-spec.md
-│   │   ├── current-configuration.md
-│   │   ├── dashboard-command-center-prd.md
-│   │   ├── doc-update-manifest.md
-│   │   ├── drive-ministry-reorg-plan.md
-│   │   ├── finney-spiritual-death.md
-│   │   ├── grok-harvest-plan.md
-│   │   ├── identity.md
-│   │   ├── incident-report-auth-2026-01-28.md
-│   │   ├── incident-report-tls-2026-01-27.md
-│   │   ├── moltbot-migration-plan.md
-│   │   ├── morning-brief-spec.md
-│   │   ├── multi-provider-api-migration-prd.md
-│   │   ├── phase2-report-opus.md
-│   │   ├── recurring-themes.md
-│   │   ├── ricks-bio.md
-│   │   ├── ricks-theological-framework.md
-│   │   ├── ricks-voice-profile.md
-│   │   ├── security-remediation-plan.md
-│   │   ├── sermon-pipeline-spec.md
-│   │   ├── supervisor-report-2026-01-29.md
-│   │   ├── supervisor-report-2026-02-01.md
-│   │   ├── supervisor-report-doc-update-system-2026-01-30.md
-│   │   ├── supervisor-report-phase2-2026-01-30.md
-│   │   ├── supervisor-report-recovery-audit-2026-02-01.md
-│   │   ├── theological-positions.md
-│   │   ├── todo.md
-│   │   ├── todo-ministry.md
-│   │   ├── tools.md
-│   │   ├── user.md
-│   │   ├── voice-profile.md
-│   │   ├── web-scout-scope.md
-│   │   └── weekly-market-report-spec.md
-│   ├── logs
-│   │   ├── claude-code-costs.log
-│   │   └── openrouter-spend.log
-│   ├── todos
-│   │   ├── finney-research-project.md
-│   │   ├── sermon-content-training-plan.md
-│   │   └── voice-profile-calibration.md
-│   └── training
-│       ├── ai-voice-calibration.md
-│       ├── drive-sermon-inventory.md
-│       ├── operational-lessons.md
-│       ├── sermon-archive
-│       ├── sermon-raw
-│       ├── sermon-structure-templates.md
-│       ├── voice-calibration-session-1.md
-│       ├── voice-calibration-session-2.md
-│       └── voice-profile.md
-├── MEMORY.md
-├── outputs
-│   ├── brainstorm
-│   │   └── Ephesians-2-brainstorm-2026-01-30.docx
-│   └── liturgy
-│       ├── 25-02-23_Luke_6_27-38_Love_Your_Enemies.docx
-│       ├── 26-02-15_2_Peter_1_16-21_The_Spirit_Who_Speaks.docx
-│       └── 26-02-22_Matthew_4_1-11_The_Spirit_Who_Leads.docx
-├── RECOVERY.md
-├── rick_profile
-│   ├── organized
-│   │   ├── segment_01_filtered.md
-│   │   ├── segment_02_filtered.md
-│   │   ├── segment_03_filtered.md
-│   │   ├── segment_04_filtered.md
-│   │   └── segment_05_filtered.md
-│   ├── progress.txt
-│   └── raw
-│       ├── chunk_001.txt
-│       ├── chunk_002.txt
-│       ├── chunk_003.txt
-│       ├── grok-chat.md
-│       ├── segment_01.txt
-│       ├── segment_02.txt
-│       ├── segment_03.txt
-│       ├── segment_04.txt
-│       └── segment_05.txt
-├── scripts
-│   ├── arnoldos.py
-│   ├── backup-config-encrypted.sh
-│   ├── backup-to-github.sh
-│   ├── bird-auth.sh
-│   ├── cache-cron.py
-│   ├── cache-cron.sh
-│   ├── cache-gateway-status.py
-│   ├── cache-gateway-status.sh
-│   ├── cache-preaching.sh
-│   ├── cache-tasks.sh
-│   ├── cache-today.sh
-│   ├── cache-tree.py
-│   ├── cache-tree.sh
-│   ├── cache-week.sh
-│   ├── cc-wrapper.sh
-│   ├── gen-brainstorm-docx.py
-│   ├── google-oauth.py
-│   ├── morning-brief-data.py
-│   ├── openrouter-spend-monitor.py
-│   ├── proton-reminder.sh
-│   ├── scheduled-upgrade.sh
-│   ├── sync-memory-to-drive.sh
-│   ├── sync-projects-drive.py
-│   ├── sync-projects-to-drive.sh
-│   ├── sync-supervisor-drive.py
-│   ├── sync-supervisor-to-drive.sh
-│   └── youtube-latest.sh
-├── sermons
-│   ├── 26-01-11_Spirit_Filled_Jesus_Manuscript.docx
-│   ├── February_15_2026_The_Spirit_Who_Speaks.docx
-│   ├── Library.csv
-│   ├── New_Romans 12_1-2_The Art of Dying to Live_Manuscript.docx
-│   ├── Sermon_Jan18_2026_The_Spirit_Who_Remains.docx
-│   └── Walking_in_the_Spirit_Complete.docx
-├── skills
-│   ├── arnoldos
-│   │   └── SKILL.md
-│   ├── bible-brainstorm
-│   │   └── SKILL.md
-│   ├── liturgy
-│   │   ├── references
-│   │   ├── scripts
-│   │   └── SKILL.md
-│   ├── sermon-writer
-│   │   ├── references
-│   │   └── SKILL.md
-│   └── web-scout
-│       ├── cookies
-│       ├── lib
-│       ├── output
-│       ├── package.json
-│       ├── package-lock.json
-│       ├── profiles
-│       ├── scripts
-│       └── SKILL.md
+├── MEMORY.md (26.8KB)
+├── RECOVERY.md (18.5KB)
 ├── SOUL.md
-├── supervisor-project
-│   ├── Clawdbot supervisor current state.md
-│   ├── Clawdbot technical reference.md
-│   ├── future-integrations-roadmap.md
-│   ├── los-prd-v2.1.md
-│   ├── opus-project-instructions.md
-│   ├── safe-change-protocol.md
-│   └── workspace-tree.md
-├── system
-│   ├── clawdbot.json.template
-│   ├── clawdbot.service.template
-│   ├── cloudflared-config.yml.template
-│   ├── cloudflared.service.template
-│   ├── crontab.bak
-│   ├── requirements-full.txt
-│   └── requirements.txt
-├── temp
-│   └── sermon-lamp.png
-├── tmp
 ├── TODO.md
 ├── TOOLS.md
 └── USER.md
 
-37 directories, 194 files
+370 files, 53 directories, 18.2MB total
+---
+Summary: 370 files, 53 directories, 18.2MB
+Generated: 2026-02-02T14:04:51-06:00

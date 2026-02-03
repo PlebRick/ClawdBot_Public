@@ -32,9 +32,10 @@ Transform the Clawd Dashboard from a read-only status viewer into a domain-organ
 | **5.5** | Add task editing (inline edit of existing tasks) | Small | ✅ Complete |
 | **6** | Add calendar read per domain | Medium | ✅ Complete |
 | **7** | Build "Today's Focus" cross-domain view | Medium | ✅ Complete |
-| **8** | Add "Start Brainstorm" button (Ministry domain) | Medium | ⬜ |
-| **9** | Add calendar event creation | Medium | ⬜ |
+| **8** | Sermon pipeline card | Medium | ✅ Complete |
+| **9** | Calendar event creation | Medium | ✅ Complete |
 | **10** | Polish & Performance | Medium | ⬜ |
+| **11** | File browser | Medium | ✅ Complete |
 
 ## JSON Schemas
 
@@ -504,3 +505,49 @@ Let Rick see Clawd's local file structure without SSH. Read-only first, write la
 ### Security
 - Restrict to `~/clawd/` only — no arbitrary path access
 - Sanitize paths server-side
+
+### Phase 8: Sermon Pipeline Card — ✅ COMPLETE (2026-02-08)
+
+**What shipped:**
+- `PreachingPipeline` component on Ministry domain page only
+- Reads from `memory/cache/preaching.json` (cached by `cache-preaching.sh` every 5 min)
+- Shows upcoming preaching dates with status badges (⬜ Not started | 📝 Brainstorm | ✏️ Draft | ✅ Final)
+- Passage display with TBD handling
+- Status derived from Drive file existence (checked by arnoldos.py)
+
+**Files:** `src/lib/api/preaching.ts`, `src/hooks/usePreaching.ts`, `src/components/preaching-pipeline.tsx`
+
+### Phase 9: Calendar Event Creation — ✅ COMPLETE (2026-02-08)
+
+**What shipped:**
+- Direct Google Calendar API writes from dashboard (matches task write pattern)
+- OAuth scope expanded: `calendar.events` added to existing tasks-only client (now "Dashboard" client)
+- `EventCreate` component: inline form with title, date, optional time, all-day toggle
+- Optimistic UI with SWR mutation + revert on error
+
+**Files created:**
+- `src/lib/google-calendar.ts` — Calendar IDs + types + getAccessToken reuse
+- `src/app/api/events/create/route.ts` — POST endpoint
+- `src/components/event-create.tsx` — Inline creation form
+
+**Files modified:**
+- `src/hooks/useCalendar.ts` — Added `createEvent` mutation
+- `src/app/(dashboard)/domains/[domain]/page.tsx` — Wired EventCreate for domains with calendars
+
+**OAuth notes:** Client renamed from "Tasks Only" to "Dashboard" in GCP. Refresh token updated in Vercel env vars.
+
+### Phase 11: File Browser — ✅ COMPLETE (2026-02-08)
+
+**What shipped:**
+- New `/browser` page with tree view of `~/clawd/`
+- File server on port 18790 (`clawd-files.service`)
+- Cloudflare path routing: `/files/*` → file server
+- Bearer token auth via `FILE_SERVER_TOKEN`
+- Click-to-preview for text files
+- Expand/collapse folders
+- Read-only (no upload/delete)
+
+**Files:**
+- `scripts/file-server.js` — Express static server
+- `system/clawd-files.service.template` — systemd user service
+- Dashboard: `/browser` page with tree component

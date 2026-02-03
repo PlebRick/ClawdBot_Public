@@ -229,6 +229,47 @@ def get_btc_fear_greed():
         return {"ok": False, "error": str(ex)}
 
 
+
+def get_cnn_fear_greed():
+    """CNN Fear & Greed Index via Web Scout headless browser."""
+    import subprocess
+    try:
+        result = subprocess.run(
+            ["node", os.path.expanduser("~/clawd/skills/web-scout/profiles/cnn-fg.js")],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+        if result.returncode != 0:
+            return {"ok": False, "error": f"Web Scout failed: {result.stderr[:100]}"}
+        
+        data = json.loads(result.stdout)
+        index = data.get("data", {}).get("index", 0)
+        label = data.get("data", {}).get("label", "unknown")
+        components = data.get("data", {}).get("components", {})
+        
+        # Flag extremes
+        extreme = None
+        if index <= 25:
+            extreme = "EXTREME FEAR"
+        elif index >= 75:
+            extreme = "EXTREME GREED"
+        
+        return {
+            "ok": True,
+            "index": index,
+            "label": label,
+            "extreme": extreme,
+            "components": components
+        }
+    except subprocess.TimeoutExpired:
+        return {"ok": False, "error": "CNN F&G timeout (30s)"}
+    except json.JSONDecodeError as e:
+        return {"ok": False, "error": f"JSON parse error: {e}"}
+    except Exception as ex:
+        return {"ok": False, "error": str(ex)}
+
+
 def get_yahoo_quote(symbol):
     """Get a stock/futures quote from Yahoo Finance v8 API."""
     try:
@@ -320,6 +361,7 @@ def main():
         "youtube": {"ok": False, "error": "no creds"},
         "btc": get_btc_price(),
         "btc_fear_greed": get_btc_fear_greed(),
+        "cnn_fear_greed": get_cnn_fear_greed(),
         "market_quotes": get_market_quotes(),
         "recession": get_recession_indicators(),
         "lectionary": get_lectionary(),

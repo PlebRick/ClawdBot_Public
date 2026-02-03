@@ -1,6 +1,6 @@
 # ClawdBot Supervisor — Current State
 
-**Last Updated:** February 1, 2026 (API Migration complete)
+**Last Updated:** February 8, 2026 (Dashboard Phase 9, File Browser, Quick Capture)
 **Supervisor:** Claude (Opus)
 **Principal:** Rick (Chaplain)
 
@@ -99,7 +99,7 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 | Morning Brief Cron | ✅ Running | 4:30 AM CST daily, ArnoldOS data integrated |
 | Ara Check-in Cron | ✅ Running | 11 AM + 4 PM CST daily |
 | Weekly Market Report | ✅ Running | Fridays 4:00 AM CST |
-| arnoldos.py script | ✅ Working | All 7 calendars, tasks, Drive, supervised writes |
+| arnoldos.py script | ✅ Working | All 7 calendars, tasks, Drive, supervised writes, quick capture |
 | arnoldos skill | ✅ Tested | 10/10 detection prompts passed |
 | sermon-writer skill | ✅ Tested | 10/10 detection, 3.5/5 voice rating |
 | bible-brainstorm skill | ✅ Tested | All 5 phases working, .docx output |
@@ -124,6 +124,11 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 | Cache: calendar today | ✅ Running | Every 60s (staggered +30s) — cache-today.sh → memory/cache/today.json |
 | Cache: calendar week | ✅ Running | Every 5 min — cache-week.sh → memory/cache/week.json |
 | Google Tasks OAuth (dashboard) | ✅ Working | Separate scoped client, tasks-only, Vercel env vars |
+| File Server | ✅ Running | Port 18790, Cloudflare path routing /files/* |
+| CNN F\&G in Morning Brief | ✅ Running | Integrated into 4:30 AM cron |
+| Sermon Prep Reminder | ✅ Running | Mondays 8 AM, Gemini Flash |
+| Public Mirror Auto-Sync | ✅ Running | Every 6 hours → github.com/PlebRick/ClawdBot_Public |
+| Dashboard Calendar Write | ✅ Working | OAuth scope expanded, Phase 9 complete |
 
 ---
 
@@ -158,6 +163,10 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 | 2026-02-01 | API Migration complete — OpenRouter multi-provider, OAuth kept as backup | Rick + Claude |
 | 2026-02-01 | CC Guardrails active — cc-wrapper.sh with 30-min timeout, cost logging | Rick + Claude |
 | 2026-02-01 | Spend monitoring cron — every 5 min, Telegram alerts at thresholds | Rick + Claude |
+| 2026-02-08 | File server architecture (port 18790, CF path routing) | Rick + Claude |
+| 2026-02-08 | Quick capture arnoldos.py command (70+ keywords) | Rick + Claude |
+| 2026-02-08 | Dashboard Phase 9 (calendar write) complete | Rick + Claude |
+| 2026-02-08 | Public mirror auto-sync every 6 hours | Rick + Claude |
 
 ---
 
@@ -242,9 +251,10 @@ ClawdBot (orchestrator on host machine)
 | 5.5 | Task editing (inline, title + due date) | ✅ |
 | 6 | Calendar read per domain | ✅ |
 | 7 | Today's Focus (cross-domain aggregation) | ✅ |
-| 8 | Sermon prep button (Ministry) | ⬜ Next |
-| 9 | Calendar event creation | ⬜ |
+| 8 | Sermon pipeline card | ✅ |
+| 9 | Calendar event creation | ✅ |
 | 10 | Polish & performance | ⬜ |
+| 11 | File browser | ✅ |
 
 ### Key Architecture
 

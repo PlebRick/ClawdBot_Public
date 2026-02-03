@@ -122,3 +122,38 @@ For each creator: 1-3 sentence summary of their key take this week. If no new co
 ## Logging
 - Log each delivery to `memory/arnoldos-proving-log.md`
 - Note any data source failures for debugging
+
+---
+
+## ITC Integration (Added 2026-02-02)
+
+### Data Fetcher
+```bash
+python3 scripts/itc-data.py
+# or
+node scripts/itc-data.js
+```
+
+### Available Metrics
+- **BTC Risk Level** — `/assets/bitcoin/risk` page
+- **Interest Rate / Macro** — `/charts/interest-rate` (recession indicators, Fed data)
+- **MVRV-Z Score** — `/charts/mvrv-z-score` (on-chain valuation)
+- **Fear & Greed** — `/charts/fear-greed-index` (ITC's version)
+
+### Session Management
+- ITC uses Firebase auth (IndexedDB token injection)
+- Session tokens stored in `skills/web-scout/cookies/itc-firebase.json`
+- If session expires, `itc-data.py` sends Telegram alert to Rick
+- Report continues without ITC data (graceful degradation)
+
+### Weekly Report Usage
+The weekly market cron should call `python3 scripts/itc-data.py` and include:
+1. BTC Risk value (if available)
+2. Note which ITC pages were accessible
+3. Flag if session expired (needs re-login)
+
+### To Re-authenticate ITC
+1. Log into https://app.intothecryptoverse.com in Chrome
+2. Use DevTools > Application > IndexedDB > firebaseLocalStorageDb
+3. Copy the auth user object
+4. Update `skills/web-scout/cookies/itc-firebase.json`

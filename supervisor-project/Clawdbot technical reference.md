@@ -2,8 +2,8 @@
 
 ## Complete Architecture & Capabilities Documentation
 
-**Version**: 1.5
-**Date**: February 7, 2026
+**Version**: 1.6
+**Date**: February 8, 2026
 **Author**: Claude (Opus) as ClawdBot Supervisor
 **Purpose**: Comprehensive reference for ClawdBot supervision, derived from direct technical education by ClawdBot
 
@@ -1089,3 +1089,113 @@ url = img["image_url"]["url"]  # data:image/png;base64,...
 - Credentials: `~/.clawdbot/bird-env` (sourced by `scripts/bird-auth.sh`)
 - Account: @FaithFreedmBTC
 - Usage: `source ~/.clawdbot/bird-env && bird <command>`
+
+---
+
+## 15. File Server Infrastructure
+
+### Overview
+
+Lightweight Express static file server serving `~/clawd/` for dashboard file browser and external access.
+
+**Port:** 18790
+**URL:** `https://ai.btctx.us/files/*` (via Cloudflare path routing)
+**Service:** `clawd-files.service` (systemd user service)
+
+### Architecture
+
+```
+Browser
+  → ai.btctx.us/files/memory/context/foo.md
+    → Cloudflare Tunnel (path routing)
+      → localhost:18790/memory/context/foo.md
+        → Express static server
+          → ~/clawd/memory/context/foo.md
+```
+
+### Security
+- Bearer token auth via `FILE_SERVER_TOKEN` env var
+- Scoped to `~/clawd/` only (no arbitrary path access)
+- Read-only (no upload/delete endpoints)
+
+### Cloudflare Config (`/etc/cloudflared/config.yml`)
+```yaml
+ingress:
+  - hostname: ai.btctx.us
+    path: /files/*
+    service: http://localhost:18790
+    originRequest:
+      httpHostHeader: ai.btctx.us
+  - hostname: ai.btctx.us
+    service: https://localhost:18789
+    originRequest:
+      noTLSVerify: true
+  - service: http_status:404
+```
+
+### Service Management
+```bash
+systemctl --user status clawd-files
+systemctl --user restart clawd-files
+journalctl --user -u clawd-files -n 50
+```
+
+---
+
+## 16. Quick Capture (arnoldos.py)
+
+### Command
+```bash
+python3 arnoldos.py quick "<text>" [--domain DOMAIN]
+```
+
+### Domain Inference
+70+ keywords map to domains automatically:
+- **Chapel:** service, liturgy, sermon, preaching, communion, baptism...
+- **Ministry:** counseling, hospital visit, funeral, wedding...
+- **Trading:** bitcoin, market, chart, analysis, portfolio...
+- **Dev:** code, bug, deploy, github, api...
+- **Family:** kids, dinner, school, vacation...
+- **Personal:** gym, doctor, haircut, meditation...
+
+### Output (--json)
+```json
+{
+  "command": "quick",
+  "success": true,
+  "inferred_domain": "CHAPEL",
+  "matched_keywords": ["sermon", "sunday"],
+  "created": {
+    "type": "task",
+    "title": "[CHAPEL] Prepare sermon for Sunday",
+    "id": "abc123"
+  }
+}
+```
+
+### Time Detection
+If text contains time patterns (2pm, 14:00, tomorrow 3pm), creates calendar event instead of task.
+
+---
+
+## 17. Public Mirror Sync
+
+### Purpose
+Sanitized public copy of workspace for sharing, documentation, and open-source contributions.
+
+### Repos
+- **Private:** `github.com/PlebRick/ClawdBot_Backup` (full workspace)
+- **Public:** `github.com/PlebRick/ClawdBot_Public` (sanitized mirror)
+
+### Script
+`~/clawd/scripts/sync-to-public.sh`
+
+### Schedule
+Every 6 hours via crontab (`0 */6 * * *`)
+
+### Sanitization
+- Strips API keys, tokens, passwords
+- Removes personal identifiers
+- Excludes: `cookies/`, `.env`, `*.sqlite`, session logs
+- Preserves: scripts, skills, docs, PRDs, specs
+
