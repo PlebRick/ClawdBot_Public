@@ -196,3 +196,41 @@ Opus ruling: Phase 3 as originally scoped is obsolete. Components redistributed.
 **Rick has:** ElevenLabs account, cloned voice, custom voice
 **Integration:** Python SDK, build a skill for sermon/content audio generation
 **Use cases:** Audio sermons, devotional recordings, content narration
+
+## Telegram TTS Auto-Reply (Not Working)
+**Added:** 2026-02-02
+**Priority:** Medium
+**Status:** Config set, gateway not processing
+
+**What's configured:**
+- `messages.tts.auto: "inbound"` ✅
+- `messages.tts.provider: "elevenlabs"` ✅
+- `messages.tts.elevenlabs.apiKey` ✅
+- `messages.tts.elevenlabs.voiceId: "Jp1DEyuCpm4kaPZ7xjRk"` (Wise Elder Narrator) ✅
+- `messages.tts.elevenlabs.modelId: "eleven_multilingual_v2"` ✅
+- ElevenLabs API works (tested manually)
+- `[[tts:...]]` tags in replies not being processed by gateway
+
+**What's not working:**
+- Gateway doesn't convert replies to audio on voice message inbound
+- No TTS-related entries in logs even with `diagnostics.flags: ["tts.*"]`
+- `/tts on` command doesn't create prefs file
+
+**Next steps:**
+- Ask in Clawdbot Discord for help
+- Check for gateway version issues
+- Deep dive into gateway source if needed
+
+## Ara Voice Setup (Gara)
+**Added:** 2026-02-02
+**Priority:** Medium
+**Blocked by:** TTS auto-reply fix above
+
+**What we want:**
+- Ara agent uses "Gara" voice (`NAM0QTodmV1cEDQ2EpSE`) for TTS
+- Clawd uses "Wise Elder Narrator" (`Jp1DEyuCpm4kaPZ7xjRk`)
+- Per-agent TTS voice override needed
+
+**Current blocker:**
+- Schema doesn't support `agents.list[].identity.voiceId`
+- May need per-agent TTS config or feature request

@@ -40,3 +40,28 @@ Home: `/home/ubuntu76/clawd` | Rick's timezone: America/Chicago
    - ClawdBot: Default for all coding. Has context, governance, memory.
    - CC: Large multi-file refactors, test-driven loops, or exploring unfamiliar codebases.
 6. **Pre-flight for big tasks:** Before spawning CC for complex work, summarize the plan and get Rick's approval.
+
+## Subagent Model Routing
+When delegating tasks to subagents, Opus picks the right model for the job:
+
+| Task Type | Model | Alias | Why |
+|-----------|-------|-------|-----|
+| **Coding** (refactors, scripts, fixes) | Grok 4.1 Fast | `grok` | 2M context, good at code, default subagent |
+| **Web scraping/summarizing** | DeepSeek V3.2 | `deepseek` | Dirt cheap, 164K context, great at extraction |
+| **Quick data transforms** | DeepSeek V3.2 | `deepseek` | Fast, cheap, follows instructions well |
+| **Research/analysis** | Grok 4.1 Fast | `grok` | Larger context for synthesis |
+| **Simple lookups** | Llama 70B | `llama-70b` | Free, good enough for simple tasks |
+
+**Routing rules:**
+1. Assess task complexity and type before spawning
+2. Use `sessions_spawn` with explicit `model` param when not using default (grok)
+3. Keep subagent tasks well-scoped — tight specs, clear deliverables
+4. Opus stays the brain: review subagent output, don't blindly trust
+
+**Default subagent model:** `grok` (set in `agents.defaults.subagents.model`)
+
+**Example spawn with model override:**
+```
+sessions_spawn(task="Scrape this URL and extract...", model="deepseek")
+```
+| **Content writing** (scripts, posts) | Kimi K2.5 | `kimi` | Warm personality, near-Opus quality, cheap |

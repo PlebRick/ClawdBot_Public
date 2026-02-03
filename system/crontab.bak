@@ -9,4 +9,6 @@
 * * * * * sleep 30 && /home/ubuntu76/clawd/scripts/cache-today.sh
 0 2 * * * /home/ubuntu76/clawd/scripts/backup-config-encrypted.sh >> /home/ubuntu76/clawd/logs/config-backup.log 2>&1
 */5 * * * * /usr/bin/python3 /home/ubuntu76/clawd/scripts/openrouter-spend-monitor.py >> /home/ubuntu76/clawd/logs/or-monitor.log 2>&1
-*/15 * * * * /home/ubuntu76/clawd/scripts/arnoldos-sync.sh pull >> /home/ubuntu76/clawd/memory/logs/arnoldos-sync.log 2>&1
+*/15 * * * * /home/ubuntu76/clawd/scripts/arnoldos-sync.sh sync >> /home/ubuntu76/clawd/memory/logs/arnoldos-sync.log 2>&1
+*/15 * * * * /home/ubuntu76/clawd/scripts/supervisor-sync.sh pull >> /home/ubuntu76/clawd/memory/logs/supervisor-sync.log 2>&1
+0 */6 * * * /home/ubuntu76/clawd/scripts/sync-public-mirror.sh >> /home/ubuntu76/clawd/logs/public-mirror-sync.log 2>&1
