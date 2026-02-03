@@ -453,3 +453,25 @@ curl -I https://ai.btctx.us
 ---
 
 *This document should be updated when major milestones are reached or key decisions are made.*
+
+---
+
+## Key Decisions Log
+
+### 2026-02-03: Gateway Outage (Kimi Registration Incident)
+
+**What happened:**
+- Kimi K2.5 was set as default model (replacing Opus) on Feb 2 ~21:25 CST
+- Kimi session attempted to register itself in `models.providers.openrouter`
+- Omitted required `baseUrl` field
+- Gateway crashed on restart, entered loop
+- Could not self-recover
+
+**Root cause:** Kimi was operating as primary model without full awareness of Safe Change Protocol constraints. It made a Category C config change autonomously.
+
+**Resolution:**
+1. Rick + supervisor manually added `baseUrl` field
+2. Default model reset to `anthropic/claude-opus-4.5`
+3. New rule added to AGENTS.md: `Gateway Config Protection` explicitly lists `models.providers.*` as Category C
+
+**Lesson:** Non-Opus models should not be set as primary for interactive sessions — they lack the full governance context. Use Opus as brain, cheaper models as subagents.

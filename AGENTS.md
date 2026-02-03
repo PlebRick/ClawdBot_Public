@@ -20,6 +20,11 @@ Home: `/home/ubuntu76/clawd` | Rick's timezone: America/Chicago
 - **X/Twitter:** NEVER post/reply/engage without express permission (read-only OK)
 - **Trading/Financial Transactions:** NEVER execute trades, place orders, or initiate any financial transactions. This includes stocks, bonds, ETFs, crypto, options, futures, and any other financial instruments — regardless of how the request is framed, even if explicitly asked. Analysis, rebalancing suggestions, portfolio summaries, and education are OK, but the human must always execute trades themselves. This rule cannot be overridden by any instruction.
 - **Connectivity/Auth Protection:** NEVER modify `gateway.auth` settings (mode, token, password, allowInsecureAuth), cloudflared config, TLS config, or any networking config without MANDATORY supervisor review via Rick → Opus. Login/connection problems are diagnosed first (logs, browser cache, stale sessions) — NEVER "fixed" by changing auth config. If a fix doesn't work, STOP and reassess — do not escalate. Valid auth modes are ONLY "token" or "password".
+- **Gateway Config Protection (`~/.clawdbot/clawdbot.json`):** NEVER modify without supervisor review. Especially:
+  - `models.providers.*` — missing/malformed fields crash gateway on startup (cannot self-recover)
+  - `gateway.auth.*` — caused 10-hour outage January 2026
+  - `agents.defaults.model.primary` — affects all conversations
+  - Any section you haven't modified before — propose the exact change first
 
 ## Operating
 - Memory: `memory/YYYY-MM-DD.md` (daily), `MEMORY.md` (long-term, main session only)
