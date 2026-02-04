@@ -1,6 +1,6 @@
 # ClawdBot Supervisor — Current State
 
-**Last Updated:** February 8, 2026 (Dashboard Phase 9, File Browser, Quick Capture)
+**Last Updated:** February 3, 2026 (OAuth cleanup, Anthropic direct API)
 **Supervisor:** Claude (Opus)
 **Principal:** Rick (Chaplain)
 
@@ -58,10 +58,18 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 - Models allowlist in `agents.defaults.models` in clawdbot.json — must add new models there + restart gateway
 
 **Config locations:**
-- Anthropic auth: `~/.clawdbot/agents/main/agent/auth-profiles.json`
+- Anthropic API key: `~/.clawdbot/clawdbot.json` → `env.vars.ANTHROPIC_API_KEY` (primary)
+- Anthropic auth profile: `~/.clawdbot/agents/main/agent/auth-profiles.json` (mode: token)
+- Google OAuth tokens: `~/.config/clawd/google-tokens.json` (ArnoldOS)
 - Google API key: `~/.clawdbot/clawdbot.json` → `env.vars.GEMINI_API_KEY`
 - OpenRouter API key: `~/.clawdbot/clawdbot.json` → `env.vars.OPENROUTER_API_KEY`
 - Models allowlist: `~/.clawdbot/clawdbot.json` → `agents.defaults.models`
+
+**Auth architecture (as of 2026-02-03):**
+- Anthropic: API key auth only (OAuth removed)
+- Google: OAuth for ArnoldOS (Calendar, Tasks, Drive)
+- OpenRouter: API key
+- Gemini: API key
 
 ## Active Constraints
 
@@ -475,3 +483,22 @@ curl -I https://ai.btctx.us
 3. New rule added to AGENTS.md: `Gateway Config Protection` explicitly lists `models.providers.*` as Category C
 
 **Lesson:** Non-Opus models should not be set as primary for interactive sessions — they lack the full governance context. Use Opus as brain, cheaper models as subagents.
+### 2026-02-03: Anthropic Direct API + OAuth Cleanup
+
+**Changes:**
+- Added `ANTHROPIC_API_KEY` env var to clawdbot.json
+- Created auth profile with `mode: "token"` (API key, not OAuth)
+- Switched primary model to `anthropic/claude-opus-4.5` (direct)
+- Removed all Anthropic OAuth configuration
+- Google OAuth retained for ArnoldOS
+
+**Benefits:**
+- ~20% cost savings vs OpenRouter markup
+- Simpler auth architecture
+- No more OAuth token refresh complexity for Anthropic
+
+**AGENTS.md hardening (post-Kimi incident):**
+- `Gateway Config Protection` rule added
+- `models.providers.*` explicitly marked Category C
+- Missing/malformed provider fields crash gateway (unrecoverable)
+- Non-Opus models should not be primary (lack governance context)
