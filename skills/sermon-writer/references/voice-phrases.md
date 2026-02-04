@@ -1,7 +1,14 @@
-# Voice Phrases Catalog — Rick's Actual Language
+﻿# Voice Phrases Catalog — Rick's Actual Language
 # Organized by rhetorical function. Use as lookup during sermon writing.
 # Source: Claude.ai Sermon Enhancer project + ClawdBot calibration guide, merged and deduplicated.
 # Banned phrases removed. See voice-card.md DO NOT list for full ban list.
+
+
+
+
+
+
+
 
 ## Opening Hooks
 - "Have you ever stopped to consider why it is that..."
@@ -12,6 +19,13 @@
 - Scene-setting (present tense, cinematic): "Noon. The sun is brutal."
 - Big Question / Paradox opening
 - Historical Chain: Augustine → Luther → Wesley — weight through succession
+
+
+
+
+
+
+
 
 ## Structural Transitions
 - "So the first thing we see is..."
@@ -28,12 +42,26 @@
 - "So how do we..."
 - "Notice:"
 
+
+
+
+
+
+
+
 ## Naming What You See
 - "That is a picture of God's grace."
 - "That is the power of God's grace."
 - "That is God's grace in action."
 - "That is the paradox of the gospel."
 - Pattern: "That is a picture of..." / "That is the power of..."
+
+
+
+
+
+
+
 
 ## Transitions to Application
 - "So how does this apply to us?"
@@ -42,11 +70,25 @@
 - "What does God expect from us?"
 - "What should my response be?"
 
+
+
+
+
+
+
+
 ## Direct Address Shifts
 - "Here's what I want us to notice."
 - "Here's what I want us to see."
 - "Here's the reality check."
 - "Now here's a question for us:"
+
+
+
+
+
+
+
 
 ## Anticipated Objections (Finney-style)
 - "Someone might say..."
@@ -55,10 +97,24 @@
 - "The objection here is obvious:"
 - "I can hear the pushback already:"
 
+
+
+
+
+
+
+
 ## Callbacks
 - "Remember what we said about..."
 - "As I said before..."
 - "Again we are reminded..."
+
+
+
+
+
+
+
 
 ## Slowing Down for Reflection
 - "I mean, if we really stop and think about it..."
@@ -69,6 +125,13 @@
 - "Meditate on that."
 - "That should pierce our hearts."
 
+
+
+
+
+
+
+
 ## Expressing Wonder/Awe
 - "I love this."
 - "I never cease to be amazed by..."
@@ -76,20 +139,48 @@
 - "It's hard to fathom..."
 - "We can never exhaust the mystery of..."
 
+
+
+
+
+
+
+
 ## Urgency Without Manipulation
 - "Today is the day of salvation."
 - "We must all stand before God and give an account."
 - "This is a weighty matter with an eternal consequence."
 - "We cannot afford to take it lightly."
 
+
+
+
+
+
+
+
 ## Naming Cultural/Spiritual Drift
 - "Something has gone terribly wrong."
 - "Today we call good evil and evil good."
+
+
+
+
+
+
+
 
 ## Challenging Complacency
 - "We often settle for so much less than what God has for us."
 - "We are as close to God as we want to be."
 - "What many view as radical should be ordinary."
+
+
+
+
+
+
+
 
 ## Preaching Hard Truth with Love
 - "This is convicting..."
@@ -100,22 +191,57 @@
 - "The Spirit doesn't say this to condemn us but to convict us."
 - "I'm not saying this to condemn you. The Spirit convicts us because he loves us."
 
+
+
+
+
+
+
+
 ## Light Moments / Release of Tension
 - "And I'm preaching to myself here..."
 - "I struggle with this."
+
+
+
+
+
+
+
 
 ## Correcting Misunderstanding
 - "This passage is often misunderstood..."
 - "Many people overlook this..."
 
+
+
+
+
+
+
+
 ## Connecting to Daily Life
 - "Think about when you're at work and..."
 - "Now suppose..."
+
+
+
+
+
+
+
 
 ## Introducing Quotes/Sources
 - "One commentator describes it this way..."
 - "According to..."
 - Credit by name, explain insight, then own it: "changed how I think about this."
+
+
+
+
+
+
+
 
 ## Gospel Invitation
 - "You may feel far from God, but he is not far from you."
@@ -125,14 +251,35 @@
 - "Jesus, I give you my life."
 - "Jesus, I surrender my heart and will to you."
 
+
+
+
+
+
+
+
 ## Ending with Hope (After Conviction)
 - "But here's the good news..."
 - "This message should not lead us to despair but to desperation for God."
+
+
+
+
+
+
+
 
 ## Closing the Sermon
 - "As we leave from here..."
 - "Let's respond to God's word with..."
 - Binary close — no escape hatch.
+
+
+
+
+
+
+
 
 ## Signature Theological Phrases (use sparingly)
 - "There is nothing more valuable than an eternal soul."
@@ -145,9 +292,23 @@
 - "If we are walking in the Spirit, our presence brings light."
 - "The gospel is not advice. It is power."
 
+
+
+
+
+
+
+
 ## Prison-Specific (Chapel)
 - "I could have easily been in prison..."
 - Direct identification with their situation — authentic, not performative.
+
+
+
+
+
+
+
 
 ## Landing Phrases (Short Punches)
 - "This is huge."
@@ -157,6 +318,13 @@
 - "I love this."
 - "Why?"
 - "Nothing more. Nothing less."
+
+
+
+
+
+
+
 
 ## BANNED — Do NOT Use
 - "Did you catch that?"

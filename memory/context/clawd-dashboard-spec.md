@@ -1,8 +1,11 @@
-# Clawd Dashboard — Product Spec
+﻿# Clawd Dashboard — Product Spec
+
 
 ## 1. Overview
 
+
 **Clawd Dashboard** is a web-based control panel for Clawdbot, Rick's always-on AI assistant running on a System76 Ubuntu laptop. Today, Rick interacts with Clawd primarily via Telegram and has no visual overview of system health, sessions, memory, cron jobs, or costs. The dashboard provides at-a-glance status, memory browsing, task management, and quick actions — all from a browser, anywhere.
+
 
 **Why it matters:**
 - No SSH or CLI needed to check on Clawd's health
@@ -10,9 +13,12 @@
 - Edit memory/TODO files without Telegram back-and-forth
 - Manage cron jobs and trigger actions with one click
 
+
 ---
 
+
 ## 2. Tech Stack
+
 
 | Layer | Choice |
 |-------|--------|
@@ -24,14 +30,19 @@
 | API layer | Gateway HTTP endpoints + `/tools/invoke` proxy |
 | Auth | Token-based middleware gate (single user) |
 
+
 ---
+
 
 ## 3. Pages & Features (Prioritized)
 
+
 ### P0 — MVP (Weekend Build)
+
 
 #### 3.1 Status Overview (`/`)
 The home page. Single-screen health dashboard.
+
 
 - **Gateway status**: online/offline indicator (via `GET /health` or `/tools/invoke` with `health` tool)
 - **Current model**: display active model name
@@ -41,38 +52,50 @@ The home page. Single-screen health dashboard.
 - **Daily cost estimate**: if available from status/usage data
 - **System info**: hostname, OS, node version
 
+
 Data source: `POST /tools/invoke` with `tool: "gateway"`, `tool: "sessions_list"`, `tool: "session_status"`
+
 
 #### 3.2 Memory Browser (`/memory`)
 Browse, search, and edit memory files in the workspace.
+
 
 - **File tree**: list files under `memory/` directory
 - **File viewer**: syntax-highlighted markdown viewer
 - **Edit mode**: textarea editor with save button
 - **Search**: full-text search across memory files (via `memory_search` tool or `read` + grep)
 
+
 Data source: `POST /tools/invoke` with `tool: "read"` (list/read files), `tool: "write"` / `tool: "edit"` (save)
+
 
 #### 3.3 TODO Viewer (`/todos`)
 Visual checklist synced with `memory/context/todo.md`.
+
 
 - **Checklist UI**: render `- [ ]` / `- [x]` as interactive checkboxes
 - **Toggle items**: click to check/uncheck, writes back to file
 - **Add items**: inline input to append new TODOs
 - **Categories**: parse headings as sections
 
+
 Data source: `POST /tools/invoke` with `tool: "read"` to fetch, `tool: "edit"` to update
+
 
 #### 3.4 Active Sessions (`/sessions`)
 List all conversation sessions.
+
 
 - **Session list**: key, channel, last activity, message count
 - **Filter**: by channel (telegram, whatsapp, etc.)
 - **Session detail**: click to view recent messages/history
 
+
 Data source: `POST /tools/invoke` with `tool: "sessions_list"`, `args: { action: "json" }`
 
+
 ### P1 — Post-MVP
+
 
 #### 3.5 Cron Job Manager (`/cron`)
 - **Job list**: name, schedule, enabled/disabled, last run, next run
@@ -80,21 +103,27 @@ Data source: `POST /tools/invoke` with `tool: "sessions_list"`, `args: { action:
 - **Run history**: view last N executions and output
 - **Add job**: form to create new cron entries
 
+
 Data source: `POST /tools/invoke` with `tool: "cron"`, various actions
+
 
 #### 3.6 Logs & Activity Feed (`/logs`)
 - **Live tail**: auto-refreshing log viewer (poll every 5s)
 - **Filter**: by level (info/warn/error), by keyword
 - **Time range**: last hour / last day / custom
 
+
 Data source: `POST /tools/invoke` with `tool: "gateway"` + logs action, or direct log tail RPC
+
 
 #### 3.7 Browser Tabs Viewer (`/browser`)
 - **Tab list**: URL, title, favicon for each open tab
 - **Screenshot**: capture current tab screenshot
 - **Quick actions**: open URL, close tab
 
+
 Data source: `POST /tools/invoke` with `tool: "browser"`, `args: { action: "tabs" }`
+
 
 #### 3.8 Quick Actions (`/actions` or sidebar widget)
 One-click buttons:
@@ -104,7 +133,9 @@ One-click buttons:
 - **Clear sessions** — session management
 - **Force model refresh** — reload model status
 
+
 ### P2 — Future
+
 
 - **Cost tracking over time** (chart with daily/weekly spend)
 - **Multi-agent view** (if multiple agents configured)
@@ -113,17 +144,24 @@ One-click buttons:
 - **Config editor** (edit `clawdbot.json` with validation)
 - **Mobile-optimized layout**
 
+
 ---
+
 
 ## 4. API Integration
 
+
 ### Primary: `/tools/invoke` (HTTP POST)
+
 
 The dashboard uses the Gateway's tool invoke endpoint as its primary API. This is **always enabled** and respects Gateway auth + tool policy.
 
+
 **Base URL**: `https://ai.btctx.us` (Cloudflare tunnel to localhost:18789)
 
+
 **Pattern for all calls:**
+
 
 ```typescript
 async function invokeGatewayTool(tool: string, args: Record<string, any> = {}) {
@@ -140,7 +178,9 @@ async function invokeGatewayTool(tool: string, args: Record<string, any> = {}) {
 }
 ```
 
+
 ### Key tool → endpoint mappings
+
 
 | Dashboard Feature | Tool | Args |
 |---|---|---|
@@ -157,36 +197,49 @@ async function invokeGatewayTool(tool: string, args: Record<string, any> = {}) {
 | Exec command | `exec` | `{ command: "..." }` |
 | Logs | `gateway` | `{ action: "logs" }` |
 
+
 ### Secondary: `/v1/responses` (Chat)
 
+
 For an optional embedded chat widget, use the OpenResponses endpoint:
+
 
 ```
 POST /v1/responses
 { "model": "clawdbot:main", "input": "...", "stream": true }
 ```
 
+
 This requires `gateway.http.endpoints.responses.enabled: true` in config.
 
+
 ### CORS
+
 
 The Gateway runs behind a Cloudflare tunnel (`ai.btctx.us`). Vercel-deployed frontend will make cross-origin requests. Options:
 1. **Next.js API routes as proxy** (recommended) — all Gateway calls go through `/api/gateway/[...path]` route handlers, avoiding CORS entirely
 2. Configure CORS headers on the Cloudflare tunnel (if supported)
 
+
 **Recommended: Use Next.js API routes as a proxy.** This also keeps the Gateway token server-side.
+
 
 ---
 
+
 ## 5. Authentication
+
 
 ### Approach: Single-user token gate
 
+
 Since this is a personal dashboard (one user: Rick), use a simple password/token gate:
+
 
 ```
 DASHBOARD_PASSWORD=<secret>
 ```
+
 
 #### Flow:
 1. User visits dashboard → sees login page
@@ -196,16 +249,19 @@ DASHBOARD_PASSWORD=<secret>
 5. Middleware checks cookie on all `/api/*` and page routes
 6. Logout clears cookie
 
+
 #### Implementation:
 - `middleware.ts` — checks for valid session cookie, redirects to `/login` if missing
 - `/api/auth/login` — validates password, sets cookie
 - `/api/auth/logout` — clears cookie
 - No database needed; stateless JWT
 
+
 ```typescript
 // middleware.ts
 import { NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
+
 
 export async function middleware(request: Request) {
   const cookie = request.cookies.get('clawd-session');
@@ -218,16 +274,22 @@ export async function middleware(request: Request) {
   }
 }
 
+
 export const config = { matcher: ['/((?!login|_next|favicon).*)'] };
 ```
 
+
 ---
+
 
 ## 6. Deployment
 
+
 ### Vercel Configuration
 
+
 **Environment Variables:**
+
 
 | Variable | Description | Example |
 |---|---|---|
@@ -235,6 +297,7 @@ export const config = { matcher: ['/((?!login|_next|favicon).*)'] };
 | `GATEWAY_TOKEN` | Gateway auth token | `your-gateway-token` |
 | `DASHBOARD_PASSWORD` | Login password | `your-dashboard-password` |
 | `JWT_SECRET` | Cookie signing secret (32+ chars) | `random-secret-string` |
+
 
 **`vercel.json`** (optional):
 ```json
@@ -244,19 +307,24 @@ export const config = { matcher: ['/((?!login|_next|favicon).*)'] };
 }
 ```
 
+
 ### Deployment steps:
 1. `npx create-next-app@latest clawd-dashboard --typescript --tailwind --app --src-dir`
 2. `npx shadcn@latest init`
 3. Set env vars in Vercel project settings
 4. `vercel deploy` or connect GitHub repo for auto-deploy
 
+
 ### Domain:
 - Default: `clawd-dashboard.vercel.app`
 - Custom: `dash.btctx.us` (add CNAME in Cloudflare)
 
+
 ---
 
+
 ## 7. Phase Plan
+
 
 ### Phase 1: MVP (Weekend — Day 1-2)
 - [x] Project setup (Next.js + Tailwind + shadcn/ui)
@@ -267,11 +335,13 @@ export const config = { matcher: ['/((?!login|_next|favicon).*)'] };
 - [ ] TODO viewer (`/todos`) — interactive checkboxes
 - [ ] Basic layout (sidebar nav, responsive)
 
+
 ### Phase 2: Operations (Week 2)
 - [ ] Active sessions list (`/sessions`)
 - [ ] Cron job manager (`/cron`)
 - [ ] Quick action buttons (sidebar or `/actions`)
 - [ ] Logs viewer (`/logs`) with polling
+
 
 ### Phase 3: Polish (Week 3+)
 - [ ] Browser tabs viewer (`/browser`)
@@ -281,34 +351,42 @@ export const config = { matcher: ['/((?!login|_next|favicon).*)'] };
 - [ ] Cost tracking charts
 - [ ] Keyboard shortcuts
 
+
 ---
 
+
 ## 8. Security Considerations
+
 
 ### Gateway exposure
 - The Gateway is behind a Cloudflare tunnel (`ai.btctx.us`), **not** directly on the internet
 - All Gateway calls use bearer token auth — token never exposed to the browser
 - Next.js API routes act as a proxy, keeping `GATEWAY_TOKEN` server-side only
 
+
 ### Dashboard auth
 - Password-protected with HTTP-only secure cookies (no localStorage tokens)
 - JWT with expiry (24h) — auto-logout
 - Rate-limit login attempts (consider `@upstash/ratelimit` or simple in-memory counter)
+
 
 ### Tool policy
 - The `/tools/invoke` endpoint respects Gateway tool policy — the dashboard can only invoke tools the Gateway allows
 - Consider creating a dedicated Gateway tool profile for dashboard access (read-heavy, limited exec)
 - Avoid exposing unrestricted `exec` through the dashboard UI — whitelist specific commands
 
+
 ### Network
 - Vercel → Cloudflare tunnel → localhost is the full path; no direct port exposure
 - Cloudflare provides DDoS protection and TLS termination
 - Consider Cloudflare Access as an additional auth layer (zero-trust)
 
+
 ### Data
 - No sensitive data stored on Vercel — it's a stateless proxy
 - Session cookies are HTTP-only, Secure, SameSite=Strict
 - Memory file edits go through the Gateway's tool policy (not direct filesystem access)
+
 
 ### Recommendations
 1. Use a strong, unique `DASHBOARD_PASSWORD` (not the Gateway token)
@@ -317,9 +395,12 @@ export const config = { matcher: ['/((?!login|_next|favicon).*)'] };
 4. Audit Gateway tool policy to ensure dashboard can't escalate beyond intended scope
 5. Add CSP headers in `next.config.js` to prevent XSS
 
+
 ---
 
+
 ## Appendix: File Structure
+
 
 ```
 clawd-dashboard/
@@ -362,9 +443,12 @@ clawd-dashboard/
 └── .env.local                      # Local dev env vars
 ```
 
+
 ---
 
+
 ## Appendix: Gateway API Quick Reference
+
 
 | Endpoint | Method | Auth | Purpose |
 |---|---|---|---|
@@ -373,13 +457,17 @@ clawd-dashboard/
 | `/v1/chat/completions` | POST | Bearer token | OpenAI-compat chat (needs config enable) |
 | WebSocket `:18789` | WS | Token in connect frame | Full protocol (sessions, events, presence) |
 
+
 All HTTP endpoints share the same port (18789) and auth config.
 
+
 ## Data Fetching Architecture (Updated 2026-01-31)
+
 
 ### Two Gateway Interfaces
 1. **WebSocket RPC** — `health`, `status`, `sessions.list`, etc. Used by built-in control UI only.
 2. **Agent tools via HTTP** — `memory_get`, `memory_search`, etc. Used by this dashboard via `/api/gateway/invoke`.
+
 
 ### Cache Pattern
 Gateway-only data must be cached to files by cron, then read via `memory_get`:
@@ -387,6 +475,7 @@ Gateway-only data must be cached to files by cron, then read via `memory_get`:
 cron (60s) → scripts/cache-*.sh → memory/cache/*.json
 dashboard → useGateway("memory_get", { path: "memory/cache/X.json" }) → parse text wrapper → display
 ```
+
 
 ### Cache Scripts
 | Script | Frequency | Output |
@@ -399,8 +488,10 @@ dashboard → useGateway("memory_get", { path: "memory/cache/X.json" }) → pars
 | cache-tree.sh | 60s | memory/cache/tree.json |
 | cache-cron.sh | 60s | memory/cache/cron.json |
 
+
 ### Important: memory_get Response Format
 `memory_get` returns `{ text: "<json string>", path: "..." }` — the `text` field is a **string** that must be `JSON.parse()`d on the client side. See `parseMemoryGetResult()` in `page.tsx`.
+
 
 ### Cron Environment Gotcha
 Cron runs with minimal env. Scripts that call `clawdbot` or `systemctl --user` need:

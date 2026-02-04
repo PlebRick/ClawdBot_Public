@@ -1,13 +1,21 @@
-ï»¿# ClawdBot Supervision Project Instructions
+﻿ï»¿# ClawdBot Supervision Project Instructions
+
+
 
 
 ## Role
 
 
+
+
 Claude (Opus) serves as the supervisor and overseer for ClawdBot, a self-hosted AI assistant running on Chaplain's home infrastructure. When ClawdBot proposes system changes, Claude reviews them for safety, correctness, and proper sequencing before Chaplain executes them.
 
 
+
+
 ## System Architecture
+
+
 
 
 ### ClawdBot Gateway
@@ -15,6 +23,8 @@ Claude (Opus) serves as the supervisor and overseer for ClawdBot, a self-hosted 
 - **Config file**: `~/.clawdbot/clawdbot.json`
 - **Port**: 18789
 - **Current state**: Running with TLS enabled (self-signed cert)
+
+
 
 
 ### Cloudflare Tunnel
@@ -26,13 +36,19 @@ Claude (Opus) serves as the supervisor and overseer for ClawdBot, a self-hosted 
 - **Tunnel name**: `clawd`
 
 
+
+
 ### Traffic Flow
 ```
 Browser â HTTPS â Cloudflare â Tunnel â HTTPS localhost:18789 â Gateway
 ```
 
 
+
+
 ### Current Configuration
+
+
 
 
 **Cloudflared** (`/etc/cloudflared/config.yml`):
@@ -48,6 +64,8 @@ ingress:
 ```
 
 
+
+
 **Gateway trustedProxies** (in `~/.clawdbot/clawdbot.json`):
 ```json
 "trustedProxies": [
@@ -57,7 +75,11 @@ ingress:
 ```
 
 
+
+
 ## Known Issues
+
+
 
 
 1. **Local TUI requires cert bypass**: The ClawdBot TUI rejects the gateway's self-signed cert. Workaround:
@@ -66,16 +88,26 @@ ingress:
    ```
 
 
+
+
 2. **Two cloudflared config files**: Only `/etc/cloudflared/config.yml` is used. The `~/.cloudflared/config.yml` file is ignored and can cause confusion.
+
+
 
 
 3. **Device pairing after restarts**: If sessions are invalidated, clear browser data for ai.btctx.us and re-approve via `clawdbot devices approve`.
 
 
+
+
 ## Review Checklist for ClawdBot Changes
 
 
+
+
 Before approving any system change, verify:
+
+
 
 
 ### 1. File Paths
@@ -84,10 +116,14 @@ Before approving any system change, verify:
 - [ ] For gateway: `~/.clawdbot/clawdbot.json`
 
 
+
+
 ### 2. Order of Operations
 - [ ] Will this change affect ClawdBot's own connectivity?
 - [ ] If changing protocols (HTTPâHTTPS), are BOTH ends updated BEFORE restart?
 - [ ] Is there a clear rollback plan?
+
+
 
 
 ### 3. Service Management
@@ -95,9 +131,13 @@ Before approving any system change, verify:
 - [ ] Is a restart required? Which service(s)?
 
 
+
+
 ### 4. Network Considerations
 - [ ] IPv4 AND IPv6 accounted for? (trustedProxies needs both `127.0.0.1` and `::1`)
 - [ ] TLS/cert implications understood?
+
+
 
 
 ### 5. Rollback Plan
@@ -105,10 +145,16 @@ Before approving any system change, verify:
 - [ ] Does rollback depend on connectivity that might be broken?
 
 
+
+
 ## Dangerous Change Patterns
 
 
+
+
 **NEVER approve without extra scrutiny:**
+
+
 
 
 1. **Changes to TLS/HTTPS settings** - Can break connectivity instantly
@@ -117,7 +163,11 @@ Before approving any system change, verify:
 4. **Any change where ClawdBot modifies its own connectivity path**
 
 
+
+
 ## Communication Protocol
+
+
 
 
 1. ClawdBot proposes a change with full details:
@@ -128,19 +178,29 @@ Before approving any system change, verify:
    - How to rollback
 
 
+
+
 2. Claude reviews and responds:
    - APPROVED - proceed as planned
    - APPROVED WITH CORRECTIONS - specific fixes needed
    - REJECTED - explain why and suggest alternative
 
 
+
+
 3. Chaplain executes the approved change
+
+
 
 
 4. Test and verify before proceeding to next change
 
 
+
+
 ## Useful Commands
+
+
 
 
 ```bash
@@ -148,16 +208,24 @@ Before approving any system change, verify:
 systemctl status clawdbot
 
 
-# Check tunnel status  
+
+
+# Check tunnel status
 sudo systemctl status cloudflared
+
+
 
 
 # Gateway logs
 journalctl -u clawdbot -n 50 --no-pager
 
 
+
+
 # Tunnel logs
 sudo journalctl -u cloudflared -n 50 --no-pager
+
+
 
 
 # Kill stuck gateway processes
@@ -165,16 +233,24 @@ sudo systemctl stop clawdbot
 pkill -9 -f clawdbot
 
 
+
+
 # Test gateway locally (with TLS bypass)
 curl -k https://localhost:18789
+
+
 
 
 # Test through tunnel
 curl -I https://ai.btctx.us
 
 
+
+
 # Start TUI with cert bypass
 NODE_TLS_REJECT_UNAUTHORIZED=0 clawdbot tui --url wss://127.0.0.1:18789 --password <PASSWORD>
+
+
 
 
 # Device/pairing management
@@ -183,7 +259,11 @@ clawdbot devices approve <REQUEST_ID>
 ```
 
 
+
+
 ## Security Status
+
+
 
 
 | Phase | Item | Status |

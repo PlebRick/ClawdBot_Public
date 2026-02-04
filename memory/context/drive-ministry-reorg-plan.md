@@ -1,9 +1,12 @@
-# Drive Ministry Folder Reorg Plan
+﻿# Drive Ministry Folder Reorg Plan
 ## Status: COMPLETED — Rick's approval before any moves
+
 
 ---
 
+
 ## Current State (messy)
+
 
 ```
 Ministry/
@@ -54,9 +57,12 @@ Ministry/
 └── True_False_Repentance_Sermon.docx           ← loose file
 ```
 
+
 ---
 
+
 ## Proposed Target State (clean)
+
 
 ```
 Ministry/
@@ -68,11 +74,15 @@ Ministry/
     └── 2026_Romans/                     ← archived series material (framework, passage folders)
 ```
 
+
 ---
+
 
 ## File-by-File Migration Plan
 
+
 ### LOOSE FILES IN MINISTRY ROOT → move to proper folders
+
 
 | File | Current Location | Move To | Rationale |
 |------|-----------------|---------|-----------|
@@ -82,7 +92,9 @@ Ministry/
 | The_Praying_Jesus_Deep_Dive_Sermon.docx | Ministry/ (root) | Sermons/ | It's a sermon |
 | True_False_Repentance_Sermon.docx | Ministry/ (root) | Sermons/ | It's a sermon |
 
+
 ### ST PETER'S STONE CHURCH → keep church ops, move sermons out
+
 
 | File | Action | Move To | Rationale |
 |------|--------|---------|-----------|
@@ -101,31 +113,41 @@ Ministry/
 | Spirit_Filled_Jesus_Manuscript_Trimmed.docx | **MOVE** | Sermons/ | Sermon manuscript |
 | The Spirit Who Remains_Outline Final | **MOVE** | Sermons/ | Sermon outline |
 
+
 **St Peter's after cleanup:** 4 files (schedule, lectionary, 2 liturgies)
 
+
 ### RESEARCH → deduplicate
+
 
 | File | Action | Rationale |
 |------|--------|-----------|
 | Walking_in_the_Spirit_Complete.docx (x2) | **KEEP 1, TRASH 1** | Duplicate |
 | Walking_in_the_Spirit_Complete_Outline.docx (x2) | **KEEP 1, TRASH 1** | Duplicate |
 
+
 ### ROMANS SERIES FOLDER → move under Series/
+
 
 | Item | Action | Rationale |
 |------|--------|-----------|
 | Entire `2026_01_SE_Romans Series/` folder | **RENAME** to `Series/2026_Romans/` | Series archive, not active pipeline |
 | `Romans_Series_Framework_v2.md` (x2) | **KEEP 1, TRASH 1** | Duplicate |
 
+
 ### ROMANS 12 STANDALONE FOLDER → archive into series
+
 
 | Item | Action | Rationale |
 |------|--------|-----------|
 | `Romans 12_1-2_LIving Sacrifices/` | **MOVE** into `Series/2026_Romans/` | It's part of the Romans series, pre-pipeline AI experiment |
 
+
 ---
 
+
 ## Questions for Rick Before Executing
+
 
 1. **Christmas Eve service** — is that a full sermon or more of a liturgy/service order? If liturgy, it stays in St. Peter's.
 2. **The two Spirit Who Speaks files** in St. Peter's (26-02-15 version + February_15 version) — are these different drafts or duplicates? Keep both or trash one?

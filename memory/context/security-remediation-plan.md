@@ -1,10 +1,13 @@
-# Security Remediation Plan
+﻿# Security Remediation Plan
 *Created: 2026-01-27 | Last Updated: 2026-01-31*
 *Priority: HIGH — secrets were exposed in git history and world-readable files*
 
+
 ---
 
+
 ## Status Summary
+
 
 | Phase | Threat | Status |
 |-------|--------|--------|
@@ -22,9 +25,12 @@
 | 12 | 🟢 bird-auth perms | ✅ DONE 2026-01-27 |
 | 13 | 🟢 Git backup (secure redo) | ✅ DONE 2026-01-31 — private repo, full security audit, gitleaks pre-commit hook |
 
+
 ---
 
+
 ## Threat Summary
+
 
 | # | Threat | Severity | Exposed Where |
 |---|--------|----------|---------------|
@@ -40,18 +46,23 @@
 | L2 | Stale Docker BuildKit container (22 months old) | 🟢 LOW | Docker |
 | L3 | `bird-auth.sh` has execute permissions for group+other | 🟢 LOW | File permissions |
 
+
 ---
+
 
 ## PHASE 1: Revoke & Rotate the GitHub Token
 **Severity: 🔴 HIGH | Status: 🟡 PARTIALLY COMPLETE**
+
 
 ### ✅ Completed (2026-01-27)
 - Backup cron disabled (no more auto-pushes)
 - Local `.git` removed (no local repo to accidentally commit to)
 
+
 ### ⏳ Rick Needs To Do
 - **Delete the GitHub repo:** `https://github.com/PlebRick/clawd-backup/settings` → scroll to bottom → "Delete this repository"
 - **Revoke the compromised token:** `https://github.com/settings/tokens` → find `gho_Fs5k...` → Delete
+
 
 ### ⏳ When We Recreate the Backup Repo (Later)
 - Use SSH auth (keys already exist at `~/.ssh/id_ed25519`)
@@ -60,13 +71,17 @@
 - Use `git remote set-url origin git@github.com:PlebRick/clawd-backup.git`
 - Authenticate `gh` CLI via SSH: `gh auth login`
 
+
 ### Why This Matters
 The token `gho_Fs5k...` has `repo`, `read:org`, and `gist` scopes — **full read/write access to ALL of Rick's private repos**. It was embedded in the git remote URL and the backup script re-injected it on every run.
 
+
 ---
+
 
 ## PHASE 2: Scrub Secrets from Git History & Memory Files
 **Severity: 🔴 HIGH | Status: 🟡 PARTIALLY COMPLETE**
+
 
 ### ✅ Completed (2026-01-27)
 - Local `.git` nuked — no local history containing secrets
@@ -74,20 +89,26 @@ The token `gho_Fs5k...` has `repo`, `read:org`, and `gist` scopes — **full rea
 - Moved X/Twitter secrets from `scripts/bird-auth.sh` into `~/.clawdbot/bird-env` (600 perms)
 - `bird-auth.sh` now sources from protected env file, permissions set to 700
 
+
 ### ⏳ Still Needed
 - Update `.gitignore` before recreating any git repo (add `*.env`, `bird-env`, etc.)
 - Git history on GitHub will be fully gone once Rick deletes the repo (Phase 1)
 
+
 ---
+
 
 ## PHASE 3: Fix World-Readable Systemd Service Secrets
 **Severity: 🔴 HIGH | Status: ⏳ TODO**
 **⚠️ Requires gateway restart — do when Rick is at laptop**
 
+
 ### Why
 `/etc/systemd/system/clawdbot.service` is `644` (world-readable) and contains `AUTH_TOKEN` and `CT0` in plaintext `Environment=` lines. Any local process or user can read them.
 
+
 ### Steps
+
 
 **3.1 — Create a protected environment file**
 ```bash
@@ -99,9 +120,11 @@ sudo chmod 600 /etc/clawdbot-env
 sudo chown root:root /etc/clawdbot-env
 ```
 
+
 **3.2 — Update service file**
 Remove the two `Environment=AUTH_TOKEN=...` and `Environment=CT0=...` lines.
 Add: `EnvironmentFile=/etc/clawdbot-env`
+
 
 **3.3 — Reload and restart**
 ```bash
@@ -109,6 +132,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart clawdbot.service
 sudo systemctl status clawdbot.service
 ```
+
 
 ### Test
 ```bash
@@ -118,14 +142,18 @@ sudo systemctl is-active clawdbot.service                         # should be "a
 clawdbot health                                                   # should be healthy
 ```
 
+
 ---
+
 
 ## PHASE 4: Rotate the Gateway Password
 **Severity: 🔴 HIGH | Status: ⏳ TODO**
 **⚠️ Requires Rick to store new password — do when Rick is available**
 
+
 ### Why
 The password `177621@Coke-Pizza-Football-Fall` was exposed in git history pushed to GitHub. Even though we scrubbed it locally, GitHub may have cached it. The safe move is to rotate.
+
 
 ### Steps
 1. Generate new password: `openssl rand -base64 24`
@@ -134,49 +162,63 @@ The password `177621@Coke-Pizza-Football-Fall` was exposed in git history pushed
 4. Enter new password in Control UI at `https://ai.btctx.us`
 5. **Rick stores new password in a password manager** (NOT in any file Clawd touches)
 
+
 ### Test
 - Old password should NOT work in webchat
 - New password SHOULD work
 - Telegram unaffected
 
+
 ---
+
 
 ## PHASE 5: Configure trustedProxies
 **Severity: 🟡 MEDIUM | Status: ⏳ TODO**
 **⚠️ Requires gateway restart — do when Rick is at laptop**
 
+
 ### Why
 Cloudflare Tunnel runs locally and sends `X-Forwarded-For` headers. Without `trustedProxies`, the gateway can't distinguish local vs. remote connections. Causes floods of "Proxy headers detected from untrusted address" warnings.
+
 
 ### Steps
 1. Add to `gateway` section of `~/.clawdbot/clawdbot.json`: `"trustedProxies": ["127.0.0.1", "::1"]`
 2. Restart: `clawdbot gateway restart`
 
+
 ### Test
 - "Proxy headers detected" warnings should stop in logs
 - Webchat should work normally
 
+
 ---
+
 
 ## PHASE 6: Disable allowInsecureAuth
 **Severity: 🟡 MEDIUM | Status: ⏳ TODO**
 **⚠️ Requires Phase 5 first. Risk of lockout — do at laptop with local access as fallback**
 
+
 ### Why
 `allowInsecureAuth: true` allows password transmission over unencrypted HTTP. Should be `false` since all external access goes through Cloudflare HTTPS.
+
 
 ### Steps
 1. Change in `~/.clawdbot/clawdbot.json`: `"allowInsecureAuth": false`
 2. Restart: `clawdbot gateway restart`
 
+
 ### Test
 - Connect via `https://ai.btctx.us` — should work
 - If locked out, revert to `true` via local terminal
 
+
 ---
+
 
 ## PHASE 7: Clean Up Duplicate Sudo Rules
 **Severity: 🟡 MEDIUM | Status: ✅ DONE (2026-01-27)**
+
 
 ### What Was Done
 - Removed duplicate `NOPASSWD` rule from `/etc/sudoers`
@@ -185,10 +227,13 @@ Cloudflare Tunnel runs locally and sends `X-Forwarded-For` headers. Without `tru
 - Verified `sudo whoami` still returns `root`
 - Verified only one NOPASSWD entry exists
 
+
 ---
+
 
 ## PHASE 8: Enable Fail2ban
 **Severity: 🟡 MEDIUM | Status: ✅ DONE (2026-01-27)**
+
 
 ### What Was Done
 - Installed `fail2ban` package
@@ -196,13 +241,17 @@ Cloudflare Tunnel runs locally and sends `X-Forwarded-For` headers. Without `tru
 - Enabled `sshd` jail (ready if SSH is ever turned on)
 - Service is active and enabled on boot
 
+
 ---
+
 
 ## PHASE 9: Disable Tor (If Not Needed)
 **Severity: 🟡 MEDIUM | Status: ⏳ WAITING — needs Rick's confirmation**
 
+
 ### Why
 Tor is running on port 9050. If not being used, it's unnecessary attack surface.
+
 
 ### Action Needed
 **Rick: Are you using Tor?** If not:
@@ -211,22 +260,29 @@ sudo systemctl disable --now tor
 sudo systemctl mask tor
 ```
 
+
 ---
+
 
 ## PHASE 10: Fix Cloudflare Config Permissions
 **Severity: 🟢 LOW | Status: ✅ DONE (2026-01-27)**
+
 
 ### What Was Done
 - Changed `~/.cloudflared/config.yml` from `644` to `600`
 - Cloudflared service unaffected (reads as root)
 
+
 ---
+
 
 ## PHASE 11: Remove Stale Docker Container
 **Severity: 🟢 LOW | Status: ⏳ WAITING — needs Rick's confirmation**
 
+
 ### Why
 22-month-old BuildKit container sitting idle. Potential unpatched vulnerabilities. No ports exposed.
+
 
 ### Action Needed
 **Rick: Are you using Docker BuildKit?** If not:
@@ -235,28 +291,37 @@ docker rm -f buildx_buildkit_practical_bouman0
 docker system prune -f
 ```
 
+
 ---
+
 
 ## PHASE 12: Fix bird-auth.sh Permissions
 **Severity: 🟢 LOW | Status: ✅ DONE (2026-01-27)**
+
 
 ### What Was Done
 - Changed `scripts/bird-auth.sh` from `755` to `700` (owner-only execute)
 - Secrets were already moved out in Phase 2
 
+
 ---
 
+
 ## Post-Remediation Audit (Run After ALL Phases Complete)
+
 
 ```bash
 # No secrets in git
 cd ~/clawd && git log -p --all | grep -iE "(177621|gho_|AUTH_TOKEN|CT0=)"
 
+
 # No secrets in world-readable files
 grep -r "177621\|gho_\|AUTH_TOKEN.*=\|CT0.*=" /etc/systemd/system/ ~/clawd/scripts/ ~/clawd/memory/ ~/clawd/MEMORY.md
 
+
 # Proper permissions
 ls -la ~/.clawdbot/clawdbot.json ~/.clawdbot/bird-env /etc/clawdbot-env ~/.cloudflared/config.yml
+
 
 # Services healthy
 clawdbot health
@@ -264,21 +329,27 @@ sudo systemctl is-active clawdbot.service
 sudo systemctl is-active cloudflared
 sudo systemctl is-active fail2ban
 
+
 # No unnecessary services
 sudo systemctl is-active tor
 docker ps
 ```
 
+
 ---
 
+
 ## Ongoing Security Practices (Post-Fix)
+
 
 1. **Never commit secrets** to any file in `~/clawd/` — use `.gitignore` and `~/.clawdbot/` for secrets
 2. **Rotate tokens** — GitHub token every 90 days, gateway password quarterly
 3. **Set a cron reminder** for token rotation
 4. **I (Clawd) will flag security issues during setup going forward** — this was my failure and won't happen again
 
+
 ---
+
 
 *Document: ~/clawd/memory/context/security-remediation-plan.md*
 *Updated: 2026-01-27*

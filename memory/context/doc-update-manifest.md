@@ -1,14 +1,19 @@
-# Doc Update Manifest
+﻿# Doc Update Manifest
+
 
 **Purpose:** When Rick says "update docs" / "update documentation," read THIS file first.
 Then scan each listed doc against recent work and update only what's changed.
 
+
 ---
+
 
 ## Updatable Documents
 
+
 ### Supervisor Project Docs (canonical location: `supervisor-project/`)
 These are verbatim copies of the Opus Claude Desktop project files. Clawd updates them as work happens. Rick syncs them back to Claude Desktop when starting a new supervisor chat.
+
 
 | File | Tracks | Update When |
 |------|--------|-------------|
@@ -19,7 +24,9 @@ These are verbatim copies of the Opus Claude Desktop project files. Clawd update
 | `supervisor-project/Clawdbot technical reference.md` | How ClawdBot works — skills, memory, sub-agents, etc. | Architecture changes |
 | `supervisor-project/workspace-tree.md` | File structure | New files/directories added or removed |
 
+
 ### Clawd Operating Docs (canonical location: workspace root + `memory/context/`)
+
 
 | File | Tracks | Update When |
 |------|--------|-------------|
@@ -30,6 +37,7 @@ These are verbatim copies of the Opus Claude Desktop project files. Clawd update
 | `SOUL.md` | Persona, tone, voice | Voice/persona refinements |
 | `USER.md` | Rick's profile, depth pointers | New life facts, preference changes |
 
+
 ## NOT Updated (reference only)
 - `memory/training/voice-profile.md` — Static artifact from Grok harvest
 - `memory/training/ai-voice-calibration.md` — Static Rick Test
@@ -37,7 +45,9 @@ These are verbatim copies of the Opus Claude Desktop project files. Clawd update
 - Daily logs `memory/YYYY-MM-DD.md` — Written in real-time, not during doc updates
 - Supervisor reports — Write-once memos, conclusions flow into living docs
 
+
 ## Update Process
+
 
 1. Read this manifest
 2. `memory_search` for recent work/decisions since last known update
@@ -47,20 +57,26 @@ These are verbatim copies of the Opus Claude Desktop project files. Clawd update
 6. Note the date in each updated file's header
 7. Report to Rick: "Updated X, Y. No changes needed for Z."
 
+
 ## Rules for `supervisor-project/` Files
 - **Save verbatim when Rick pastes them.** Never summarize. Never compress.
 - **Update in place** as work happens (same as any other living doc).
 - **No duplicates.** These are the canonical copies. Do not create copies in `memory/context/`.
 
+
 ## Last Full Update
 - **Date:** July 19, 2025 (API Migration completion docs)
 - **By:** Clawd (live test run — OpenRouter, Proton remediation, Drive Images, doc update manifest system)
 
+
 ---
+
 
 ## Change-Type Routing Table
 
+
 When processing "update docs," match each changelog entry's tag to this table to determine which files need updating.
+
 
 | Tag | Change Type | Affected Docs |
 |-----|------------|---------------|
@@ -78,6 +94,7 @@ When processing "update docs," match each changelog entry's tag to this table to
 | `[fix]` | Bug fix or incident | current state, safe-change-protocol (if lessons learned) |
 | `[other]` | Unmapped — flag for manual review | Surface in update summary for Rick to confirm |
 
+
 ### Routing Rules
 - Each changelog entry can have multiple tags: `[api][config] Added OpenRouter key`
 - A file appears in the update list if ANY of its triggering tags are present
@@ -85,12 +102,16 @@ When processing "update docs," match each changelog entry's tag to this table to
 - `workspace-tree` is ALWAYS refreshed on "update docs"
 - `git push` + `sync-supervisor-to-drive.sh` is ALWAYS the final step
 
+
 ### Maintenance Rule
 **When creating a new documentation file, add it to the routing table.** Otherwise the table rots.
 
+
 ## Session Changelog Format
 
+
 Located in daily log (`memory/YYYY-MM-DD.md`) under `## Session Changelog`:
+
 
 ```markdown
 ## Session Changelog
@@ -102,9 +123,12 @@ Located in daily log (`memory/YYYY-MM-DD.md`) under `## Session Changelog`:
 - [other] Something unusual — needs manual review
 ```
 
+
 Tags are bracketed, one per line, greppable. Multiple tags allowed per line.
 
+
 ## "Update Docs" Full Process (Revised)
+
 
 1. Read `memory/context/doc-update-manifest.md` (this file)
 2. Read today's Session Changelog from daily log
@@ -120,7 +144,9 @@ Tags are bracketed, one per line, greppable. Multiple tags allowed per line.
 9. Update "Last Full Update" in this manifest
 10. Report: "Updated X, Y, Z. No changes needed for A, B. Flagged [other] items: ..."
 
+
 ## File Inventory
+
 
 | File | Last Updated | Notes |
 |------|-------------|-------|

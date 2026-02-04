@@ -1,5 +1,6 @@
-# Morning Brief — Design Spec
+﻿# Morning Brief — Design Spec
 *Finalized: 2026-01-27 | Merged from original spec + new integrations*
+
 
 ## Delivery
 - **Scheduled:** 4:30 AM CST daily via Telegram DM + Web UI
@@ -7,7 +8,9 @@
 - **Cron:** Clawdbot built-in cron system (isolated session)
 - **Tone:** Direct, concise, no fluff. Conservative perspective.
 
+
 ## Section Order
+
 
 1. ₿ **MARKETS** (top priority)
    - BTC — price, 24h change, market cap
@@ -19,16 +22,21 @@
    - Recession Indicators: yield curve, Sahm Rule, LEI, unemployment claims, ISM
    - Philosophy: go beyond mainstream — look for contrarian/data-driven signals
 
+
 2. 📖 **SCRIPTURE**
    - Revised Common Lectionary — daily readings
    - Full verses in ESV (English Standard Version)
    - Source: lectionary.library.vanderbilt.edu or similar RCL source
 
+
 3. 🗓️ **SCHEDULE** — Google Calendar events for today
+
 
 4. ✅ **TASKS** — Google Tasks due today or overdue, grouped by list
 
+
 5. 📧 **EMAIL** — Unread count + flagged/important subject lines (NO body text)
+
 
 6. 📰 **NEWS & SOCIAL**
    - World headlines — top 3-5 stories, conservative perspective
@@ -38,19 +46,24 @@
    - Lyn Alden (@LynAldenContact) — recent posts/analysis ✅
    - Southern Illinois local news — Nashville IL area
 
+
 7. 🎥 **YOUTUBE WATCHLIST**
    - Trading Fraternity — latest video + key points summary
    - Amit Investing — stock market analysis
    - Into The Cryptoverse — crypto macro (Benjamin Cowen)
    - More channels TBD
 
+
 8. 🌤️ **WEATHER** — Nashville, IL 62263
    - Current conditions + daily forecast
    - Severe weather alerts if any
 
+
 9. 📝 **CLAWD NOTES** — Carryover from daily logs, open reminders, pending TODOs
 
+
 ## Data Sources
+
 
 | Source | Method | Status |
 |--------|--------|--------|
@@ -71,6 +84,7 @@
 | Fear & Greed (CNN) | web-scout skill (Playwright) | ✅ Ready — `node skills/web-scout/profiles/cnn-fg.js` |
 | IntoTheCryptoverse | web-scout skill (Firebase auth) | ✅ Ready — `node skills/web-scout/profiles/itc.js` |
 
+
 ## Format Rules
 - Emoji-sectioned, scannable
 - No markdown tables (Telegram-unfriendly)
@@ -80,6 +94,7 @@
 - Conservative perspective on news — not left-wing propaganda
 - Flag anything urgent
 - Telegram-friendly formatting throughout
+
 
 ## Rick's Preferences
 - Markets FIRST (BTC is primary interest)

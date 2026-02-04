@@ -1,0 +1,71 @@
+#!/bin/bash
+# Voice Profile Bi-Directional Sync with Google Drive
+# Pattern: pull from Drive → unstage → stage → push to Drive
+# Usage: voice-profile-sync.sh [pull|push|sync|dry|status]
+
+set -e
+
+LOG="$HOME/clawd/logs/voice-sync.log"
+STAGE_DIR="$HOME/clawd/sync/voice-profile"
+REMOTE="gdrive:01_ArnoldOS_Gemini/Ministry/Voice-Profile"
+SCRIPTS="$HOME/clawd/scripts"
+
+log() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG"
+}
+
+case "$1" in
+    pull)
+        log "Starting PULL from Drive → Local"
+        rclone copy "$REMOTE" "$STAGE_DIR" --log-file="$LOG" --log-level INFO
+        bash "$SCRIPTS/voice-profile-unstage.sh" >> "$LOG" 2>&1
+        log "Pull complete"
+        ;;
+    push)
+        log "Starting PUSH from Local → Drive"
+        bash "$SCRIPTS/voice-profile-stage.sh" >> "$LOG" 2>&1
+        rclone copy "$STAGE_DIR" "$REMOTE" --log-file="$LOG" --log-level INFO
+        log "Push complete"
+        ;;
+    sync)
+        log "Starting BIDIRECTIONAL SYNC"
+        log "Step 1: Pull from Drive → staging"
+        rclone copy "$REMOTE" "$STAGE_DIR" --update --log-file="$LOG" --log-level INFO
+        log "Step 2: Unstage to ClawdBot"
+        bash "$SCRIPTS/voice-profile-unstage.sh" >> "$LOG" 2>&1
+        log "Step 3: Stage from ClawdBot"
+        bash "$SCRIPTS/voice-profile-stage.sh" >> "$LOG" 2>&1
+        log "Step 4: Push to Drive"
+        rclone copy "$STAGE_DIR" "$REMOTE" --update --log-file="$LOG" --log-level INFO
+        log "Bidirectional sync complete"
+        ;;
+    dry)
+        echo "=== What PULL would do (Drive → Local) ==="
+        rclone copy "$REMOTE" "$STAGE_DIR" --dry-run 2>&1 | grep -v "^$" || echo "(nothing to pull)"
+        echo ""
+        echo "=== What PUSH would do (Local → Drive) ==="
+        rclone copy "$STAGE_DIR" "$REMOTE" --dry-run 2>&1 | grep -v "^$" || echo "(nothing to push)"
+        ;;
+    status)
+        echo "Remote: $REMOTE"
+        echo "Staging: $STAGE_DIR"
+        echo "Log: $LOG"
+        echo ""
+        echo "Cron: $(crontab -l 2>/dev/null | grep voice-profile-sync || echo 'not set')"
+        echo ""
+        echo "Last sync:"
+        tail -5 "$LOG" 2>/dev/null || echo "(no log yet)"
+        echo ""
+        echo "Staging file count: $(find "$STAGE_DIR" -type f 2>/dev/null | wc -l)"
+        ;;
+    *)
+        echo "Usage: voice-profile-sync.sh [pull|push|sync|dry|status]"
+        echo ""
+        echo "  pull    - Download from Drive → Local"
+        echo "  push    - Upload Local → Drive"
+        echo "  sync    - Bidirectional: pull then push"
+        echo "  dry     - Show what sync would do"
+        echo "  status  - Show sync info"
+        exit 1
+        ;;
+esac

@@ -1,10 +1,13 @@
-# Web Scout — Skill Scoping Doc
+﻿# Web Scout — Skill Scoping Doc
 *Created: 2026-01-30 | Author: Clawd | Category: B (read-only, no external writes)*
+
 
 ## Purpose
 General-purpose authenticated headless browser skill. Allows Clawd to browse auth-gated web apps on demand — conversationally or via cron — using Rick's existing logged-in Chrome sessions for cookie auth.
 
+
 ## Targets
+
 
 | Target | URL | Auth | Use Cases |
 |--------|-----|------|-----------|
@@ -13,7 +16,9 @@ General-purpose authenticated headless browser skill. Allows Clawd to browse aut
 | Logos Web App | app.logos.com | Cookie (account login) | Search/browse Rick's 7,500-book theological library on demand |
 | Gospel Truth (Finney) | gospeltruth.net | None | 851 sermons/lectures, subject index, scripture index, Oberlin Evangelist archive |
 
+
 ## Architecture
+
 
 ### Why Playwright (Node.js)
 - Ships with Clawdbot's Node runtime — no Python dependency
@@ -23,7 +28,9 @@ General-purpose authenticated headless browser skill. Allows Clawd to browse aut
 - Built-in screenshot, PDF, network interception
 - Cross-browser support if needed later
 
+
 ### Components (as-built)
+
 
 ```
 skills/web-scout/
@@ -51,9 +58,12 @@ skills/web-scout/
 └── output/               # Screenshots and exports (gitignored)
 ```
 
+
 ### Cookie & Auth Management (as-built)
 
+
 **Two auth methods discovered during implementation:**
+
 
 **1. Cookie Auth (Logos):**
 - Chrome stores cookies in `~/.config/google-chrome/Default/Cookies` (SQLite3)
@@ -61,6 +71,7 @@ skills/web-scout/
 - Key is base64-encoded in keyring → decoded to 16-byte raw key (NOT PBKDF2-derived as initially assumed)
 - Extraction: `scripts/extract-cookies.py` → Playwright-compatible JSON
 - Storage: `cookies/logos-cookies.json` (chmod 600, gitignored)
+
 
 **2. Firebase Auth (ITC):**
 - ITC app (`app.intothecryptoverse.com`) uses Firebase Auth, NOT cookies
@@ -70,8 +81,10 @@ skills/web-scout/
 - Firebase SDK auto-refreshes access token from refresh token
 - Storage: `cookies/itc-firebase.json` (chmod 600, gitignored)
 
+
 **3. No Auth (CNN F&G, Gospel Truth/Finney):**
 - Direct headless navigation, no cookies or tokens needed
+
 
 **Refresh flow:**
 1. Clawd detects session expiry (login redirect URL pattern per profile)
@@ -81,12 +94,15 @@ skills/web-scout/
 5. For ITC: re-extract Firebase tokens from IndexedDB (manual strings extraction or future script)
 6. Resume operation
 
+
 **Expiry detection (`lib/detect-expiry.js`):**
 - Per-profile URL patterns (e.g., `/authentication/login` for ITC, `/login` for Logos)
 - Per-profile DOM selectors for login forms
 - Called after every navigation in `lib/navigate.js`
 
+
 ### How It Works (Conversational)
+
 
 Rick: "Check ITC for the current recession probability"
 1. Clawd invokes web-scout skill
@@ -96,6 +112,7 @@ Rick: "Check ITC for the current recession probability"
 5. Returns results to conversation
 6. Closes browser context
 
+
 Rick: "Search Logos for N.T. Wright's commentary on Romans 8"
 1. Launches headless Playwright with Logos cookies
 2. Navigates to app.logos.com
@@ -104,13 +121,17 @@ Rick: "Search Logos for N.T. Wright's commentary on Romans 8"
 5. Can navigate into a specific book if Rick asks
 6. Returns content to conversation
 
+
 ### How It Works (Cron)
+
 
 Existing cron scripts (morning brief, weekly report) call web-scout via:
 - Shell exec: `node skills/web-scout/scripts/fetch-cnn-fg.js` → stdout JSON
 - Or: Clawd invokes it internally during report generation
 
+
 Output format: JSON for structured data, PNG for charts/screenshots.
+
 
 ```json
 {
@@ -132,7 +153,9 @@ Output format: JSON for structured data, PNG for charts/screenshots.
 }
 ```
 
+
 ## Implementation Plan
+
 
 ### Phase 1: Foundation (CNN Fear & Greed) ✅ COMPLETE 2026-01-30
 - [x] Install Playwright in skill directory
@@ -141,12 +164,14 @@ Output format: JSON for structured data, PNG for charts/screenshots.
 - [x] Test via exec
 - Pending: integrate with morning brief cron
 
+
 ### Phase 2: Cookie Infrastructure ✅ COMPLETE 2026-01-30
 - [x] Build cookie extraction script for Linux Chrome (Python, v11 AES-128-CBC)
 - [x] Test extraction for ITC domain — discovered Firebase auth, not cookies
 - [x] Test extraction for Logos domain — cookie auth working
 - [x] Build expiry detection (login redirect + DOM patterns)
 - [x] Build refresh notification flow (shell scripts)
+
 
 ### Phase 3: IntoTheCryptoverse ✅ COMPLETE 2026-01-30
 - [x] Build ITC profile with Firebase IndexedDB injection
@@ -155,6 +180,7 @@ Output format: JSON for structured data, PNG for charts/screenshots.
 - [x] Site structure mapped: Crypto, Macro, TradFi, Tools, Content
 - Pending: integrate with weekly market report cron
 
+
 ### Phase 4: Logos Web App ✅ COMPLETE 2026-01-30
 - [x] Build Logos profile — Books search, Library search, book access
 - [x] Test authenticated access to library (7,500+ books)
@@ -162,12 +188,15 @@ Output format: JSON for structured data, PNG for charts/screenshots.
 - [x] AI Synopsis extraction from search results
 - [x] Multiple search kinds: all, books, bible, factbook, morph, media, maps
 
+
 ### Phase 5: Skill Packaging ✅ COMPLETE 2026-01-30
 - [x] Write SKILL.md with full usage docs
 - [ ] Register as Clawdbot skill (pending skill registry integration)
 - [x] Document cookie refresh process for Rick
 
+
 ## Risks & Mitigations
+
 
 | Risk | Impact | Mitigation | Status |
 |------|--------|------------|--------|
@@ -179,15 +208,19 @@ Output format: JSON for structured data, PNG for charts/screenshots.
 | Cookie/token files leaked via git | Security incident | `.gitignore` + chmod 600 + pre-commit hook (planned for git backup) | Mitigated |
 | Logos SPA renders results asynchronously | Can't extract search results | Content-based div filtering instead of class selectors; 12s wait for render | ✅ Resolved |
 
+
 ## Rollback
 - Skill is additive — doesn't modify any existing functionality
 - Remove: delete `skills/web-scout/`, remove from skill registry
 - Existing cron scripts fall back to current data sources (no ITC/CNN data, but everything else works)
 
+
 ## Supervisor Clarifications (2026-01-30)
+
 
 ### ITC: Search + Navigate
 Two modes — search box for queries, direct navigation for known pages. Phase 3 starts with search box + known high-value pages (recession probability, BTC risk, cycle metrics). ClawdBot learns site structure over time — explores on request, remembers paths. No crawling, no pre-indexing.
+
 
 ### Logos: Library Search First
 Phase 4 priority order:
@@ -196,23 +229,29 @@ Phase 4 priority order:
 3. Topic/Factbook reference lookups
 4. Bible search + other modes — added based on Rick's actual usage
 
+
 ### Cookie Fallback
 - Primary: cookie extraction (no Chrome conflict)
 - Fallback: copy profile to `/tmp/web-scout-profile/` (no Chrome conflict — it's a copy)
 - Rick never closes Chrome
+
 
 ### Rate Limiting
 - Minimum 2s delay between page loads (cron and repeated requests)
 - Exponential backoff on errors: 2s → 4s → 8s → max 60s
 - Conversational single requests: natural pacing, backoff on errors
 
+
 ### Skill Path
 Confirmed: `~/clawd/skills/web-scout/`
+
 
 ### Supervisor Verdict
 ✅ APPROVED — Proceed with implementation. Phase 1 first (CNN F&G, no auth).
 
+
 ---
+
 
 ## Decision Log
 - Playwright over Puppeteer: better API, built-in cookie support, ships with Chromium

@@ -1,7 +1,14 @@
-# Voice Card — Rick's Preaching Voice (Condensed)
+﻿# Voice Card — Rick's Preaching Voice (Condensed)
 # Full profile: memory/training/voice-profile.md
 # Theological positions: memory/context/ricks-theological-framework.md
 # AI calibration guide: memory/training/ai-voice-calibration.md
+
+
+
+
+
+
+
 
 ## Sentence Architecture
 - Short declarative sentences dominate (5-10 words). Punchy.
@@ -10,6 +17,13 @@
 - Rhetorical questions used heavily at turning points — one at a time, then answered. Voices what the audience is thinking.
 - Direct address: "Here's what I want us to notice." "Let's really stop and think about this."
 
+
+
+
+
+
+
+
 ## Openings (pick ONE)
 1. Scene-Setting (present tense, cinematic): "Noon. The sun is brutal."
 2. Big Question / Paradox
@@ -17,6 +31,13 @@
 4. Extended Theological Frame before reaching text
 5. Literary Quote → pivot to text
 6. Callback (series only)
+
+
+
+
+
+
+
 
 ## Signature Rhetorical Moves
 - **Three-Beat Fragment**: "That's deliberate. That's defiant. That's a declaration."
@@ -33,6 +54,13 @@
 - **The Two-Error Guard**: Name two opposite errors a truth protects against.
 - **"How much more"**: Lesser-to-greater (kal vahomer). Prefer over "what makes us think" rhetorical questions.
 
+
+
+
+
+
+
+
 ## Structure
 1. Opening (one technique above)
 2. Big Idea (one sentence)
@@ -44,12 +72,26 @@
 5. Conclusion: Binary close + challenge/call. Circle back to opening if possible. End with blade or welcome — never mush.
 6. Session Extras: Discussion questions, practical exercise, weekly challenge, prayer, memory verse
 
+
+
+
+
+
+
+
 ## Theological Method
 - Scripture-first. Text drives; illustrations serve.
 - Wright + Evangelical synthesis. Neither replaces the other.
 - Credit commentators by name (Stott, Wright, Finney, etc.).
 - ESV default. Conservative/evangelical.
 - Full theological positions: `memory/context/ricks-theological-framework.md`
+
+
+
+
+
+
+
 
 ## Tone
 - Conversational but authoritative. Talks TO people, not AT them.
@@ -59,6 +101,13 @@
 - Anglo-Saxon words over Latinate. "Weight" not "significance."
 - Contractions freely. Conversational register even in theological depth.
 
+
+
+
+
+
+
+
 ## Illustrations
 - One sharp illustration per point max.
 - Personal testimony: understated, never hero story.
@@ -66,6 +115,13 @@
 - Historical vignettes for weight.
 - Concrete physicality always.
 - Controlling metaphors sustained through entire sermons.
+
+
+
+
+
+
+
 
 ## DO NOT
 - Pile adjectives. One strong word.
@@ -89,6 +145,13 @@
 - Compress major illustrations — Rick's named parables and extended narratives run 350-500 words. Let them breathe. Quick historical examples or passing references can be brief (2-3 sentences). Not every illustration needs expansion.
 - Merge sections Rick keeps separate.
 - Repurpose Rick's illustrations into new contexts.
+
+
+
+
+
+
+
 
 ## Context Adjustments
 - **Prison/chaplain**: Strip jargon, legal metaphors, concrete reentry language, shorter sentences

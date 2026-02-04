@@ -1,17 +1,24 @@
-# Supervisor Report: Recovery Readiness Audit (Post-Hardening)
+﻿# Supervisor Report: Recovery Readiness Audit (Post-Hardening)
 *Date: 2026-02-01 | Author: Clawd*
+
 
 ## Executive Summary
 
+
 Following the recovery hardening session, ClawdBot's disaster recovery posture improved from "painful half-day reconstruction" to **under 1 hour on fresh hardware**. All critical data is now backed up with automated maintenance.
+
 
 ## Recovery Confidence: 95%
 
+
 The remaining 5% is Vercel dashboard env vars and Cloudflare tunnel credentials, which require manual steps through external dashboards.
+
 
 ---
 
+
 ## Backup Coverage Matrix
+
 
 | Asset | Backed Up? | Where | Automated? | Recovery Time |
 |-------|-----------|-------|-----------|---------------|
@@ -42,9 +49,12 @@ The remaining 5% is Vercel dashboard env vars and Cloudflare tunnel credentials,
 | **Drive folder structure** | ✅ | Documented in arnoldos-integration-prd.md + MEMORY.md | ✅ In git | Reference — folders persist on Drive |
 | **Sermon files on Drive** | ✅ | Google Drive (Ministry/Sermons, Brainstorm, Research) | ✅ Pipeline uploads automatically | Already on Drive |
 
+
 ---
 
+
 ## Automated Backup Schedule
+
 
 | What | Schedule | Script/Method | Destination |
 |------|----------|--------------|-------------|
@@ -55,9 +65,12 @@ The remaining 5% is Vercel dashboard env vars and Cloudflare tunnel credentials,
 | Sermon outputs → Drive | On creation | Pipeline auto-upload | Drive `Ministry/` |
 | Dashboard → GitHub | After changes | `git push` (manual trigger) | GitHub `PlebRick/clawd-dashboard` |
 
+
 ---
 
+
 ## Recovery Procedure (Estimated Total: 45-60 minutes)
+
 
 ### Phase 1: System Setup (~10 min)
 1. Install nvm + Node.js v22
@@ -65,17 +78,20 @@ The remaining 5% is Vercel dashboard env vars and Cloudflare tunnel credentials,
 3. Install Python deps: `pip install -r system/requirements.txt`
 4. Install cloudflared, gpg, system tools
 
+
 ### Phase 2: Clone + Restore Config (~5 min)
 1. `git clone https://github.com/PlebRick/ClawdBot_Backup.git ~/clawd`
 2. Download `clawdbot-config-backup.json.gpg` from Drive
 3. `gpg --decrypt clawdbot-config-backup.json.gpg > ~/.clawdbot/clawdbot.json`
 4. Or paste raw JSON from password manager
 
+
 ### Phase 3: Credentials (~10 min)
 1. Download Google OAuth client secret from Google Cloud Console → `~/.config/clawd/google-oauth.json`
 2. Run `python3 scripts/google-oauth.py auth` (browser flow)
 3. Store GPG passphrase: `echo -n 'passphrase' > ~/.config/clawd/config-backup-passphrase`
 4. Extract Bird/Twitter cookies from browser if needed
+
 
 ### Phase 4: Services (~10 min)
 1. Copy systemd templates: `sudo cp system/clawdbot.service.template /etc/systemd/system/clawdbot.service`
@@ -84,6 +100,7 @@ The remaining 5% is Vercel dashboard env vars and Cloudflare tunnel credentials,
 4. `sudo systemctl enable --now clawdbot cloudflared`
 5. Restore crontab: `crontab system/crontab.bak`
 
+
 ### Phase 5: Verify (~5 min)
 1. Gateway running, webchat accessible
 2. Telegram bots responding
@@ -91,14 +108,18 @@ The remaining 5% is Vercel dashboard env vars and Cloudflare tunnel credentials,
 4. Cron jobs firing
 5. Git backup works
 
+
 ### Phase 6: Dashboard (~10 min, optional)
 1. `git clone https://github.com/PlebRick/clawd-dashboard.git`
 2. Set Vercel env vars (5 variables)
 3. `vercel --prod` or auto-deploys from GitHub
 
+
 ---
 
+
 ## Remaining Gaps (Low Priority)
+
 
 | Gap | Risk | Mitigation |
 |-----|------|-----------|
@@ -107,9 +128,12 @@ The remaining 5% is Vercel dashboard env vars and Cloudflare tunnel credentials,
 | `clawdbot.json` backup only includes last version (no history) | Very low — config changes are infrequent | Password manager has a snapshot too |
 | Ara workspace (`~/clawd-ara/`) not backed up | Low — Ara has minimal custom files | Add to git or separate repo if she grows |
 
+
 ---
 
+
 ## What Changed Today
+
 
 1. **Created `system/` directory** with 7 recovery files (templates, requirements, crontab, redacted config)
 2. **Encrypted config backup** — `backup-config-encrypted.sh` runs daily, GPG AES256 → Drive
@@ -117,6 +141,8 @@ The remaining 5% is Vercel dashboard env vars and Cloudflare tunnel credentials,
 4. **Password manager** — raw clawdbot.json stored as fallback
 5. **Crontab self-backup** — daily midnight export to `system/crontab.bak`
 
+
 ## Bottom Line
+
 
 If the laptop catches fire tonight, Rick can have a fully operational ClawdBot on new hardware within an hour, with zero data loss on workspace files and at most 24 hours of config drift (from the daily encrypted backup cycle).

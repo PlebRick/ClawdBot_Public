@@ -1,130 +1,1238 @@
+﻿Sermon Preparation Workflow Guide
+Cost-Optimized Collaboration Between Supervisor (Claude.ai) and ClawdBot
+________________
+
+
+
+
+
+
+
+
+Overview
+This workflow splits sermon preparation between two AI systems to optimize for both quality and cost:
+
+
+
+
+
+
+
+
+System
+        Role
+        Cost Model
+        Supervisor (Claude.ai)
+        Brainstorming, training iterations, feedback capture
+        Flat rate (Max subscription)
+        ClawdBot
+        Draft generation, voice-card updates, file management
+        Per-token API cost
+
+
+
+
+
+Principle: Do expensive iteration (back-and-forth) on flat-rate. Do one-shot generation on per-token.
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+System Roles
+Supervisor (Claude.ai / Claude Desktop)
+Handles:
+
+
+
+
+
+
+
+
+* Passage brainstorming — unlimited back-and-forth exploration
+* Training iterations — line-by-line feedback on drafts
+* Pattern extraction — identifying generalizable voice rules
+* Feedback formatting — structured output CB can ingest
+
+
+
+
+
+
+
+
+Has access to:
+
+
+
+
+
+
+
+
+* bible-brainstorming skill (Claude.ai project)
+* This workflow guide
+* Context from ongoing conversation
+
+
+
+
+
+
+
+
+Does NOT have:
+
+
+
+
+
+
+
+
+* ClawdBot's voice training corpus
+* Direct file access to CB's memory
+* The full voice-card (but understands the format)
+ClawdBot
+Handles:
+
+
+
+
+
+
+
+
+* Draft generation — one-shot sermon manuscript
+* Voice-card application — loads trained voice rules
+* Calibration digestion — updates voice-card from feedback sessions
+* File management — stores all training artifacts
+
+
+
+
+
+
+
+
+Has access to:
+
+
+
+
+
+
+
+
+* sermon-writer skill with voice-card
+* Full training corpus (memory/training/)
+* Sermon archive for reference
+* Theological framework
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+The Workflow
+Phase 1: Brainstorming (Supervisor — Free)
+Where: Claude.ai or Claude Desktop
+
+
+
+
+
+
+
+
+Process:
+
+
+
+
+
+
+
+
+1. Share the Scripture passage
+2. Use bible-brainstorming skill or natural conversation
+3. Explore observations, structure, theological connections
+4. Go as many rounds as needed — it's flat rate
+
+
+
+
+
+
+
+
+Output: Brainstorm document (observations, outline ideas, key themes)
+
+
+
+
+
+
+
+
+Handoff: Save or copy brainstorm output for Phase 2
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+Phase 2: Draft Generation (ClawdBot — 1 API Call)
+Where: ClawdBot (web UI, Telegram, etc.)
+
+
+
+
+
+
+
+
+Process:
+
+
+
+
+
+
+
+
+1. Provide ClawdBot with:
+
+
+
+
+
+
+
+
+   * The Scripture passage
+   * Your brainstorm output
+   * Any commentary or notes you've gathered
+   * Specific instructions (length, focus, occasion)
+
+
+
+
+
+
+
+
+2. ClawdBot triggers sermon-writer skill:
+
+
+
+
+
+
+
+
+   * Loads voice-card.md (required)
+   * Loads theological framework if needed
+   * Generates full manuscript draft
+
+
+
+
+
+
+
+
+Output: Complete sermon manuscript
+
+
+
+
+
+
+
+
+Handoff: Copy draft back to Supervisor for Phase 3
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+Phase 3: Training Iteration (Supervisor — Free)
+Where: Claude.ai or Claude Desktop
+
+
+
+
+
+
+
+
+Process:
+
+
+
+
+
+
+
+
+1. Paste ClawdBot's draft
+
+
+
+
+
+
+
+
+2. Read through together, marking lines:
+
+
+
+
+
+
+
+
+   * ✅ YES — Sounds like Rick, keep it
+   * ❌ TWEAK — Close but needs adjustment
+   * ❌ REJECT — Doesn't sound like Rick at all
+
+
+
+
+
+
+
+
+3. For each TWEAK/REJECT:
+
+
+
+
+
+
+
+
+   * Rick provides his actual wording
+   * Supervisor identifies the pattern/rule
+
+
+
+
+
+
+
+
+Output: Calibration session file (see format below)
+
+
+
+
+
+
+
+
+Handoff: Save as voice-calibration-session-N.md for Phase 4
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+Phase 4: Sync to ClawdBot (Automatic via Drive Sync)
+Process:
+
+
+
+
+
+
+
+
+1. Save calibration session file to Drive:
+
+
+
+
+
+
+
+
+Ministry/Voice-Profile/calibration-sessions/voice-calibration-session-N.md
+
+
+
+
+
+
+
+
+2. Bi-directional sync runs every 15 minutes — file appears in ClawdBot at:
+
+
+
+
+
+
+
+
+~/clawd/memory/training/voice-calibration-session-N.md
+
+
+
+
+
+
+
+
+3. Tell ClawdBot:
+
+
+
+
+
+
+
+
+"New calibration session added. Please review and update voice-card if patterns warrant."
+
+
+
+
+
+
+
+
+4. ClawdBot digests patterns and proposes voice-card updates
+
+
+
+
+
+
+
+
+Frequency: After each sermon, or batch 2-3 sessions together
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+Feedback Format
+Use this exact format during training iterations so output can be directly saved as a calibration file:
+
+
+
+
+
+
+
+
+# Voice Calibration Session [N] — [YYYY-MM-DD]
+
+
+
+
+
+
+
+
+**Sermon:** [Title or passage reference]
+
+
+
+
+
+
+
+
+**Lines Reviewed:** [count]
+
+
+
+
+
+
+
+
+**Verdict Breakdown:** [X] YES / [Y] TWEAK / [Z] REJECT
+
+
+
+
+
+
+
+
 ---
-name: sermon-writer
-description: Write sermons in Rick's authentic preaching voice. Structured outlines, manuscript drafts, sermon series planning, and illustration development. Use for any request to draft, outline, or write a sermon or sermon series — structured output for preaching. Not for open-ended scripture exploration or brainstorming (use bible-brainstorm for that).
+
+
+
+
+
+
+
+
+## Patterns Learned
+
+
+
+
+
+
+
+
+### Vocabulary
+
+
+
+
+
+
+
+
+- "singular in its focus" → "all about self"
+
+
+
+
+
+
+
+
+- "the scandal of grace" → "the paradox of grace"
+
+
+
+
+
+
+
+
+### Structure
+
+
+
+
+
+
+
+
+- [Pattern identified]
+
+
+
+
+
+
+
+
+### Tone
+
+
+
+
+
+
+
+
+- [Pattern identified]
+
+
+
+
+
+
+
+
+### Theological Emphasis
+
+
+
+
+
+
+
+
+- [Pattern identified]
+
+
+
+
+
+
+
+
 ---
 
-# Sermon Writer
-
-Write sermons that sound like Rick preaches — not generic evangelical boilerplate.
-
-## Before Writing
-
-## Sermon Pipeline Integration
-
-Before starting a sermon draft, check for existing prep material:
-
-1. **If Rick provides a date** (e.g., "let's work on the draft for the 15th"):
-   - Run: `python3 scripts/arnoldos.py --json preaching-schedule --date YYYY-MM-DD`
-   - Find the matching event and any existing files
-   - If brainstorm exists, load it: `python3 scripts/arnoldos.py drive-read <file_id>`
-   - Inject brainstorm content into your working context before drafting
-
-2. **After draft completes**:
-   - Save .docx to `Ministry/Sermons/Drafts/YYYY-MM-DD-short-passage-ref-draft.docx`
-   - Update task notes with draft link
-   - These are autonomous per approved exception — no confirmation needed
-
-3. **If no date/pipeline context**, proceed with normal sermon writing. Pipeline bookkeeping happens when context is available.
 
 
-1. **Load the voice card**: Read `skills/sermon-writer/references/voice-card.md` — this is non-negotiable. Every sermon must follow Rick's voice patterns.
-   - For Rick's actual phrases organized by rhetorical function, see `references/voice-phrases.md`
-2. **Confirm the inputs** with Rick if not provided:
-   - Scripture passage (required)
-   - Context: Sunday sermon, prison chapel, series installment, evangelistic?
-   - Audience: congregation, inmates, mixed?
-   - Series context: standalone or part of a series? If series, what's the throughline?
-   - Length target: full manuscript (~3,000-5,000 words) or outline (~500-1,000 words)?
-   - Any specific theme, illustration, or angle Rick wants to emphasize?
 
-## Length Tiers
 
-| Request | Length | Word Count |
-|---------|--------|------------|
-| "Short version" | 20 min | ~2,500 words |
-| "Standard" (default) | 25 min | ~3,000 words |
-| "Extended" | 35-40 min | ~4,500 words |
-| "Deep dive" | 45-60 min | ~5,500-6,000 words |
 
-Prison chapel context: 25-35 min default (90-min total session with small group discussion).
 
-## Output Formats
 
-Rick's sermon documents maintain outline structure even in full manuscripts — Roman numerals, sub-sections (A, B, C), clear point labels visible throughout. This is intentional: Rick reads the manuscript several times during prep, then preaches from the outline.
+## Line-by-Line Feedback
 
-### Full Sermon Package (default)
-The standard deliverable includes three layers in one document:
 
-1. **Outline** (top of document) — skeleton with Roman numerals, sub-points, key phrases, scripture refs. This is what Rick takes to the pulpit.
-2. **Full Manuscript** — complete sermon following the outline's structure. Outline numbering visible throughout. Rick reads this multiple times during prep.
-3. **Condensed Manuscript** (optional, on request) — between outline and full manuscript. Tighter prose, key sentences written out, but room left for what comes to Rick on the spot. Good for formal occasions where he wants more than an outline but less than reading verbatim.
 
-All three maintain the same structural skeleton. The outline IS the manuscript's backbone.
 
-### Sermon Outline Only
-When Rick asks for "just an outline." Skeleton with:
-- Opening approach (identified, not fully written)
-- Big Idea
-- Point structure with scripture references and key phrases
-- Suggested illustrations (described, not fully written)
-- Closing approach
 
-### Series Plan
-Multi-week overview. Includes:
-- Series title and throughline
-- Per-week: passage, big idea, working title
-- Callback opportunities between weeks
-- Cumulative vocabulary/metaphor suggestions
 
-## Writing Process
 
-1. **Exegesis first.** Read the passage carefully. Identify the author's intent, structure, key terms, and theological weight. Don't impose a theme — let it emerge from the text.
-2. **Big Idea.** One sentence that captures the whole sermon. Test: could someone who missed the sermon get the point from this sentence alone?
-3. **Structure.** Map the passage's own structure onto sermon points. Rick follows the text's flow, not a topical outline imposed on it.
-4. **Exposition → Application per point.** Don't bank all application for the end. Each point lands before moving on. Be specific — not "pray more" but "Before checking your phone tomorrow, pray: 'Holy Spirit, fill me today.'"
-5. **Illustrations.** One per point max. Prefer original parables or historical vignettes. Name them. Let them breathe (350-500 words).
-6. **Key phrases.** Craft one quotable sentence per major point. Paradox or inversion preferred.
-7. **Conclusion.** Binary close. Circle back to opening if possible. No mush.
 
-## Theological Guardrails
+### ✅ YES
 
-Rick has specific theological positions. When in doubt, load `memory/context/ricks-theological-framework.md`. Key non-negotiables:
-- NOT 5-point Calvinist (prevenient grace, unlimited atonement, corporate election)
-- Regeneration AFTER conviction/repentance
-- NOT "once saved always saved" — Hebrews warnings real
-- Molinism for sovereignty/freedom
-- "Charismatic with a seat belt"
-- Wright's eschatology: resurrection of all things, kingdom now/not-yet
-- Theological triage: Essentials → Convictions → Opinions → Questions
 
-If a passage touches contested theology, present Rick's position confidently — don't hedge or "both sides" it.
 
-## Sermon Archive
 
-Rick has 17 preached sermons archived at `memory/training/sermon-archive/INDEX.md` and 59 raw manuscripts at `memory/training/sermon-raw/`. Reference these for:
-- Voice calibration (how does Rick actually handle this type of passage?)
-- Avoiding repetition (has Rick preached this text before?)
-- Callback opportunities (series connections)
 
-## Quality Check
 
-Before delivering, verify:
-- [ ] Voice card loaded and followed
-- [ ] Big Idea is one clear sentence
-- [ ] Structure follows text, not imposed topically
-- [ ] Application woven in per point, not banked
-- [ ] One illustration per point max, named and full-length
-- [ ] Key phrases are crafted, not generic
-- [ ] Binary close, no soft ending
-- [ ] "We/us" throughout — never preaching down
-- [ ] No banned words (beautiful, wonderful, amazing, "let that land")
-- [ ] No AI artifacts (see voice card DO NOT list)
-- [ ] Greek/Hebrew used sparingly (1-2 max), immediately translated
-- [ ] Context-appropriate (prison vs. church vs. evangelistic)
-- [ ] Read-aloud test: would Rick actually say this out loud from the pulpit?
 
-## When NOT to Use This Skill
-- Open-ended scripture meditation or brainstorming → use `bible-brainstorm`
-- Liturgy preparation (calls to worship, prayers, benedictions) → not yet built
-- Theological debate or doctrinal Q&A → general conversation
-- Writing as Rick in non-sermon contexts → load voice profile directly
+
+> "This is the part where religion gets nervous."
+
+
+
+
+
+
+
+
+Verdict: Authentic Rick. Conversational, slightly provocative.
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+### ❌ TWEAK
+
+
+
+
+
+
+
+
+> "The text presents a singular focus on divine initiative."
+
+
+
+
+
+
+
+
+Rick's version: "This passage is all about what God does, not what we do."
+
+
+
+
+
+
+
+
+Pattern: Avoid academic phrasing. Say it plainly. First person plural when addressing congregation.
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+### ❌ REJECT
+
+
+
+
+
+
+
+
+> "We must wrestle with the theological implications of this pericope."
+
+
+
+
+
+
+
+
+Rick's version: "So what does this mean for us? Let's dig in."
+
+
+
+
+
+
+
+
+Pattern: Never use "pericope" — say "passage" or "text." Rhetorical questions over declarative statements.
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+## Summary
+
+
+
+
+
+
+
+
+**Key rules to add to voice-card:**
+
+
+
+
+
+
+
+
+1. [Rule]
+
+
+
+
+
+
+
+
+2. [Rule]
+
+
+
+
+
+
+
+
+3. [Rule]
+
+
+
+
+
+
+
+
+**Phrases to add to voice-phrases.md:**
+
+
+
+
+
+
+
+
+- "[phrase]" — [function: transition / emphasis / application]
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+File Locations
+Google Drive (Source of Truth)
+Folder
+        Contents
+        Ministry/Voice-Profile/core/
+        Voice profile, bio, theology, calibration guide
+        Ministry/Voice-Profile/reference/
+        Voice card, phrases, themes
+        Ministry/Voice-Profile/sermon-archive/
+        Sermon outlines and INDEX
+        Ministry/Voice-Profile/calibration-sessions/
+        Training feedback files
+        ClawdBot (Synced Every 15 Min)
+File
+        Path
+        Purpose
+        Voice Card
+        skills/sermon-writer/references/voice-card.md
+        Active rules, loaded every generation
+        Voice Phrases
+        skills/sermon-writer/references/voice-phrases.md
+        Approved phrases by rhetorical function
+        Calibration Sessions
+        memory/training/voice-calibration-session-N.md
+        Structured feedback from training
+        Full Voice Profile
+        memory/context/ricks-voice-profile.md
+        Exhaustive analysis (reference)
+        Theological Framework
+        memory/context/ricks-theological-framework.md
+        Non-negotiable positions
+        Sermon Archive
+        memory/training/sermon-archive/
+        Full manuscripts for reference
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+Cross-Platform Access
+All platforms read from the same Drive folder:
+
+
+
+
+
+
+
+
+Platform
+        Access Method
+        ClawdBot
+        Bi-directional rclone sync (every 15 min)
+        Claude.ai
+        Google Drive connector
+        Cowork
+        Google Drive MCP
+        Gemini
+        Native Google integration
+
+
+
+
+
+Any platform can:
+
+
+
+
+
+
+
+
+* Read voice profile and training materials
+* Conduct calibration sessions
+* Save new calibration files to calibration-sessions/
+
+
+
+
+
+
+
+
+Only ClawdBot can:
+
+
+
+
+
+
+
+
+* Generate sermons using the full skill system
+* Update voice-card.md directly (then syncs to Drive)
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+Periodic Maintenance
+Every 3-5 Calibration Sessions
+Ask ClawdBot:
+
+
+
+
+
+
+
+
+"Review recent calibration sessions and propose updates to voice-card.md. Show me the diff before applying."
+Monthly
+Ask ClawdBot:
+
+
+
+
+
+
+
+
+"Audit voice-card against calibration sessions. Are there any contradictions or outdated rules?"
+After Major Feedback
+If a session reveals a significant pattern (e.g., "I never use passive voice in application sections"), tell ClawdBot to update voice-card immediately rather than waiting for the batch.
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+Quick Reference Card
+Phase
+        Where
+        Cost
+        Output
+        1. Brainstorm
+        Supervisor
+        Free
+        Brainstorm doc
+        2. Draft
+        ClawdBot
+        ~$2-5
+        Manuscript
+        3. Train
+        Supervisor
+        Free
+        Calibration file
+        4. Sync
+        Automatic
+        Free
+        Updated everywhere
+
+
+
+
+
+Total per sermon: ~$2-5 vs. potentially $20+ doing all iteration on ClawdBot
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+Commands for ClawdBot
+Generate sermon:
+
+
+
+
+
+
+
+
+"Write a sermon on [passage]. Here's my brainstorm: [paste]. Target length: [X] minutes."
+
+
+
+
+
+
+
+
+Digest calibration:
+
+
+
+
+
+
+
+
+"New calibration session added. Review and propose voice-card updates."
+
+
+
+
+
+
+
+
+Check voice-card:
+
+
+
+
+
+
+
+
+"Show me current voice-card.md contents."
+
+
+
+
+
+
+
+
+Update voice-card:
+
+
+
+
+
+
+
+
+"Add this rule to voice-card: [rule]"
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+Troubleshooting
+CB draft doesn't sound like Rick:
+
+
+
+
+
+
+
+
+* Check that voice-card.md was loaded (ask CB to confirm)
+* May need more calibration sessions to capture the pattern
+* Consider adding specific examples to voice-phrases.md
+
+
+
+
+
+
+
+
+Feedback format getting messy:
+
+
+
+
+
+
+
+
+* Supervisor can help clean up at end of session
+* Ask: "Format our feedback as a calibration session file"
+
+
+
+
+
+
+
+
+Voice-card getting too long:
+
+
+
+
+
+
+
+
+* Ask CB to consolidate similar rules
+* Move examples to voice-phrases.md, keep rules abstract in voice-card
+
+
+
+
+
+
+
+
+Sync not working:
+
+
+
+
+
+
+
+
+* Check ~/clawd/logs/voice-sync.log on ClawdBot
+* Manual sync: bash ~/clawd/scripts/voice-profile-sync.sh sync
+* Verify rclone remote: rclone lsd gdrive:
+
+
+
+
+
+
+
+
+________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Last Updated: February 2026

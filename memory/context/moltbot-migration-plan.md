@@ -1,11 +1,15 @@
-# MoltBot Migration Plan
+﻿# MoltBot Migration Plan
 *Created: 2026-01-27 | Last Updated: 2026-01-27 | Status: ⏸️ MONITORING — npm package not ready, do NOT install moltbot yet*
+
 
 ---
 
+
 ## ⚠️ CRITICAL FINDING: The Migration is NOT Ready Yet
 
+
 After deep research, the rename is **in progress but not complete on npm**. Here's what I found:
+
 
 ### What's Done (Developer Side)
 - ✅ GitHub org renamed: `clawdbot/clawdbot` → `moltbot/moltbot` (old URLs redirect)
@@ -16,6 +20,7 @@ After deep research, the rename is **in progress but not complete on npm**. Here
 - ✅ Website at `molt.bot`
 - ✅ Install script (`molt.bot/install.sh`) exists
 
+
 ### What's NOT Done Yet
 - ❌ **The `moltbot` npm package is a PLACEHOLDER** — version `0.1.0`, only 283 bytes, no code, no dependencies. It's a name reservation, not a real package.
 - ❌ **The install script STILL installs `clawdbot` from npm** — `install_spec="clawdbot@latest"`
@@ -24,8 +29,10 @@ After deep research, the rename is **in progress but not complete on npm**. Here
 - ❌ The config dir is still `~/.clawdbot/` — no migration to `~/.moltbot/` has happened
 - ❌ Config file is still `clawdbot.json` (docs reference `moltbot.json` but the installer still writes `clawdbot.json`)
 
+
 ### What This Means for Us
 **We should NOT attempt to `npm install -g moltbot` right now.** It would install a 283-byte placeholder package that does nothing. The actual software is still published as `clawdbot` on npm.
+
 
 The developer has:
 1. Renamed the GitHub repo and org
@@ -33,13 +40,18 @@ The developer has:
 3. Reserved the `moltbot` name on npm
 4. But has **not yet published the actual code** to npm under the `moltbot` name
 
+
 **We wait.** When a real `moltbot` version appears on npm (matching version numbers like `2026.x.x`), that's when we migrate.
+
 
 ---
 
+
 ## Background
 
+
 ClawdBot received a cease and desist (likely from Anthropic over "Claud" name similarity) and rebranded to **MoltBot** 🦞. The GitHub repo `clawdbot/clawdbot` now redirects to `moltbot/moltbot`.
+
 
 - **New name:** MoltBot
 - **Website:** molt.bot
@@ -51,9 +63,12 @@ ClawdBot received a cease and desist (likely from Anthropic over "Claud" name si
 - **Config dir:** `~/.clawdbot/` (unchanged)
 - **Config file:** `clawdbot.json` (unchanged, though docs inconsistently reference `moltbot.json`)
 
+
 ---
 
+
 ## Current Setup Inventory
+
 
 ### Installed Package
 | Item | Value |
@@ -64,6 +79,7 @@ ClawdBot received a cease and desist (likely from Anthropic over "Claud" name si
 | Entry point | `~/.nvm/versions/node/v22.22.0/lib/node_modules/clawdbot/dist/entry.js` |
 | Node version | v22.22.0 (via nvm) |
 
+
 ### Config & Credentials
 | Item | Path |
 |------|------|
@@ -73,13 +89,16 @@ ClawdBot received a cease and desist (likely from Anthropic over "Claud" name si
 | Auth profiles | `~/.clawdbot/agents/main/agent/auth-profiles.json` |
 | Workspace | `~/clawd/` |
 
+
 ### Systemd Services (TWO exist — potential conflict)
 | Service | Path | Type | Status |
 |---------|------|------|--------|
 | `clawdbot.service` | `/etc/systemd/system/clawdbot.service` | System-level | **ACTIVE** (what we use) |
 | `clawdbot-gateway.service` | `~/.config/systemd/user/clawdbot-gateway.service` | User-level | Inactive (created by onboard wizard) |
 
+
 **⚠️ The system-level service is what's actually running.** The user-level one was auto-created by `clawdbot onboard --install-daemon`.
+
 
 ### Environment Variables Used
 | Var | Where | Purpose |
@@ -90,24 +109,30 @@ ClawdBot received a cease and desist (likely from Anthropic over "Claud" name si
 | `CLAWDBOT_GATEWAY_PORT` | User service file | Port config |
 | `AUTH_TOKEN`, `CT0` | System service file | X/Twitter cookies (SECURITY: move to env file — see security plan) |
 
+
 ### Cron Jobs
 ```
 0 */6 * * * ~/clawd/scripts/sync-memory-to-drive.sh  (memory → Google Drive)
 ```
 *GitHub backup cron removed 2026-01-27 (security remediation)*
 
+
 ### Scripts Referencing `clawdbot`
 - `~/clawd/scripts/scheduled-upgrade.sh` — needs checking
 - `~/clawd/scripts/backup-to-github.sh` — currently disabled, will be rewritten
+
 
 ### External Services (No Name Dependency)
 - **Cloudflare Tunnel** — proxies to `localhost:18789`, port-based
 - **Telegram bot** — connected via bot token, no name dependency
 - **Google Drive** — rclone, no name dependency
 
+
 ---
 
+
 ## What `moltbot doctor` Will Handle (When We Actually Migrate)
+
 
 Based on the docs, `moltbot doctor` is designed to:
 - ✅ Detect legacy `clawdbot` systemd services and offer migration
@@ -118,21 +143,26 @@ Based on the docs, `moltbot doctor` is designed to:
 - ✅ Audit security (DM policies, auth)
 - ✅ Check OAuth token health
 
+
 ### Things Doctor WON'T Handle (We Must Do Manually)
 - ❌ Our custom system-level service (`/etc/systemd/system/clawdbot.service`) — doctor only knows about user-level services
 - ❌ Environment variables in the service file (AUTH_TOKEN, CT0)
 - ❌ Scripts that reference `clawdbot` binary
 - ❌ Cloudflare tunnel config (no changes needed, but won't be checked)
 
+
 ---
 
+
 ## Migration Steps (WHEN the npm package is ready)
+
 
 ### Pre-Migration Checklist
 - [ ] Verify `moltbot` npm package has a real version (not `0.1.0`)
 - [ ] Check Discord/GitHub for migration announcement from steipete
 - [ ] Complete all security remediation first (see `security-remediation-plan.md`)
 - [ ] Back up config: `cp ~/.clawdbot/clawdbot.json ~/.clawdbot/clawdbot.json.pre-migration`
+
 
 ### Phase 1: Install MoltBot
 ```bash
@@ -141,22 +171,27 @@ moltbot --version    # should show real version
 clawdbot --version   # should still work (shim)
 ```
 
+
 ### Phase 2: Run Doctor
 ```bash
 moltbot doctor
 ```
 Let doctor handle config migration, service detection, and state layout changes.
 
+
 ### Phase 3: Update System Service
 Since we have a custom system-level service, doctor won't handle it.
 
+
 ```bash
 sudo systemctl stop clawdbot.service
+
 
 # Create new service file
 sudo cp /etc/systemd/system/clawdbot.service /etc/systemd/system/moltbot.service
 # Edit to change ExecStart to use moltbot binary
 # Change EnvironmentFile if we've done the security fix
+
 
 sudo systemctl daemon-reload
 sudo systemctl enable moltbot.service
@@ -164,11 +199,13 @@ sudo systemctl start moltbot.service
 sudo systemctl status moltbot.service
 ```
 
+
 ### Phase 4: Update Scripts
 ```bash
 grep -r "clawdbot" ~/clawd/scripts/
 # Update any references
 ```
+
 
 ### Phase 5: Verify
 ```bash
@@ -176,6 +213,7 @@ moltbot health
 moltbot status
 # Test webchat + Telegram
 ```
+
 
 ### Phase 6: Cleanup (After 1 Week Stable)
 ```bash
@@ -187,11 +225,15 @@ systemctl --user daemon-reload
 npm uninstall -g clawdbot    # only if moltbot is stable
 ```
 
+
 ---
+
 
 ## Potential Conflicts & Problems
 
+
 ### During Migration
+
 
 | Issue | Likelihood | Impact | Mitigation |
 |-------|-----------|--------|------------|
@@ -203,7 +245,9 @@ npm uninstall -g clawdbot    # only if moltbot is stable
 | **CLAWDBOT_* env vars** — may be renamed to MOLTBOT_* | Low-Medium | Features break silently | Check release notes carefully |
 | **Workspace stays the same** (`~/clawd`) | None | No issue | Workspace is independent of package name |
 
+
 ### If We DON'T Update (Risks Over Time)
+
 
 | Risk | Likelihood | Timeline | Impact |
 |------|-----------|----------|--------|
@@ -215,15 +259,19 @@ npm uninstall -g clawdbot    # only if moltbot is stable
 | **Security vulnerabilities unpatched** | Medium | Ongoing | Running stale code |
 | **Skill ecosystem moves on** | High | Ongoing | ClawdHub skills target `moltbot` |
 
+
 **Current assessment:** We're fine for now. The `clawdbot` npm package is still actively maintained (latest release is 2026.1.24-3). The rename is in progress but hasn't reached npm yet. We should:
 1. **Keep running `clawdbot` for now** — it's the real, working package
 2. **Monitor for the real `moltbot` npm release** — watch Discord and GitHub releases
 3. **Do NOT run `npm install -g moltbot`** until a real version is published
 4. **Complete security fixes first** — these are more urgent than the rename
 
+
 ---
 
+
 ## How to Monitor for Readiness
+
 
 Check periodically:
 ```bash
@@ -231,12 +279,15 @@ npm view moltbot version   # Currently 0.1.0 (placeholder)
 # When this shows a version like 2026.x.x, migration is ready
 ```
 
+
 Or watch:
 - GitHub releases: https://github.com/moltbot/moltbot/releases
 - Discord: https://discord.gg/clawd
 - npm: https://www.npmjs.com/package/moltbot
 
+
 ---
+
 
 ## Key Docs References
 - Updating: https://docs.molt.bot/install/updating
@@ -246,7 +297,9 @@ Or watch:
 - Workspace: https://docs.molt.bot/concepts/agent-workspace
 - Security audit: `moltbot security audit --deep` (available after migration)
 
+
 ---
+
 
 *Document: ~/clawd/memory/context/moltbot-migration-plan.md*
 *Updated: 2026-01-27*

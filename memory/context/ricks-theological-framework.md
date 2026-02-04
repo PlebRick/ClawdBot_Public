@@ -1,16 +1,51 @@
-# Rick's Theological Framework — In His Own Words
+﻿# Rick's Theological Framework — In His Own Words
 ## Source: Direct from Rick, 2025-07-29
 ## Status: AUTHORITATIVE — this overrides any inferences from sermon mining
 
+
+
+
+
+
+
+
 ---
+
+
+
+
+
+
+
 
 ## Motto
 **Bible based, Christ centered, Spirit filled, Mission minded.**
 
+
+
+
+
+
+
+
 ## Christ at the Center
 Christ is the center of Rick's theology, the center of history, and the center of the Bible. Everything orbits this.
 
+
+
+
+
+
+
+
 ---
+
+
+
+
+
+
+
 
 ## Theological Triage (ESV Study Bible Model)
 Rick categorizes theology into four buckets:
@@ -19,17 +54,52 @@ Rick categorizes theology into four buckets:
 3. **Opinions** — lean a direction, hold loosely
 4. **Questions** — genuinely unsettled, exploring
 
+
+
+
+
+
+
+
 Rick promotes unity in the body of Christ. Do NOT major on the minors. Do NOT take a personal conviction or opinion and elevate it to an essential and divide over it. This principle flows directly from **Romans 14**.
+
+
+
+
+
+
+
 
 ---
 
+
+
+
+
+
+
+
 ## Soteriology — Neither 5-Point Calvinist Nor Extreme Arminian
+
+
+
+
+
+
+
 
 ### What Rick IS NOT:
 - **Not a 5-point Calvinist** (though he reads many Calvinists with respect)
 - **Not "once saved always saved"** (OSAS)
 - **Not limited atonement**
 - **Not extreme Arminian** (not Finney's entire sanctification — "feels like you are saved half the day and lost the rest")
+
+
+
+
+
+
+
 
 ### What Rick HOLDS:
 - **Prevenient grace** — God's grace precedes and enables the human response
@@ -41,14 +111,42 @@ Rick promotes unity in the body of Christ. Do NOT major on the minors. Do NOT ta
   - YES: "neglect your salvation and relationship with God → possible to drift → evil heart of unbelief → harden your heart → lose faith → break the covenant relationship with God"
   - The Hebrews pattern: gradual drift, not sudden fall. Neglect → hardening → unbelief → covenant broken.
 
+
+
+
+
+
+
+
 ### On Finney:
 - LOVES Finney's preaching style and illustrations
 - Finney's entire sanctification theology is too much — "feels like you are saved half the day and lost the rest"
 - Uses Finney as a rhetorical model, not a theological one
 
+
+
+
+
+
+
+
 ---
 
+
+
+
+
+
+
+
 ## Eschatology
+
+
+
+
+
+
+
 
 - **No secret rapture** — rejects the pretribulation rapture view
 - **Amillennialism** — likes Sam Storms' amillennial position
@@ -58,27 +156,90 @@ Rick promotes unity in the body of Christ. Do NOT major on the minors. Do NOT ta
   - Kingdom now and not yet (inaugurated eschatology)
   - Emphasis on the covenant people of God
 
+
+
+
+
+
+
+
 ---
 
+
+
+
+
+
+
+
 ## Divine Sovereignty & Human Freedom
+
+
+
+
+
+
+
 
 - **Molinism (William Lane Craig)** — Rick's preferred framework for God's foreknowledge
   - Middle knowledge: God knows what any free creature would do in any circumstance
   - Preserves both genuine human freedom and God's sovereign plan
 - **Corporate election** — election is primarily about a people, not individual pre-selection
 
+
+
+
+
+
+
+
 ---
 
+
+
+
+
+
+
+
 ## Pneumatology — "Charismatic with a Seat Belt"
+
+
+
+
+
+
+
 
 - **Strong pneumatology** — the Holy Spirit is central, not peripheral
 - **Avoids extremes** — neither cessationist nor charismatic excess
 - "Charismatic with a seat belt" — embraces the gifts and presence of the Spirit while maintaining biblical grounding and theological sobriety
 - This is central to Rick's preaching identity (see: entire Holy Spirit sermon series)
 
+
+
+
+
+
+
+
 ---
 
+
+
+
+
+
+
+
 ## Theological Influences (Ranked by How Rick Uses Them)
+
+
+
+
+
+
+
 
 | Influence | What Rick Takes | What Rick Leaves |
 |-----------|----------------|-----------------|
@@ -99,9 +260,30 @@ Rick promotes unity in the body of Christ. Do NOT major on the minors. Do NOT ta
 | Ray Comfort | Evangelistic method, law-to-grace approach | — |
 | Calvinists generally | Reads with respect, values their scholarship | TULIP as a system, especially L and P |
 
+
+
+
+
+
+
+
 ---
 
+
+
+
+
+
+
+
 ## Key Principles for Content Generation
+
+
+
+
+
+
+
 
 When writing/preaching for Rick:
 1. **Never assume Calvinist soteriology** — Rick is NOT reformed in the TULIP sense

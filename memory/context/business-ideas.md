@@ -1,5 +1,6 @@
-# Business Opportunity — Ongoing Search
+﻿# Business Opportunity — Ongoing Search
 *Created: 2026-01-27 | Status: ACTIVELY LOOKING*
+
 
 ## What Rick Wants
 - Legitimate, serious business built with AI + laptop
@@ -8,6 +9,7 @@
 - **Low startup cost, low/no inventory**
 - Willing to constantly learn new skills
 - **Core strength:** Can sit alone and grind at a computer for hours with intense focus — this is a superpower, lean into it
+
 
 ## Constraints
 - Not public-facing / no personal brand marketing
@@ -19,6 +21,7 @@
 - **NOT gig work or freelancing** — no trading hours for dollars
 - Has a good day job already — this is about building something he owns
 
+
 ## What I Know About Rick So Far
 - Part-time pastor (small liturgical country church)
 - Bitcoin and stock/options trader
@@ -29,8 +32,10 @@
 - Protonmail user (privacy-conscious)
 - Southern Illinois based
 
+
 ## Ideas to Explore (add as they come)
 *Evaluate each against: realistic $100K path, low startup, no public face, AI-leverageable, deep-focus friendly*
+
 
 ### ⭐ LEAD IDEA: AI-Powered Bible Study & Theological Resource Platform
 - Full business plan: `memory/context/business-plan-bible-study-app.md`
@@ -43,6 +48,7 @@
 - Rick has sermon outlines + manuscripts, actively developing more
 - Books exportable 100 pages at a time (rich text/HTML) for knowledge base building
 - Status: PLANNING — reviewing existing SACRED codebase, open questions remaining
+
 
 ---
 *This is a living document. Clawd adds ideas here as they emerge from conversations, research, and getting to know Rick better.*

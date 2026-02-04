@@ -1,9 +1,11 @@
-# TODO — Ministry Projects
+﻿# TODO — Ministry Projects
+
 
 ## 1. Finney Sermon Modernization
 **Location:** `~/Projects/Finney/`
 **Status:** ✅ COMPLETE (2026-01-31)
 **Goal:** Scrape, preserve, and modernize all Finney sermons from gospeltruth.net
+
 
 ### Sermons on Important Subjects (1836) — 12 sermons
 - [x] Phase 1: Scrape all 12 originals → `sermons-on-important-subjects/originals/`
@@ -14,15 +16,19 @@
 - [x] Phase 4: Illustrations extraction ✅ ALL 12 COMPLETE (74 illustrations) — PRD at `~/Projects/Finney/ILLUSTRATIONS-PRD.md`
 - [ ] Future: Expand to other Finney collections (851 total sermons/lectures on gospeltruth.net)
 
+
 **Quality criteria:** Full paraphrase (not summary), ±20% original length, preserve argument structure, all scripture refs, maintain rhetorical intensity, no softened theology.
 
+
 ---
+
 
 ## 2. Amillennialism Teaching Series — Kingdom Come (Sam Storms)
 **Location:** `~/Projects/amillennialism/`
 **Status:** 🟡 Planning
 **Source:** *Kingdom Come: The Amillennial Alternative* by Sam Storms (Logos: `LLS:9781781911952`)
 **Goal:** Build teaching outlines for each of the 17 chapters
+
 
 ### Chapters
 - [ ] Ch 1: The Hermeneutics of Eschatology: Five Foundational Principles for the Interpretation of Prophecy
@@ -43,7 +49,9 @@
 - [ ] Ch 16: The Antichrist in Biblical Eschatology: A Study of Revelation 13 and 17
 - [ ] Ch 17: The Antichrist in Biblical Eschatology: A Study of 2 Thessalonians 2
 
+
 ---
+
 
 ## 3. Logos Library Index
 **Status:** 📋 Not Started
@@ -52,6 +60,8 @@
 - [ ] Save as searchable local file (JSON or MD)
 - [ ] Integrate into web-scout Logos profile for instant book access
 
+
 ---
+
 
 *Created: 2026-01-30*
