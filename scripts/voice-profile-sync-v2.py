@@ -45,7 +45,9 @@ FILE_MAP = {
     "reference/voice-phrases": "skills/sermon-writer/references/voice-phrases.md",
     "reference/theological-positions": "memory/context/theological-positions.md",
     "reference/recurring-themes": "memory/context/recurring-themes.md",
-    "sermon-workflow-guide": "skills/sermon-writer/SKILL.md",
+    "reference/sermon-structure-templates": "memory/training/sermon-structure-templates.md",
+    "skills/sermon-writer": "skills/sermon-writer/SKILL.md",
+    "skills/bible-brainstorm": "skills/bible-brainstorm/SKILL.md",
 }
 
 DIR_MAP = {
