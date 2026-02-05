@@ -73,8 +73,31 @@ DRIVE_FOLDERS = {
 }
 
 DRIVE_SUBFOLDERS = {
+    # Ministry
     "Ministry/Brainstorm": "1bJtLGjfyKYs4QJ4HLacjsOxiu6Jlb29U",
+    "Ministry/Research": "13rfBa0gJ6Vd51AHHesKb-UXE5M8B4gwL",
+    "Ministry/Research/Driscoll": "1fpVKFrD5T6pa4BYDtWZuAGSk3pCt_nTT",
+    "Ministry/Research/Finney": "1bD3geh4jqVrNwWcLD_43WH7mSYPFoTsQ",
+    "Ministry/Research/Stott": "18mUHGGR_qi60XkuJ4_fAyEd8Jmp1ZcPy",
+    "Ministry/Research/Wright": "1AhyJ2_6G8SRPQ3HdK7dPOmf52UchCkwz",
     "Ministry/Sermons": "1-c2ywTDT_dsEqsJA0SUbMV34dRFIr_wG",
+    "Ministry/Sermons/Drafts": "1MLpeS3KLhQqZZclfcpG3ZmA0eDxV4zks",
+    "Ministry/Sermons/2026_Romans": "1ZYVtV021U0RDck5k5cgkjgK5BF9hBua7",
+    "Ministry/St Peters": "1J2V2lVdmu_I6ZNteyQ47ZW6vR6oI4Kq_",
+    "Ministry/Voice-Profile": "1J-sl9LqLKHosR5mDsSh3d9yF7_7eg4U3",
+    # Chapel
+    "Chapel/idoc-chapel-policy": "1F1OOj_mE8CyMyCyOn6WaAqVT-ChfxDou",
+    # Family
+    "Family/Finance_Admin": "1fUelYPehlkgRcZPoMHxbMqqrZ4AnAZRD",
+    # Images (by domain)
+    "Images": "1Nd0K0hTbePFKzdNl7n9gAqX-MinZ7Cks",
+    "Images/Chapel": "1KLCtvzJyrNt68sTG5yWkeFEObW6wqTNg",
+    "Images/Content": "1IKf5nHUm24oSXTnwfCE3UjoPgm7NwlV8",
+    "Images/Dev": "1H_hnjblRKxDwoshKKmPOhWelnECbu16H",
+    "Images/Family": "1h5FsBDKjlQb1YvHTuWkGfBQ5USShp2F7",
+    "Images/Ministry": "14hxz6jPCaxdf9laIN7y6qlLT_wejPhdz",
+    "Images/Personal": "1Xo9CH_GItgQsPyyPHMoYt7nvrgoDe803",
+    "Images/Trading": "1xqczPA7Ik0pyj_h9PLU1R5MobbnzHL8v",
 }
 
 # Tag patterns for task parsing
