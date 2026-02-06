@@ -1,6 +1,8 @@
-# ArnoldOS Drive Structure (01_ArnoldOS_Gemini)
+﻿# ArnoldOS Drive Structure (01_ArnoldOS_Gemini)
+
 
 Root: `12aczo3TPXamKkKQQc2iunPUqvfoBJovG`
+
 
 ```
 01_ArnoldOS_Gemini/
@@ -47,5 +49,6 @@ Root: `12aczo3TPXamKkKQQc2iunPUqvfoBJovG`
 ├── Personal/                           1wEAjj77hlFTYg-wVWpW3oDKlWe11xUw3
 └── Trading/                            1HQlsU2eBO1h7SyKmer9yIqIqpmxu9E8p
 ```
+
 
 Last updated: 2026-02-07
