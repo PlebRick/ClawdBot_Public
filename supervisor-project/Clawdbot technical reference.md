@@ -1,7 +1,11 @@
 ﻿# ClawdBot Technical Reference
 
 
+
+
 ## Complete Architecture & Capabilities Documentation
+
+
 
 
 **Version**: 1.6
@@ -10,7 +14,11 @@
 **Purpose**: Comprehensive reference for ClawdBot supervision, derived from direct technical education by ClawdBot
 
 
+
+
 ---
+
+
 
 
 ## Table of Contents
@@ -29,16 +37,26 @@
 13. [Backup & Sync Infrastructure](#13-backup--sync-infrastructure)
 
 
+
+
 ---
+
+
 
 
 ## 1. System Overview
 
 
+
+
 ### What Is ClawdBot?
 
 
+
+
 ClawdBot (renamed to MoltBot, "the lobster way 🦞") is a **self-hosted personal AI assistant** running on Rick's home infrastructure (Linux laptop as 24/7 server).
+
+
 
 
 **Key Characteristics:**
@@ -49,7 +67,11 @@ ClawdBot (renamed to MoltBot, "the lobster way 🦞") is a **self-hosted persona
 - **Memory-capable**: Persistent memory via Markdown files with hybrid vector+keyword search
 
 
+
+
 ### Infrastructure Components
+
+
 
 
 | Component | Service Name | Config File | Port |
@@ -59,13 +81,19 @@ ClawdBot (renamed to MoltBot, "the lobster way 🦞") is a **self-hosted persona
 | Cloudflare Tunnel | `cloudflared.service` | `/etc/cloudflared/config.yml` | — |
 
 
+
+
 **Traffic Flow:**
 ```
 Browser → HTTPS → Cloudflare → Tunnel → HTTPS localhost:18789 → Gateway
 ```
 
 
+
+
 ### Execution Capabilities
+
+
 
 
 ClawdBot has full shell access via `exec` tool:
@@ -75,19 +103,31 @@ ClawdBot has full shell access via `exec` tool:
 - **Scope**: Read/write files, install packages, manage services, run scripts
 
 
+
+
 **Critical Limitation**: ClawdBot cannot safely restart its own gateway — loses connectivity mid-command.
+
+
 
 
 ---
 
 
+
+
 ## 2. Skill System
+
+
 
 
 ### Structure
 
 
+
+
 A skill is a folder containing a required `SKILL.md` file and optional resources:
+
+
 
 
 ```
@@ -99,10 +139,16 @@ skill-name/
 ```
 
 
+
+
 ### SKILL.md Format
 
 
+
+
 **Two Parts:**
+
+
 
 
 **1. Frontmatter (YAML)** — Always loaded, always in context (~100 words):
@@ -116,7 +162,11 @@ metadata: {"clawdbot":{"emoji":"🌤","requires":{"bins":["curl"]}}}
 ```
 
 
+
+
 Required fields: `name` and `description`
+
+
 
 
 Optional fields:
@@ -129,15 +179,23 @@ Optional fields:
 - `command-dispatch` — Slash-command routing
 
 
+
+
 **2. Body (Markdown)** — Loaded ONLY after skill triggers:
 - Instructions, examples, API references, workflow steps
 - **Recommended limit: ~500 lines** to avoid context bloat
 
 
+
+
 ### Detection Mechanism
 
 
+
+
 **It's LLM judgment on descriptions, not keyword or semantic search.**
+
+
 
 
 Process:
@@ -163,10 +221,16 @@ Process:
    - **Never reads more than one skill up front**
 
 
+
+
 **Key Insight**: The `description` field IS the detection rail. A well-written description = precise triggering. Poor description = missed or false triggers.
 
 
+
+
 ### Skill Chaining
+
+
 
 
 **Skills cannot call other skills directly.** Chaining happens through:
@@ -176,6 +240,8 @@ Process:
 4. **`always` flag** — Skill with `metadata.clawdbot.always: true` loads regardless of detection
 
 
+
+
 ### Skill Locations (Precedence Order)
 1. Extra/plugin directories (highest)
 2. Bundled skills (with ClawdBot installation)
@@ -183,45 +249,69 @@ Process:
 4. Workspace skills: `~/clawd/skills/` (lowest, but overrides others)
 
 
+
+
 ### Skill Design Patterns
 
 
+
+
 Lessons from building custom skills:
+
+
 
 
 **1. Phase status as governance checkpoint**
 For any skill with write capabilities, put phase status immediately after the header. Every session knows permissions at a glance.
 
 
+
+
 **2. Command table over prose**
 Concrete CLI commands not abstract instructions. Zero ambiguity, deterministic execution.
+
+
 
 
 **3. Lean body + depth elsewhere**
 Keep SKILL.md under 100 lines. Heavy content (PRDs, scripts, voice profiles) lives in `memory/context/` or `references/`.
 
 
+
+
 **4. Negative triggers prevent false matches**
 "When NOT to use" section explicitly lists what other skills handle. Critical when skills could overlap.
+
+
 
 
 **5. Quick reference tables, full data elsewhere**
 Domain mapping in arnoldos is 7 lines. Full mapping with IDs lives in `memory/context/arnoldos-integration-prd.md`.
 
 
+
+
 ---
+
+
 
 
 ## 3. Memory Architecture
 
 
+
+
 ### File Hierarchy
+
+
 
 
 **`MEMORY.md`** (workspace root: `~/clawd/MEMORY.md`)
 - Long-term memory, main knowledge base
 - Manually curated — important decisions, patterns, lessons, key facts
 - Persists indefinitely — the "brain" file
+
+
 
 
 **`memory/` directory** (`~/clawd/memory/`)
@@ -237,15 +327,23 @@ Domain mapping in arnoldos is 7 lines. Full mapping with IDs lives in `memory/co
 - **`memory/training/`** — Voice profile and calibration content
 
 
+
+
 **Key Distinction:**
 - `MEMORY.md` + everything under `memory/` = **searchable** by memory system
 - Bootstrap files (`AGENTS.md`, `SOUL.md`, etc.) = **auto-injected** (different mechanism)
 
 
+
+
 ### Memory Search System
 
 
+
+
 **Hybrid vector + keyword search** backed by SQLite.
+
+
 
 
 ```
@@ -270,6 +368,8 @@ memory_search("query")
 ```
 
 
+
+
 **Indexing Pipeline:**
 1. **File watching**: Chokidar watches `MEMORY.md` and `memory/` for changes
 2. **Chunking**: Markdown split into ~400 token chunks with 80-token overlap
@@ -278,12 +378,18 @@ memory_search("query")
 5. **Sync triggers**: On file watch (1.5s debounce), on search, on session start, on timer
 
 
+
+
 **Sources Indexed:**
 - `memory` source: `MEMORY.md` + `memory/` directory
 - `sessions` source (optional): Session transcript `.jsonl` files
 
 
+
+
 **Key Defaults:**
+
+
 
 
 | Parameter | Default |
@@ -296,26 +402,42 @@ memory_search("query")
 | Candidate multiplier | 4× (fetches 24 to return 6) |
 
 
+
+
 ### Memory Retrieval
+
+
 
 
 **`memory_search`**: Returns snippets with file paths and line numbers
 **`memory_get`**: Surgical extraction — reads file with optional `from` line and `lines` count
 
 
+
+
 ---
+
+
 
 
 ## 4. Sub-Agent System
 
 
+
+
 ### What Sub-Agents Are
+
+
 
 
 Sub-agents are **isolated background sessions** spawned for specific tasks. They run independently and report back when complete.
 
 
+
+
 ### Context Inheritance
+
+
 
 
 | Inherited | NOT Inherited |
@@ -329,13 +451,21 @@ Sub-agents are **isolated background sessions** spawned for specific tasks. They
 | — | Cron job creation |
 
 
+
+
 **Hardcoded allowlist**: `SUBAGENT_BOOTSTRAP_ALLOWLIST = ["AGENTS.md", "TOOLS.md"]`
+
+
 
 
 **Nesting Restriction**: Sub-agents **cannot spawn other sub-agents**. Code explicitly checks and returns "forbidden".
 
 
+
+
 ### Spawning Sub-Agents
+
+
 
 
 ```
@@ -343,13 +473,21 @@ sessions_spawn(task="...", label="...", model="...", cleanup="keep|delete")
 ```
 
 
+
+
 Returns: `{status: "accepted", childSessionKey, runId}`
+
+
 
 
 Sub-agent starts immediately in background; main agent continues without waiting.
 
 
+
+
 ### Handoff Mechanisms
+
+
 
 
 **A. Automatic Announce (Primary)**
@@ -361,10 +499,14 @@ When sub-agent completes/times out:
 5. Main agent responds naturally
 
 
+
+
 **B. File-Based Handoff (Large Outputs)**
 - Sub-agent writes to files in shared workspace
 - Main agent reads files when needed
 - Avoids context bloat — announce is summary, full data on disk
+
+
 
 
 **C. Session Messaging (`sessions_send`)**
@@ -372,7 +514,11 @@ When sub-agent completes/times out:
 - Useful for multi-step tasks or course corrections
 
 
+
+
 ### Lifecycle Management
+
+
 
 
 **Monitoring:**
@@ -381,9 +527,13 @@ When sub-agent completes/times out:
 - `/subagents log <id>` — Message history
 
 
+
+
 **Control:**
 - `/subagents stop <id|all>` — Abort running sub-agent
 - `/subagents send <id> <message>` — Send message to sub-agent
+
+
 
 
 **Cleanup:**
@@ -391,13 +541,21 @@ When sub-agent completes/times out:
 - `cleanup="keep"` (default) — Session persists for inspection
 
 
+
+
 ---
+
+
 
 
 ## 5. Bootstrap Context Injection
 
 
+
+
 ### Files Auto-Loaded Every Session
+
+
 
 
 | File | Purpose | Max Size | Sub-Agent? |
@@ -411,13 +569,21 @@ When sub-agent completes/times out:
 | `BOOTSTRAP.md` | First-run bootstrap (if exists) | 20K chars | ❌ No |
 
 
+
+
 **Injection**: These appear in system prompt under `## [filename]` headers. ClawdBot doesn't choose to load them — they're baked into every message.
+
+
 
 
 ### Truncation
 
 
+
+
 **Default**: 20,000 characters per bootstrap file
+
+
 
 
 If file exceeds 20K:
@@ -426,28 +592,46 @@ If file exceeds 20K:
 - Middle dropped with truncation notice
 
 
+
+
 Configurable via `config.agents.defaults.bootstrapMaxChars`
+
+
 
 
 ### Token Budget
 
 
+
+
 All 7 bootstrap files × 20K chars max = up to **140K characters** of auto-injected context. In practice, files are kept small with stubs pointing to `memory/context/` files loaded on demand.
+
+
 
 
 ---
 
 
+
+
 ## 6. Current Skills Inventory
+
+
 
 
 ### Available Skills (52 Bundled + 4 Custom)
 
 
+
+
 ClawdBot comes with 52 bundled skills plus 4 custom workspace skills built for the Life Operating System.
 
 
+
+
 ### Custom Workspace Skills ✅
+
+
 
 
 | Skill | Domain | Location | Status |
@@ -459,10 +643,16 @@ ClawdBot comes with 52 bundled skills plus 4 custom workspace skills built for t
 | `liturgy` | All | `~/clawd/skills/web-scout/` | ✅ Complete — 4 targets operational |
 
 
+
+
 ### Bundled Skills Relevant to Life Operating System
 
 
+
+
 **Tier 1 — Directly Useful:**
+
+
 
 
 | Skill | Purpose |
@@ -475,7 +665,11 @@ ClawdBot comes with 52 bundled skills plus 4 custom workspace skills built for t
 | `github` | Dev domain project management |
 
 
+
+
 **Tier 2 — Available if Needed:**
+
+
 
 
 | Skill | Purpose |
@@ -486,22 +680,36 @@ ClawdBot comes with 52 bundled skills plus 4 custom workspace skills built for t
 | `coding-agent` | Dev domain automation |
 
 
+
+
 ---
+
+
 
 
 ## 7. Web Scout Skill (Headless Browser)
 
 
+
+
 ### Overview
+
+
 
 
 **Purpose:** General-purpose authenticated headless browser skill replacing the unreliable Chrome relay extension. Allows ClawdBot to browse auth-gated web apps on demand — conversationally or via cron.
 
 
+
+
 **Location:** `~/clawd/skills/web-scout/`
 
 
+
+
 **Category:** B (read-only, no external writes)
+
+
 
 
 ### Why Playwright (Not Puppeteer)
@@ -512,7 +720,11 @@ ClawdBot comes with 52 bundled skills plus 4 custom workspace skills built for t
 - Built-in screenshot, PDF, network interception
 
 
+
+
 ### Targets
+
+
 
 
 | Target | URL | Auth Method | Capabilities |
@@ -523,7 +735,11 @@ ClawdBot comes with 52 bundled skills plus 4 custom workspace skills built for t
 | Gospel Truth | gospeltruth.net | None | 851 Finney sermons |
 
 
+
+
 ### Architecture
+
+
 
 
 ```
@@ -548,12 +764,18 @@ skills/web-scout/
 ```
 
 
+
+
 ### Authentication Patterns
+
+
 
 
 **Pattern 1: No Auth (CNN Fear & Greed, Gospel Truth)**
 - Direct navigation, no cookies needed
 - Simplest case
+
+
 
 
 **Pattern 2: Cookie Auth (Logos)**
@@ -565,6 +787,8 @@ skills/web-scout/
 - Injected via `browserContext.addCookies()` before navigation
 
 
+
+
 **Pattern 3: Firebase Auth (IntoTheCryptoverse)**
 - ITC uses Firebase Authentication
 - Auth tokens stored in Chrome's IndexedDB, not cookies
@@ -573,7 +797,11 @@ skills/web-scout/
 - Firebase SDK auto-refreshes access token from refresh token
 
 
+
+
 ### Cookie Extraction Details
+
+
 
 
 **Chrome Cookie Encryption (Linux):**
@@ -585,19 +813,27 @@ skills/web-scout/
 - Strip `v11` prefix (3 bytes) before decryption
 
 
+
+
 **Decryption gotchas:**
 - Wrong IV corrupts first block only (subsequent blocks decrypt correctly)
 - Must use PKCS7 padding
 - `v10` vs `v11` use different approaches (v10 may use hardcoded `peanuts` key)
 
 
+
+
 ### Session Expiry Handling
+
+
 
 
 **Detection:**
 - Check if navigation redirected to login page (pattern match per profile)
 - Check for known "session expired" DOM elements
 - Check for 401/403 responses
+
+
 
 
 **Flow when expired:**
@@ -608,19 +844,27 @@ skills/web-scout/
 5. Operation resumes
 
 
+
+
 ### Rate Limiting
 - Minimum 2 seconds between page loads
 - Exponential backoff on errors: 2s → 4s → 8s → max 60s
 - Conversational use: natural pacing, but same backoff on errors
 
 
+
+
 ### Capabilities by Target
+
+
 
 
 **CNN Fear & Greed:**
 - Extract index value (0-100)
 - Extract all 7 components with labels
 - Output: JSON
+
+
 
 
 **IntoTheCryptoverse:**
@@ -631,11 +875,15 @@ skills/web-scout/
 - 20+ shortcut pages pre-mapped
 
 
+
+
 **Logos:**
 - Library search (7,500 books)
 - Results include AI Synopsis + source citations with page numbers
 - Multiple search modes: All, Bible, Books, Factbook, Morph, Media, Maps
 - Library catalog filtering by title/author
+
+
 
 
 **Gospel Truth (Finney):**
@@ -647,7 +895,11 @@ skills/web-scout/
 - 20+ shortcuts for named pages
 
 
+
+
 ### Integration with Cron Jobs
+
+
 
 
 Existing cron scripts call Web Scout via:
@@ -655,18 +907,28 @@ Existing cron scripts call Web Scout via:
 - Or: ClawdBot invokes internally during report generation
 
 
+
+
 **Pending integration:**
 - CNN F&G → morning brief cron
 - ITC data → weekly market report cron
 
 
+
+
 ---
+
+
 
 
 ## 8. Token Budgets
 
 
+
+
 ### Per-Session Baseline
+
+
 
 
 | Context | Size | When Loaded |
@@ -675,10 +937,16 @@ Existing cron scripts call Web Scout via:
 | Skill descriptions (all) | ~100 words each | Every session, automatic |
 
 
+
+
 **Baseline**: ~4K tokens
 
 
+
+
 ### On-Demand Additions
+
+
 
 
 | Context | Size | When Loaded |
@@ -687,11 +955,17 @@ Existing cron scripts call Web Scout via:
 | Memory search results | 6 chunks × ~700 chars | On demand |
 
 
+
+
 **With one skill loaded**: ~7-10K tokens
 **With memory search**: +2-3K tokens
 
 
+
+
 ### Limits
+
+
 
 
 | Item | Limit |
@@ -702,16 +976,26 @@ Existing cron scripts call Web Scout via:
 | Memory search results | 6 chunks default |
 
 
+
+
 ---
+
+
 
 
 ## 9. Workflow Patterns
 
 
+
+
 ### Pattern 1: Sequential Skill Loading
 
 
+
+
 Most common. Main agent loads skills one at a time within a session.
+
+
 
 
 ```
@@ -719,8 +1003,12 @@ User: "Let's brainstorm Romans 8"
 → Detects bible-brainstorm skill → loads → executes
 
 
+
+
 User: "I'm ready to draft the sermon"
 → Detects sermon-writer skill → loads → executes
+
+
 
 
 User: "Schedule prep time"
@@ -728,10 +1016,16 @@ User: "Schedule prep time"
 ```
 
 
+
+
 ### Pattern 2: Sub-Agent for Heavy Lifting
 
 
+
+
 For parallel work or isolated processing.
+
+
 
 
 ```
@@ -746,7 +1040,11 @@ User: "Generate my morning brief"
 ```
 
 
+
+
 ### Pattern 3: Scheduled Workflows (Cron)
+
+
 
 
 ```
@@ -758,10 +1056,16 @@ Cron job at 5:30 AM:
 ```
 
 
+
+
 ### Pattern 4: File-Based Handoff
 
 
+
+
 For large outputs that would bloat context:
+
+
 
 
 ```
@@ -771,7 +1075,11 @@ Announce contains summary only
 ```
 
 
+
+
 ### Pattern 5: Conversational Web Browsing
+
+
 
 
 ```
@@ -781,6 +1089,8 @@ User: "Search Logos for N.T. Wright on Romans 8"
 → Navigates to app.logos.com
 → Executes Books search
 → Returns results with citations
+
+
 
 
 User: "What did Finney say about holiness?"
@@ -793,7 +1103,13 @@ User: "What did Finney say about holiness?"
 
 
 
+
+
+
+
 ### Pattern 6: Doc Update Pipeline
+
+
 
 
 ```
@@ -809,7 +1125,11 @@ Rick says "update docs"
 ---
 
 
+
+
 ## 10. Key Commands & Tools
+
+
 
 
 ### Gateway Management
@@ -819,10 +1139,14 @@ systemctl status clawdbot
 journalctl -u clawdbot -n 50 --no-pager
 
 
+
+
 # Control
 sudo systemctl start clawdbot
 sudo systemctl stop clawdbot
 sudo systemctl restart clawdbot
+
+
 
 
 # Kill stuck processes
@@ -832,6 +1156,8 @@ sudo systemctl start clawdbot
 ```
 
 
+
+
 ### Tunnel Management
 ```bash
 # Status
@@ -839,13 +1165,19 @@ sudo systemctl status cloudflared
 sudo journalctl -u cloudflared -n 50 --no-pager
 
 
+
+
 # Verify config file used
 sudo systemctl cat cloudflared
+
+
 
 
 # Restart
 sudo systemctl restart cloudflared
 ```
+
+
 
 
 ### Device/Pairing
@@ -855,15 +1187,21 @@ clawdbot devices approve <REQUEST_ID>
 ```
 
 
+
+
 ### TUI Access (with self-signed cert)
 ```bash
 NODE_TLS_REJECT_UNAUTHORIZED=0 clawdbot tui --url wss://127.0.0.1:18789 --password <PASSWORD>
 ```
 
 
+
+
 ### Memory Tools
 - `memory_search(query)` — Hybrid search, returns snippets
 - `memory_get(file, from, lines)` — Surgical extraction
+
+
 
 
 ### Sub-Agent Tools
@@ -875,18 +1213,28 @@ NODE_TLS_REJECT_UNAUTHORIZED=0 clawdbot tui --url wss://127.0.0.1:18789 --passwo
 - `/subagents stop <id|all>` — Abort
 
 
+
+
 ### Skill Tools
 - `read` tool — Load SKILL.md body on trigger
 - `skill-creator` skill — Scaffold new skills
 
 
+
+
 ---
+
+
 
 
 ## 11. Supervision Protocols
 
 
+
+
 ### Change Categories
+
+
 
 
 | Category | Risk Level | Process |
@@ -894,6 +1242,8 @@ NODE_TLS_REJECT_UNAUTHORIZED=0 clawdbot tui --url wss://127.0.0.1:18789 --passwo
 | **A** | Low | No review needed (reading files, status checks) |
 | **B** | Medium | Document before executing (app configs, packages, new skills) |
 | **C** | High | **REQUIRES SUPERVISOR REVIEW** |
+
+
 
 
 ### Category C Changes (Always Require Review)
@@ -905,10 +1255,16 @@ NODE_TLS_REJECT_UNAUTHORIZED=0 clawdbot tui --url wss://127.0.0.1:18789 --passwo
 - Service restarts for critical components
 
 
+
+
 ### Review Checklist
 
 
+
+
 Before approving Category C changes:
+
+
 
 
 1. **File Paths** — Correct config file? (`/etc/cloudflared/` not `~/.cloudflared/`)
@@ -918,6 +1274,8 @@ Before approving Category C changes:
 5. **Missing Steps** — Anything that should be added?
 
 
+
+
 ### Dangerous Patterns
 - Changes to TLS/HTTPS settings
 - Changes to authentication
@@ -925,7 +1283,11 @@ Before approving Category C changes:
 - Any change where ClawdBot modifies its own connectivity path
 
 
+
+
 ### Safe Login Issue Resolution
+
+
 
 
 "Can't log in to Web UI" almost always means pending device pairing:
@@ -935,19 +1297,31 @@ clawdbot devices approve <id>  # Approve the request
 ```
 
 
+
+
 **NOT** by changing `gateway.auth` configuration.
+
+
 
 
 ---
 
 
+
+
 ## 12. Claude Code Integration
+
+
 
 
 ### What Is Claude Code?
 
 
+
+
 Claude Code is a standalone CLI coding agent that ClawdBot can spawn for complex development tasks. It runs as a native process on the host machine with full filesystem access.
+
+
 
 
 **Key Distinction from Sub-Agents:**
@@ -955,10 +1329,16 @@ Claude Code is a standalone CLI coding agent that ClawdBot can spawn for complex
 - Claude Code = completely separate process, no ClawdBot context inheritance
 
 
+
+
 ### Invocation Mechanism
 
 
+
+
 ClawdBot spawns Claude Code via the `exec` tool with PTY mode:
+
+
 
 
 ```bash
@@ -966,7 +1346,11 @@ exec pty:true workdir:~/project command:"claude 'Your task description'"
 ```
 
 
+
+
 ### Context Inheritance
+
+
 
 
 | Inherited | NOT Inherited |
@@ -978,10 +1362,16 @@ exec pty:true workdir:~/project command:"claude 'Your task description'"
 | Sudo privileges | Session history |
 
 
+
+
 **Critical:** Claude Code has no knowledge of ClawdBot's operational constraints.
 
 
+
+
 ### Execution Modes (Flags)
+
+
 
 
 | Flag | Behavior | Risk Level |
@@ -991,7 +1381,11 @@ exec pty:true workdir:~/project command:"claude 'Your task description'"
 | `--yolo` | No sandbox, no approvals | Extreme |
 
 
+
+
 ### Governance Categories
+
+
 
 
 | Category | Risk | Process |
@@ -1001,12 +1395,18 @@ exec pty:true workdir:~/project command:"claude 'Your task description'"
 | **CC-C** | High | Task description + code review + Rick present |
 
 
+
+
 **Flag restrictions:**
 - `--full-auto`: CC-A only
 - `--yolo`: Never without supervisor + Rick approval
 
 
+
+
 ### Working Directory Rules
+
+
 
 
 | Directory | Minimum Category | Notes |
@@ -1022,13 +1422,21 @@ exec pty:true workdir:~/project command:"claude 'Your task description'"
 | `/etc/*` | CC-C | System config |
 
 
+
+
 ---
+
+
 
 
 ## 13. Backup & Sync Infrastructure
 
 
+
+
 ### Git Backup
+
+
 
 
 **Repo:** `github.com/PlebRick/ClawdBot_Backup` (private)
@@ -1036,8 +1444,12 @@ exec pty:true workdir:~/project command:"claude 'Your task description'"
 **Auth:** `gh auth token` at runtime (no hardcoded credentials)
 
 
+
+
 **What's backed up:** All workspace files (227 files as of initial commit)
 **What's excluded:** `.gitignore` covers logs, tmp, .trash, node_modules, __pycache__, cookies, secrets, .env files, .clawdbot/, *.sqlite, *.jsonl
+
+
 
 
 **Security:**
@@ -1047,10 +1459,14 @@ exec pty:true workdir:~/project command:"claude 'Your task description'"
 - Hook location: `.git/hooks/pre-commit`
 
 
+
+
 **Backup script:** `scripts/backup-to-github.sh`
 ```bash
 # Manual run:
 bash ~/clawd/scripts/backup-to-github.sh
+
+
 
 
 # What it does:
@@ -1062,10 +1478,16 @@ bash ~/clawd/scripts/backup-to-github.sh
 ```
 
 
+
+
 ### Disaster Recovery
 
 
+
+
 **`RECOVERY.md`** in workspace root — 5-phase runbook for full rebuild from bare hardware:
+
+
 
 
 | Phase | What | Time |
@@ -1077,22 +1499,34 @@ bash ~/clawd/scripts/backup-to-github.sh
 | 5. Verify | All integrations smoke test | ~10 min |
 
 
+
+
 **Estimated total:** Under 1 hour with encrypted config backup restored (skips most credential setup).
+
+
 
 
 ### Supervisor Project → Google Drive Sync
 
 
+
+
 **Purpose:** Keep supervisor-project docs available on Google Drive for Opus/Claude Desktop sessions.
+
+
 
 
 **Drive location:** `My Drive > 02_ClawdBot > supervisor-project/`
 **Drive folder ID:** `1X1DQbFF_2eR_jpS3cyqlI1OcgeD3cglP`
 
 
+
+
 **Scripts:**
 - `scripts/sync-supervisor-to-drive.sh` — Shell wrapper
 - `scripts/sync-supervisor-drive.py` — Python uploader (uses arnoldos.py for Google auth)
+
+
 
 
 **Behavior:**
@@ -1101,10 +1535,14 @@ bash ~/clawd/scripts/backup-to-github.sh
 - Files are uploaded as plain text and converted to Google Docs by Drive API
 
 
+
+
 **Trigger:** Automatic — `backup-to-github.sh` detects if any `supervisor-project/` files changed in the git commit. If so, runs Drive sync after push. Can also be run manually:
 ```bash
 bash ~/clawd/scripts/sync-supervisor-to-drive.sh
 ```
+
+
 
 
 **Flow:**
@@ -1121,10 +1559,18 @@ Clawd updates supervisor-project/*.md
 
 
 
+
+
+
+
 ### Encrypted Config Backup (clawdbot.json)
 
 
+
+
 **The single most critical file** — contains all API keys, agent definitions, cron jobs, channel configs, model allowlist, and gateway settings.
+
+
 
 
 **Backup method:** GPG AES256 symmetric encryption → Google Drive
@@ -1136,16 +1582,24 @@ Clawd updates supervisor-project/*.md
 **Fallback:** Raw JSON also stored in Rick's password manager
 
 
+
+
 **Recovery:**
 ```bash
 gpg --decrypt clawdbot-config-2026-02-01.json.gpg > ~/.clawdbot/clawdbot.json
 ```
 
 
+
+
 ### Recovery Templates (system/ directory)
 
 
+
+
 Git-tracked templates for full system reconstruction:
+
+
 
 
 | File | Purpose |
@@ -1160,7 +1614,11 @@ Git-tracked templates for full system reconstruction:
 ---
 
 
+
+
 ## Appendix A: Key File Locations
+
+
 
 
 | Purpose | Path |
@@ -1196,10 +1654,16 @@ Git-tracked templates for full system reconstruction:
 | Encrypted config backup | `~/clawd/scripts/backup-config-encrypted.sh` |
 
 
+
+
 ---
 
 
+
+
 ## Appendix B: Configuration Snippets
+
+
 
 
 ### Current Gateway trustedProxies
@@ -1210,6 +1674,8 @@ Git-tracked templates for full system reconstruction:
 ]
 ```
 Both IPv4 and IPv6 required — cloudflared may connect via either.
+
+
 
 
 ### Current Cloudflared Config
@@ -1225,7 +1691,11 @@ ingress:
 ```
 
 
+
+
 ### Valid gateway.auth.mode Values
+
+
 
 
 **Only two valid values:**
@@ -1233,26 +1703,42 @@ ingress:
 - `"password"`
 
 
+
+
 **There is no `"none"` option.** Auth cannot be disabled by design.
 
 
+
+
 ---
+
+
 
 
 *Document Status: Complete*
 *This reference captures ClawdBot's architecture. Updated January 31, 2026 — added git backup repo, RECOVERY.md, corrected supervisor-project paths.*
 
 
+
+
 ---
+
+
 
 
 ## 14. Model Providers & Multi-Model Architecture
 
 
+
+
 ### Provider Setup (as of February 2026)
 
 
+
+
 ClawdBot uses three model providers in a tiered architecture:
+
+
 
 
 **Tier 1 — Anthropic (Direct)**
@@ -1261,11 +1747,15 @@ ClawdBot uses three model providers in a tiered architecture:
 - Used for: All interactive chat, Morning Brief, Market Analysis, Ara, writing tasks
 
 
+
+
 **Tier 2 — Google (Direct, Free Tier)**
 - Model: Gemini 2.5 Flash
 - Auth: API key in env vars (`GEMINI_API_KEY`)
 - Used for: Lightweight cron jobs (reminders, update checks)
 - Note: Free tier has rate limits; Gemini 3 Pro and 2.5 Pro have zero quota on free tier
+
+
 
 
 **Tier 3 — OpenRouter (Multi-Model Gateway)**
@@ -1280,10 +1770,16 @@ ClawdBot uses three model providers in a tiered architecture:
   - `openrouter/google/gemini-3-pro-image-preview` (alias: nano-banana) — image generation, on-demand
 
 
+
+
 ### Models Allowlist
 
 
+
+
 Models must be registered in `agents.defaults.models` in `clawdbot.json` or they get "model not allowed" error. After adding a model, restart the gateway.
+
+
 
 
 ```json
@@ -1299,7 +1795,11 @@ Models must be registered in `agents.defaults.models` in `clawdbot.json` or they
 ```
 
 
+
+
 ### Cron Job Model Assignments
+
+
 
 
 | Job | Model | Why |
@@ -1312,12 +1812,18 @@ Models must be registered in `agents.defaults.models` in `clawdbot.json` or they
 | Weekend Weather Digest | Qwen3 235B (OpenRouter) | Test job for OpenRouter pipeline |
 
 
+
+
 ### Swapping Models on Cron Jobs
+
+
 
 
 ```bash
 clawdbot cron edit <job-id> --model openrouter/<provider>/<model>
 ```
+
+
 
 
 ### Key Rules
@@ -1326,10 +1832,16 @@ clawdbot cron edit <job-id> --model openrouter/<provider>/<model>
 - **Grok, Gemini Pro, Nano Banana are on-demand only** — never assigned to automated jobs without Rick's explicit command
 
 
+
+
 ### Image Generation (Nano Banana)
 
 
+
+
 Nano Banana (Gemini 3 Pro Image) generates images via OpenRouter API. Response includes `images` array in the message object with base64-encoded PNG data.
+
+
 
 
 ```python
@@ -1339,7 +1851,11 @@ url = img["image_url"]["url"]  # data:image/png;base64,...
 ```
 
 
+
+
 ### Bird (X/Twitter) Connection
+
+
 
 
 - CLI tool: `bird` (npm: `@steipete/bird`)
@@ -1349,16 +1865,26 @@ url = img["image_url"]["url"]  # data:image/png;base64,...
 - Usage: `source ~/.clawdbot/bird-env && bird <command>`
 
 
+
+
 ---
+
+
 
 
 ## 15. File Server Infrastructure
 
 
+
+
 ### Overview
 
 
+
+
 Lightweight Express static file server serving `~/clawd/` for dashboard file browser and external access.
+
+
 
 
 **Port:** 18790
@@ -1366,7 +1892,11 @@ Lightweight Express static file server serving `~/clawd/` for dashboard file bro
 **Service:** `clawd-files.service` (systemd user service)
 
 
+
+
 ### Architecture
+
+
 
 
 ```
@@ -1379,10 +1909,14 @@ Browser
 ```
 
 
+
+
 ### Security
 - Bearer token auth via `FILE_SERVER_TOKEN` env var
 - Scoped to `~/clawd/` only (no arbitrary path access)
 - Read-only (no upload/delete endpoints)
+
+
 
 
 ### Cloudflare Config (`/etc/cloudflared/config.yml`)
@@ -1401,6 +1935,8 @@ ingress:
 ```
 
 
+
+
 ### Service Management
 ```bash
 systemctl --user status clawd-files
@@ -1409,16 +1945,24 @@ journalctl --user -u clawd-files -n 50
 ```
 
 
+
+
 ---
 
 
+
+
 ## 16. Quick Capture (arnoldos.py)
+
+
 
 
 ### Command
 ```bash
 python3 arnoldos.py quick "<text>" [--domain DOMAIN]
 ```
+
+
 
 
 ### Domain Inference
@@ -1429,6 +1973,8 @@ python3 arnoldos.py quick "<text>" [--domain DOMAIN]
 - **Dev:** code, bug, deploy, github, api...
 - **Family:** kids, dinner, school, vacation...
 - **Personal:** gym, doctor, haircut, meditation...
+
+
 
 
 ### Output (--json)
@@ -1447,18 +1993,28 @@ python3 arnoldos.py quick "<text>" [--domain DOMAIN]
 ```
 
 
+
+
 ### Time Detection
 If text contains time patterns (2pm, 14:00, tomorrow 3pm), creates calendar event instead of task.
+
+
 
 
 ---
 
 
+
+
 ## 17. Public Mirror Sync
+
+
 
 
 ### Purpose
 Sanitized public copy of workspace for sharing, documentation, and open-source contributions.
+
+
 
 
 ### Repos
@@ -1466,12 +2022,18 @@ Sanitized public copy of workspace for sharing, documentation, and open-source c
 - **Public:** `github.com/PlebRick/ClawdBot_Public` (sanitized mirror)
 
 
+
+
 ### Script
 `~/clawd/scripts/sync-to-public.sh`
 
 
+
+
 ### Schedule
 Every 6 hours via crontab (`0 */6 * * *`)
+
+
 
 
 ### Sanitization

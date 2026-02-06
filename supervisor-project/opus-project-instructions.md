@@ -3,7 +3,15 @@
 
 
 
+
+
+
+
 ## Role
+
+
+
+
 
 
 
@@ -13,7 +21,15 @@ Claude (Opus) serves as the supervisor and overseer for ClawdBot, a self-hosted 
 
 
 
+
+
+
+
 ## System Architecture
+
+
+
+
 
 
 
@@ -23,6 +39,10 @@ Claude (Opus) serves as the supervisor and overseer for ClawdBot, a self-hosted 
 - **Config file**: `~/.clawdbot/clawdbot.json`
 - **Port**: 18789
 - **Current state**: Running with TLS enabled (self-signed cert)
+
+
+
+
 
 
 
@@ -38,6 +58,10 @@ Claude (Opus) serves as the supervisor and overseer for ClawdBot, a self-hosted 
 
 
 
+
+
+
+
 ### Traffic Flow
 ```
 Browser â HTTPS â Cloudflare â Tunnel â HTTPS localhost:18789 â Gateway
@@ -46,7 +70,15 @@ Browser â HTTPS â Cloudflare â Tunnel â HTTPS localhost:1878
 
 
 
+
+
+
+
 ### Current Configuration
+
+
+
+
 
 
 
@@ -66,6 +98,10 @@ ingress:
 
 
 
+
+
+
+
 **Gateway trustedProxies** (in `~/.clawdbot/clawdbot.json`):
 ```json
 "trustedProxies": [
@@ -77,7 +113,15 @@ ingress:
 
 
 
+
+
+
+
 ## Known Issues
+
+
+
+
 
 
 
@@ -90,7 +134,15 @@ ingress:
 
 
 
+
+
+
+
 2. **Two cloudflared config files**: Only `/etc/cloudflared/config.yml` is used. The `~/.cloudflared/config.yml` file is ignored and can cause confusion.
+
+
+
+
 
 
 
@@ -100,12 +152,24 @@ ingress:
 
 
 
+
+
+
+
 ## Review Checklist for ClawdBot Changes
 
 
 
 
+
+
+
+
 Before approving any system change, verify:
+
+
+
+
 
 
 
@@ -118,10 +182,18 @@ Before approving any system change, verify:
 
 
 
+
+
+
+
 ### 2. Order of Operations
 - [ ] Will this change affect ClawdBot's own connectivity?
 - [ ] If changing protocols (HTTPâHTTPS), are BOTH ends updated BEFORE restart?
 - [ ] Is there a clear rollback plan?
+
+
+
+
 
 
 
@@ -133,9 +205,17 @@ Before approving any system change, verify:
 
 
 
+
+
+
+
 ### 4. Network Considerations
 - [ ] IPv4 AND IPv6 accounted for? (trustedProxies needs both `127.0.0.1` and `::1`)
 - [ ] TLS/cert implications understood?
+
+
+
+
 
 
 
@@ -147,12 +227,24 @@ Before approving any system change, verify:
 
 
 
+
+
+
+
 ## Dangerous Change Patterns
 
 
 
 
+
+
+
+
 **NEVER approve without extra scrutiny:**
+
+
+
+
 
 
 
@@ -165,7 +257,15 @@ Before approving any system change, verify:
 
 
 
+
+
+
+
 ## Communication Protocol
+
+
+
+
 
 
 
@@ -180,10 +280,18 @@ Before approving any system change, verify:
 
 
 
+
+
+
+
 2. Claude reviews and responds:
    - APPROVED - proceed as planned
    - APPROVED WITH CORRECTIONS - specific fixes needed
    - REJECTED - explain why and suggest alternative
+
+
+
+
 
 
 
@@ -193,12 +301,24 @@ Before approving any system change, verify:
 
 
 
+
+
+
+
 4. Test and verify before proceeding to next change
 
 
 
 
+
+
+
+
 ## Useful Commands
+
+
+
+
 
 
 
@@ -210,8 +330,16 @@ systemctl status clawdbot
 
 
 
+
+
+
+
 # Check tunnel status
 sudo systemctl status cloudflared
+
+
+
+
 
 
 
@@ -222,8 +350,16 @@ journalctl -u clawdbot -n 50 --no-pager
 
 
 
+
+
+
+
 # Tunnel logs
 sudo journalctl -u cloudflared -n 50 --no-pager
+
+
+
+
 
 
 
@@ -235,8 +371,16 @@ pkill -9 -f clawdbot
 
 
 
+
+
+
+
 # Test gateway locally (with TLS bypass)
 curl -k https://localhost:18789
+
+
+
+
 
 
 
@@ -247,8 +391,16 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 # Start TUI with cert bypass
 NODE_TLS_REJECT_UNAUTHORIZED=0 clawdbot tui --url wss://127.0.0.1:18789 --password <PASSWORD>
+
+
+
+
 
 
 
@@ -261,7 +413,15 @@ clawdbot devices approve <REQUEST_ID>
 
 
 
+
+
+
+
 ## Security Status
+
+
+
+
 
 
 

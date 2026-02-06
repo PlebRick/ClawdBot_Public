@@ -1,7 +1,11 @@
 ﻿# Life Operating System PRD
 
 
+
+
 ## ClawdBot Content & Configuration Architecture
+
+
 
 
 **Version**: 2.1
@@ -11,76 +15,120 @@
 **Status**: ✅ COMPLETE — January 30, 2026
 
 
+
+
 > **Completion Notice:** Phases 0-2 delivered the core system. Phase 3 was redistributed to the Future Integrations Roadmap. Phase 4 (Optimization) is ongoing continuous improvement, not a milestone.
 >
 > **Future feature planning:** See `future-integrations-roadmap.md`
 
 
+
+
 ---
+
+
 
 
 ## Executive Summary
 
 
+
+
 Rick has built multiple specialized AI projects across Claude, Gemini, and other platforms — each trained for specific domains of his life. These include sermon writing (voice-trained), liturgy preparation, Bible meditation/brainstorming, retirement investing, YouTube content, and life management (ArnoldOS).
+
+
 
 
 The problem: **Every conversation starts from scratch.** Context doesn't flow between projects. Rick re-explains himself constantly.
 
 
+
+
 This PRD defined the **content and configuration** needed to transform ClawdBot into a unified Life Operating System.
+
+
 
 
 **Critical insight from ClawdBot:** The infrastructure already exists. ClawdBot has auto-injected identity files, a production skill system with LLM-native detection, hybrid vector+keyword memory search, sub-agent orchestration, and scheduled jobs. What's missing is the *content* that fills these structures — Rick's identity depth, domain-specific skills, and the voice profile trapped in a Grok chat.
 
 
+
+
 This was not an architecture build. This was a content population project.
+
+
 
 
 **It is now complete.**
 
 
+
+
 ---
 
 
+
+
 ## Design Principles
+
+
 
 
 ### 1. Use What Exists
 ClawdBot's infrastructure is production-ready. Don't build parallel systems.
 
 
+
+
 ### 2. Descriptions Are Detection Rails
 The skill `description` field is the trigger mechanism. LLM reads all descriptions and decides which skill applies. A well-written description *is* the routing logic.
+
+
 
 
 ### 3. Identity Is Always Present
 Bootstrap files (`AGENTS.md`, `SOUL.md`, `USER.md`, etc.) auto-inject every session. Rick never re-explains who he is.
 
 
+
+
 ### 4. Token-Efficient Depth
 Keep auto-injected files lean with pointers to searchable depth. `USER.md` stays ~2-3K chars; comprehensive content lives in `memory/context/` files loaded on demand.
+
+
 
 
 ### 5. Skills Load on Trigger
 Skill bodies load only when the description matches. One skill at a time. ~500 lines max per skill body.
 
 
+
+
 ### 6. Sub-Agents for Parallel Work
 Workflows chain through sub-agents writing to shared files, not skill-to-skill calls. Main agent orchestrates. Task descriptions must include context since sub-agents don't inherit `SOUL.md` or `USER.md`.
+
+
 
 
 ### 7. Voice Profile Is the Bottleneck
 Everything else is plumbing. The Grok harvest (1,354 remaining messages) contains Rick's actual voice — how he tells stories, preaches, argues, applies scripture. This is the critical path.
 
 
+
+
 ---
+
+
 
 
 ## What Already Exists
 
 
+
+
 ### Auto-Injected Every Session (No Work Needed)
+
+
 
 
 | File | Purpose | Max Size | Status |
@@ -94,7 +142,11 @@ Everything else is plumbing. The Grok harvest (1,354 remaining messages) contain
 | Skill descriptions | All skills' frontmatter | ~100 words each | ✅ Working |
 
 
+
+
 ### On-Demand Systems (No Work Needed)
+
+
 
 
 | System | Mechanism | Status |
@@ -109,7 +161,11 @@ Everything else is plumbing. The Grok harvest (1,354 remaining messages) contain
 | Morning brief cron | ArnoldOS integrated | ✅ Running |
 
 
+
+
 ### ArnoldOS Integration
+
+
 
 
 | Component | Status | Notes |
@@ -120,7 +176,11 @@ Everything else is plumbing. The Grok harvest (1,354 remaining messages) contain
 | Proving log | ✅ Active | `memory/arnoldos-proving-log.md` |
 
 
+
+
 ### Available Skills (52 Bundled + 4 Custom)
+
+
 
 
 **Custom workspace skills built:**
@@ -128,6 +188,8 @@ Everything else is plumbing. The Grok harvest (1,354 remaining messages) contain
 - `sermon-writer` — Voice profile + theological framework ✅
 - `bible-brainstorm` — Scripture meditation and research ✅
 - `web-scout` — Headless browser automation ✅
+
+
 
 
 **Bundled skills relevant to LOS:**
@@ -139,13 +201,21 @@ Everything else is plumbing. The Grok harvest (1,354 remaining messages) contain
 - `github` — Dev domain
 
 
+
+
 ---
+
+
 
 
 ## What Was Created
 
 
+
+
 ### 1. Enriched Identity Content ✅
+
+
 
 
 **File:** `USER.md` — Enriched to 2.7K chars with 10 depth pointers
@@ -155,7 +225,11 @@ Everything else is plumbing. The Grok harvest (1,354 remaining messages) contain
 **File:** `memory/context/ricks-theological-framework.md` — Theological positions documented
 
 
+
+
 ### 2. Custom Skills ✅
+
+
 
 
 | Skill | Domain | Status | Notes |
@@ -166,19 +240,29 @@ Everything else is plumbing. The Grok harvest (1,354 remaining messages) contain
 | `web-scout` | All | ✅ Complete | 4 targets: CNN, ITC, Logos, Finney |
 
 
+
+
 **Phase 3 skills moved to Future Integrations Roadmap:**
 - `morning-brief` — Not needed, cron already running
 - `trading-analysis` — Needs portfolio scope definition
 - `chapel-schedule` — Needs separate PRD and workflow discovery
 
 
+
+
 ### 3. Voice Profile ✅
+
+
 
 
 **Source:** Grok "Mika" chat — 1,654 messages extracted and processed
 
 
+
+
 **Deliverables created:**
+
+
 
 
 | File | Purpose | Size |
@@ -189,13 +273,21 @@ Everything else is plumbing. The Grok harvest (1,354 remaining messages) contain
 | `skills/sermon-writer/references/voice-phrases.md` | Phrase catalog by function | ~150 lines |
 
 
+
+
 **Voice profile validation:** Rick scored sermon output 3.5/5 (above ≥3 threshold)
+
+
 
 
 ---
 
 
+
+
 ## Architecture Mapping
+
+
 
 
 | LOS Concept | ClawdBot Implementation |
@@ -207,22 +299,34 @@ Everything else is plumbing. The Grok harvest (1,354 remaining messages) contain
 | Layer 5: Workflows | Sub-agents (`sessions_spawn`) + file handoff + cron |
 
 
+
+
 **Key insight:** The "manifest + rails + selective loading" architecture Rick envisioned is exactly how ClawdBot already works:
 - Manifest = `<available_skills>` XML block (auto-generated)
 - Rails = `description` field per skill
 - Selective loading = SKILL.md body loaded only on trigger
 
 
+
+
 ---
+
+
 
 
 ## Workflow Patterns
 
 
+
+
 ### Pattern 1: Sequential Skill Loading
 
 
+
+
 Most common. Main agent loads skills one at a time within a session.
+
+
 
 
 ```
@@ -230,8 +334,12 @@ User: "Let's brainstorm Romans 8"
 → ClawdBot detects bible-brainstorm skill → loads → executes
 
 
+
+
 User: "I'm ready to draft the sermon"
 → ClawdBot detects sermon-writer skill → loads → executes
+
+
 
 
 User: "Schedule prep time for Sunday"
@@ -239,10 +347,16 @@ User: "Schedule prep time for Sunday"
 ```
 
 
+
+
 ### Pattern 2: Sub-Agent for Heavy Lifting
 
 
+
+
 For parallel work or isolated processing.
+
+
 
 
 ```
@@ -257,10 +371,16 @@ User: "Generate my morning brief"
 ```
 
 
+
+
 **Note:** Sub-agents don't inherit `SOUL.md` or `USER.md`. Task descriptions must include sufficient context about Rick's identity and what patterns to look for.
 
 
+
+
 ### Pattern 3: Scheduled Workflows (Cron)
+
+
 
 
 ```
@@ -272,7 +392,11 @@ Cron job at 5:30 AM:
 ```
 
 
+
+
 ### Sub-Agent Constraints
+
+
 
 
 | Inherited | NOT Inherited |
@@ -284,18 +408,28 @@ Cron job at 5:30 AM:
 | Memory search | |
 
 
+
+
 **Handoff:** Sub-agents write files → main agent reads files. Automatic announce when complete.
+
+
 
 
 ---
 
 
+
+
 ## Implementation Phases — FINAL STATUS
+
+
 
 
 ### Phase 0: Unblock Grok Harvest ✅ COMPLETE
 - [x] Chrome relay reconnected
 - [x] Extraction resumed and completed
+
+
 
 
 ### Phase 1: Foundation ✅ COMPLETE
@@ -308,6 +442,8 @@ Cron job at 5:30 AM:
 - [x] Verify morning brief with ArnoldOS data
 
 
+
+
 ### Phase 2: Ministry Skills ✅ COMPLETE
 - [x] Create `sermon-writer` skill with voice-card reference
 - [x] Create `voice-phrases.md` catalog
@@ -317,11 +453,15 @@ Cron job at 5:30 AM:
 - [x] Sequential workflow test (brainstorm → sermon → schedule)
 
 
+
+
 ### Phase 3: Remaining Skills ❌ CLOSED
 Items redistributed to Future Integrations Roadmap:
 - `morning-brief` skill — Not needed, cron already running
 - `trading-analysis` skill — Needs portfolio scope definition
 - `chapel-schedule` skill — Needs separate PRD and workflow discovery
+
+
 
 
 ### Phase 4: Optimization 🔄 ONGOING
@@ -331,10 +471,16 @@ Items redistributed to Future Integrations Roadmap:
 - [ ] Voice profile refinement from actual sermon use
 
 
+
+
 ---
 
 
+
+
 ## File Structure — FINAL STATE
+
+
 
 
 ```
@@ -379,10 +525,16 @@ Items redistributed to Future Integrations Roadmap:
 ```
 
 
+
+
 ---
 
 
+
+
 ## Success Metrics — FINAL STATUS
+
+
 
 
 ### Milestone 1: "Grok Complete" ✅
@@ -391,10 +543,14 @@ Items redistributed to Future Integrations Roadmap:
 - [x] Voice profile assembled (both versions)
 
 
+
+
 ### Milestone 2: "Identity Depth" ✅
 - [x] `USER.md` enriched and Rick-approved
 - [x] Voice profile validation passed (3.5/5 ≥3)
 - [x] ClawdBot greets Rick appropriately
+
+
 
 
 ### Milestone 3: "ArnoldOS Works" ✅
@@ -403,16 +559,22 @@ Items redistributed to Future Integrations Roadmap:
 - [x] Domain routing functions properly
 
 
+
+
 ### Milestone 4: "Ministry Pipeline" ✅
 - [x] Sermon drafts match Rick's preaching voice (3.5/5)
 - [x] Brainstorm sessions feel like collaboration
 - [x] Workflow chains naturally
 
 
+
+
 ### Milestone 5: "System Complete" ✅ (Redefined)
 - [x] 4 custom skills operational (arnoldos, sermon-writer, bible-brainstorm, web-scout)
 - [x] Cron jobs running (morning brief, weekly market report)
 - [x] Remaining skills moved to Future Integrations (appropriate given current state)
+
+
 
 
 ### Long-term Success (Ongoing)
@@ -422,10 +584,16 @@ Items redistributed to Future Integrations Roadmap:
 - Gemini retired for operational tasks (decision deferred)
 
 
+
+
 ---
 
 
+
+
 ## Risks and Mitigations
+
+
 
 
 | Risk | Likelihood | Impact | Mitigation | Status |
@@ -439,13 +607,21 @@ Items redistributed to Future Integrations Roadmap:
 | Token bloat from skills | Low | Medium | Enforce 500-line limit, use references/ for large content | ✅ Managed |
 
 
+
+
 ---
+
+
 
 
 ## Skill Template
 
 
+
+
 Based on `skill-creator` documentation:
+
+
 
 
 ```yaml
@@ -459,23 +635,35 @@ metadata:
 ```
 
 
+
+
 # Skill Name
+
+
 
 
 ## Purpose
 What this skill does and when to use it.
 
 
+
+
 ## Methodology
 Step-by-step process.
+
+
 
 
 ## Deliverables
 What outputs this skill produces.
 
 
+
+
 ## Examples
 Concrete examples of inputs and outputs.
+
+
 
 
 ## Handoff Points
@@ -484,10 +672,16 @@ When to suggest other skills:
 - "Draft the sermon" → sermon-writer skill
 
 
+
+
 **Critical:** The `description` field must be precise. It's how ClawdBot decides to load this skill. Too vague = false positives. Too narrow = missed triggers.
 
 
+
+
 ### Skill Testing Protocol
+
+
 
 
 After creating each skill, test with 10 natural language prompts:
@@ -495,13 +689,21 @@ After creating each skill, test with 10 natural language prompts:
 - 5 prompts that should NOT trigger the skill
 
 
+
+
 Document results. If false positives or missed triggers occur, tune the description and retest.
+
+
 
 
 ---
 
 
+
+
 ## Token Budget
+
+
 
 
 | Context | Size | When Loaded |
@@ -512,12 +714,18 @@ Document results. If false positives or missed triggers occur, tune the descript
 | Memory search results | 6 chunks × ~700 chars | On demand |
 
 
+
+
 **Baseline per session:** ~4K tokens (bootstrap + descriptions)
 **With one skill loaded:** ~7-10K tokens
 **With memory search:** +2-3K tokens
 
 
+
+
 Substantial headroom remains for conversation.
+
+
 
 
 **Token efficiency strategy:**
@@ -526,10 +734,16 @@ Substantial headroom remains for conversation.
 - Voice profile split: comprehensive (searchable) + condensed (skill reference)
 
 
+
+
 ---
 
 
+
+
 ## ClawdBot's Warnings (Incorporated)
+
+
 
 
 From Prompt 2 response:
@@ -538,6 +752,8 @@ From Prompt 2 response:
 3. **"80% of value from three things"** — Deep identity, ArnoldOS integrated, voice captured ✓
 4. **"Manifest bloat"** — Keep descriptions lean, one sentence each ✓
 5. **"Where does Gemini fit?"** — Decision deferred to Phase 2 ✓
+
+
 
 
 From Prompt 3 feedback:
@@ -551,14 +767,22 @@ From Prompt 3 feedback:
 13. **"gog CLI decision"** — Deferred to end of Phase 2 ✓
 
 
+
+
 ---
+
+
 
 
 ## Appendix A: Grok Harvest — COMPLETE
 
 
+
+
 **Source:** Grok "Mika" chat via Chrome relay
 **Final status:** All 1,654 messages extracted and processed
+
+
 
 
 **Deliverables produced:**
@@ -569,16 +793,26 @@ From Prompt 3 feedback:
 - 17 sermons archived in `memory/training/sermon-archive/`
 
 
+
+
 ---
+
+
 
 
 ## Appendix B: ArnoldOS Resource Mapping
 
 
+
+
 Full details in `memory/context/arnoldos-integration-prd.md`.
 
 
+
+
 **Summary:**
+
+
 
 
 | Domain | Calendar | Task Tag | Drive Folder |
@@ -592,13 +826,21 @@ Full details in `memory/context/arnoldos-integration-prd.md`.
 | Content | (uses Personal) | `[CONTENT]` | `/Content/` |
 
 
+
+
 **Current phase:** Phase 2 Supervised Writes (started January 29, 2026)
+
+
 
 
 ---
 
 
+
+
 ## Appendix C: Related Documents
+
+
 
 
 | Document | Purpose | Location |
@@ -610,7 +852,11 @@ Full details in `memory/context/arnoldos-integration-prd.md`.
 | Claude Code Governance | CC-A/B/C procedures | `memory/context/claude-code-governance.md` |
 
 
+
+
 ---
+
+
 
 
 *Document Status: ✅ COMPLETE — January 30, 2026*

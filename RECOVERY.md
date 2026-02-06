@@ -625,6 +625,7 @@ ls ~/clawd/skills/web-scout/cookies/*.json
 | Cloudflare tunnel | `~/.cloudflared/<UUID>.json` | `cloudflared tunnel login` |
 | File server token | `~/.config/systemd/user/clawd-files.service` (env) | `openssl rand -hex 20` |
 | Web-scout cookies | `~/clawd/skills/web-scout/cookies/` | `extract-cookies.py` |
+| code-server password | `~/.config/code-server/config.yaml` | Password manager |
 
 ---
 
@@ -681,4 +682,53 @@ Add `FILE_SERVER_TOKEN` to dashboard Vercel deployment.
 ```bash
 curl -H "Authorization: Bearer <TOKEN>" http://localhost:18790/AGENTS.md | head -5
 # Should return first 5 lines of AGENTS.md
+```
+
+## Phase 4.7 — code-server Setup (Remote Supervisor Station)
+
+code-server provides VS Code + Claude Code access via browser at `https://code.btctx.us`.
+
+### 4.7.1 Install code-server
+```bash
+curl -fsSL https://code-server.dev/install.sh | sh
+```
+
+### 4.7.2 Configure
+```bash
+mkdir -p ~/.config/code-server
+cat > ~/.config/code-server/config.yaml << 'CONFIG'
+bind-addr: 127.0.0.1:18794
+auth: password
+password: <FROM_PASSWORD_MANAGER>
+cert: false
+app-name: ClawdBot Supervisor
+CONFIG
+chmod 600 ~/.config/code-server/config.yaml
+```
+
+### 4.7.3 Enable and start
+```bash
+sudo systemctl enable --now code-server@$(whoami)
+```
+
+### 4.7.4 Update Cloudflare tunnel config
+Add route to `/etc/cloudflared/config.yml`:
+```yaml
+  - hostname: code.btctx.us
+    service: http://localhost:18794
+```
+Then restart cloudflared.
+
+### 4.7.5 Install extensions
+```bash
+code-server --install-extension ms-python.python
+code-server --install-extension esbenp.prettier-vscode
+code-server --install-extension redhat.vscode-yaml
+sudo systemctl restart code-server@$(whoami)
+```
+
+### ✅ Verification
+```bash
+curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:18794  # expect 302
+curl -I https://code.btctx.us  # expect 302
 ```

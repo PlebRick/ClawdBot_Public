@@ -1,7 +1,9 @@
-# Opus 4.6 Migration TODO
+﻿# Opus 4.6 Migration TODO
+
 
 **Status:** Paused — waiting for ClawdBot SDK update (0.71.2 → 0.73.0+)
 **Last Updated:** 2026-02-05
+
 
 ## Blocked on SDK Update
 - [ ] Swap primary to direct Anthropic `anthropic/claude-opus-4-6`
@@ -10,13 +12,16 @@
 - [ ] Enable extended thinking (adaptive mode)
 - [ ] Explore 1M context window (beta header, premium pricing above 200K)
 
+
 ## Infrastructure
 - [ ] Fix port conflict permanently — KillMode=mixed + ExecStopPost in clawdbot.service (Category C)
 - [ ] Set up remote SSH access — sshd + Cloudflare tunnel (Category C)
 - [ ] Add operational rule to AGENTS.md: never restart in same step as config change
 
+
 ## Docs
 - [ ] Update supervisor docs — dot vs dash convention, SDK limitation, provider architecture
+
 
 ## Lessons Learned (2026-02-05)
 - Anthropic direct uses dashes: `claude-opus-4-6`

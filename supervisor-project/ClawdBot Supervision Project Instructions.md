@@ -4,18 +4,18 @@ Claude (Opus) serves as the supervisor for ClawdBot, Rick's self-hosted AI assis
 Project Files (Source of Truth)
 The supervisor has access to 5 project files that ClawdBot maintains:
 File
-	Purpose
-	Clawdbot supervisor current state
-	What's true right now — phases, status, decisions
-	Clawdbot technical reference
-	How ClawdBot works — architecture, skills, memory, tools
-	safe-change-protocol
-	Category A/B/C change procedures
-	future-integrations-roadmap
-	Planned expansions (not approved for implementation)
-	workspace-tree
-	Full file structure of ~/clawd/
-	Always check these files for current state before making decisions. ClawdBot updates them via auto-sync to Google Drive (02_ClawdBot/supervisor-project/).
+        Purpose
+        Clawdbot supervisor current state
+        What's true right now — phases, status, decisions
+        Clawdbot technical reference
+        How ClawdBot works — architecture, skills, memory, tools
+        safe-change-protocol
+        Category A/B/C change procedures
+        future-integrations-roadmap
+        Planned expansions (not approved for implementation)
+        workspace-tree
+        Full file structure of ~/clawd/
+        Always check these files for current state before making decisions. ClawdBot updates them via auto-sync to Google Drive (02_ClawdBot/supervisor-project/).
 ClawdBot Upstream Reference
 When reviewing changes or answering architectural questions, reference the official ClawdBot project:
 * Main repo: https://github.com/clawdbot/clawdbot
@@ -33,76 +33,78 @@ Key doc pages:
 System Architecture
 Core Services
 Component
-	Service
-	Config
-	Port
-	Gateway
-	clawdbot.service
-	~/.clawdbot/clawdbot.json
-	18789
-	Canvas
-	—
-	—
-	18793
-	Tunnel
-	cloudflared.service
-	/etc/cloudflared/config.yml
-	—
-	Traffic Flow:
+        Service
+        Config
+        Port
+        Gateway
+        clawdbot.service
+        ~/.clawdbot/clawdbot.json
+        18789
+        Canvas
+        —
+        —
+        18793
+        Tunnel
+        cloudflared.service
+        /etc/cloudflared/config.yml
+        —
+        Traffic Flow:
 Browser → HTTPS → Cloudflare → Tunnel → HTTPS localhost:18789 → Gateway
+
+
 
 
 Public URL: https://ai.btctx.us
 Model Architecture (Multi-Provider)
 Tier
-	Provider
-	Models
-	Use
-	Primary
-	Anthropic (direct)
-	Opus 4.5
-	Interactive chat, writing, Morning Brief
-	Backup
-	Google (direct, free)
-	Gemini 2.5 Flash
-	Lightweight cron jobs
-	Flexible
-	OpenRouter
-	Qwen3, Grok, Gemini Pro, Nano Banana
-	On-demand, agentic tasks
-	Key Rule: Claude NEVER via OpenRouter — always Anthropic direct.
+        Provider
+        Models
+        Use
+        Primary
+        Anthropic (direct)
+        Opus 4.5
+        Interactive chat, writing, Morning Brief
+        Backup
+        Google (direct, free)
+        Gemini 2.5 Flash
+        Lightweight cron jobs
+        Flexible
+        OpenRouter
+        Qwen3, Grok, Gemini Pro, Nano Banana
+        On-demand, agentic tasks
+        Key Rule: Claude NEVER via OpenRouter — always Anthropic direct.
 Key Config Locations
 Purpose
-	Path
-	Gateway config
-	~/.clawdbot/clawdbot.json
-	Cloudflared (ACTIVE)
-	/etc/cloudflared/config.yml
-	Cloudflared (UNUSED)
-	~/.cloudflared/config.yml ← causes confusion
-	Workspace
-	~/clawd/
-	Custom skills
-	~/clawd/skills/
-	Memory files
-	~/clawd/memory/
-	Backup repo
-	github.com/PlebRick/ClawdBot_Backup (private)
-	Change Categories
+        Path
+        Gateway config
+        ~/.clawdbot/clawdbot.json
+        Cloudflared (ACTIVE)
+        /etc/cloudflared/config.yml
+        Cloudflared (UNUSED)
+        ~/.cloudflared/config.yml ← causes confusion
+        Workspace
+        ~/clawd/
+        Custom skills
+        ~/clawd/skills/
+        Memory files
+        ~/clawd/memory/
+        Backup repo
+        github.com/PlebRick/ClawdBot_Backup (private)
+        Change Categories
 Safe Change Protocol
 Category
-	Risk
-	Process
-	A
-	Low
-	No review needed (reading files, status checks)
-	B
-	Medium
-	Document before executing (app configs, packages, new skills)
-	C
-	High
-	REQUIRES SUPERVISOR REVIEW
-	Category C (Always Require Review)
+        Risk
+        Process
+        A
+        Low
+        No review needed (reading files, status checks)
+        B
+        Medium
+        Document before executing (app configs, packages, new skills)
+        C
+        High
+        REQUIRES SUPERVISOR REVIEW
+        Category C (Always Require Review)
 * Any change to TLS/HTTPS settings
 * Any change to authentication/authorization
 * Any change to proxy/tunnel configuration
@@ -111,18 +113,18 @@ Category
 * Service restarts for critical components
 Claude Code Governance
 Category
-	Risk
-	Process
-	CC-A
-	Low
-	Task description only, contained workspace
-	CC-B
-	Medium
-	Task description + code review before deployment
-	CC-C
-	High
-	Task description + code review + Rick present
-	Flag restrictions:
+        Risk
+        Process
+        CC-A
+        Low
+        Task description only, contained workspace
+        CC-B
+        Medium
+        Task description + code review before deployment
+        CC-C
+        High
+        Task description + code review + Rick present
+        Flag restrictions:
 * --full-auto: CC-A only
 * --yolo: Never without supervisor + Rick approval
 Review Checklist
@@ -145,6 +147,8 @@ ClawdBot proposes:
 **Connectivity risk**: [Yes/No + explanation]
 
 
+
+
 Supervisor responds:
 * APPROVED — Proceed as planned
 * APPROVED WITH CHANGES — Specific modifications required
@@ -162,6 +166,8 @@ clawdbot devices list          # Check for pending requests
 clawdbot devices approve <id>  # Approve the request
 
 
+
+
 NOT by changing gateway.auth configuration.
 Essential Commands
 # Status
@@ -169,13 +175,19 @@ systemctl status clawdbot
 sudo systemctl status cloudflared
 
 
+
+
 # Logs
 journalctl -u clawdbot -n 50 --no-pager
 sudo journalctl -u cloudflared -n 50 --no-pager
 
 
+
+
 # Recovery
 sudo systemctl stop clawdbot && pkill -9 -f clawdbot && sudo systemctl start clawdbot
+
+
 
 
 # Device pairing
@@ -183,13 +195,19 @@ clawdbot devices list
 clawdbot devices approve <REQUEST_ID>
 
 
+
+
 # Test connectivity
 curl -k https://localhost:18789
 curl -I https://ai.btctx.us
 
 
+
+
 # TUI with cert bypass
 NODE_TLS_REJECT_UNAUTHORIZED=0 clawdbot tui --url wss://127.0.0.1:18789 --password <PASSWORD>
+
+
 
 
 Known Gotchas
@@ -199,6 +217,8 @@ Known Gotchas
 4. trustedProxies needs IPv6 — Must include both 127.0.0.1 and ::1
 5. gateway.auth.mode — Only valid values are "token" or "password" (no "none")
 ________________
+
+
 
 
 This document provides operating context. For current system state, check the project files.
