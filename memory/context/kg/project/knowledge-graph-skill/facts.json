@@ -1,0 +1,26 @@
+[
+  {
+    "id": "knowledge-graph-skill-001",
+    "text": "Phase 1 complete: entity storage, facts, relations, search, summaries",
+    "category": "milestone",
+    "status": "active",
+    "created": "2026-02-06T18:08:17",
+    "source": "conversation"
+  },
+  {
+    "id": "knowledge-graph-skill-002",
+    "text": "PRD location: supervisor-project/PRDs/kg-cc-plan-prompt.md",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T18:08:17",
+    "source": "conversation"
+  },
+  {
+    "id": "knowledge-graph-skill-003",
+    "text": "Future phases: graph visualization, auto-relations from conversations, Neo4j export",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T18:08:17",
+    "source": "conversation"
+  }
+]

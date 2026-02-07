@@ -1,0 +1,16 @@
+{
+  "id": "project/knowledge-graph-skill",
+  "type": "project",
+  "name": "Knowledge Graph Skill",
+  "slug": "knowledge-graph-skill",
+  "aliases": [
+    "KG",
+    "knowledge-graph"
+  ],
+  "domains": [
+    "dev"
+  ],
+  "status": "active",
+  "created": "2026-02-06T18:08:17",
+  "updated": "2026-02-06T18:08:17"
+}

@@ -202,6 +202,35 @@ def flatten_drive_files(files: list, path_prefix: str = "") -> list:
     return result
 
 
+def mirror_folder_structure(service, drive_folder_id: str, local_path: Path):
+    """Create local folder structure to match Drive, including empty folders."""
+    local_path = Path(os.path.expanduser(str(local_path)))
+    local_path.mkdir(parents=True, exist_ok=True)
+    
+    def get_subfolders_recursive(folder_id: str, path_prefix: str = ""):
+        """Recursively get all subfolders."""
+        folders = []
+        query = f"'{folder_id}' in parents and mimeType = 'application/vnd.google-apps.folder' and trashed = false"
+        try:
+            response = service.files().list(q=query, fields="files(id,name)", pageSize=1000).execute()
+            for f in response.get('files', []):
+                folder_path = f"{path_prefix}/{f['name']}" if path_prefix else f['name']
+                folders.append(folder_path)
+                folders.extend(get_subfolders_recursive(f['id'], folder_path))
+        except Exception as e:
+            log(f"Warning: Could not list subfolders: {e}", "WARN")
+        return folders
+    
+    try:
+        subfolders = get_subfolders_recursive(drive_folder_id)
+        for folder_rel_path in subfolders:
+            folder_path = local_path / folder_rel_path
+            folder_path.mkdir(parents=True, exist_ok=True)
+    except Exception as e:
+        log(f"Warning: Could not mirror folder structure: {e}", "WARN")
+
+
+
 def download_gdoc_as_md(service, file_id: str) -> Optional[str]:
     """Download a Google Doc as plain text (markdown)."""
     try:
@@ -359,6 +388,8 @@ def pull_folder(service, drive_folder_id: str, local_path: Path, state: dict, dr
     
     if not dry_run:
         local_path.mkdir(parents=True, exist_ok=True)
+        # Mirror folder structure including empty folders
+        mirror_folder_structure(service, drive_folder_id, local_path)
     
     # List Drive files
     drive_files = list_drive_folder(service, drive_folder_id, recursive=True)
