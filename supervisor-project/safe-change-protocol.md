@@ -3,7 +3,15 @@
 
 
 
+
+
+
+
 ## Overview
+
+
+
+
 
 
 
@@ -13,7 +21,15 @@ This document establishes a protocol for making system changes safely, with Clau
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -23,7 +39,15 @@ This document establishes a protocol for making system changes safely, with Clau
 
 
 
+
+
+
+
 ClawdBot runs on infrastructure that it can modify. This creates a risk where ClawdBot can "saw off the branch it's sitting on" - making a change that breaks its own connectivity before it can complete or rollback the change.
+
+
+
+
 
 
 
@@ -33,7 +57,15 @@ ClawdBot runs on infrastructure that it can modify. This creates a risk where Cl
 
 
 
+
+
+
+
 ## Change Categories
+
+
+
+
 
 
 
@@ -47,12 +79,20 @@ ClawdBot runs on infrastructure that it can modify. This creates a risk where Cl
 
 
 
+
+
+
+
 ### Category B: Medium Risk (Document Before Executing)
 - Modifying application configs (not networking/auth)
 - Installing packages
 - Creating new files/scripts
 - Creating new skills
 - Changes that can be easily rolled back
+
+
+
+
 
 
 
@@ -68,7 +108,15 @@ ClawdBot runs on infrastructure that it can modify. This creates a risk where Cl
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -78,7 +126,15 @@ ClawdBot runs on infrastructure that it can modify. This creates a risk where Cl
 
 
 
+
+
+
+
 ### Step 1: ClawdBot Proposes
+
+
+
+
 
 
 
@@ -88,8 +144,16 @@ For Category C changes, ClawdBot must provide:
 
 
 
+
+
+
+
 ```
 ## Proposed Change
+
+
+
+
 
 
 
@@ -102,6 +166,10 @@ For Category C changes, ClawdBot must provide:
 
 
 
+
+
+
+
 **Command sequence**:
 1. [First command]
 2. [Second command]
@@ -110,8 +178,16 @@ For Category C changes, ClawdBot must provide:
 
 
 
+
+
+
+
 **Why this order**: [Explain why steps are in this sequence]
 **How to test**: [Command to verify success]
+
+
+
+
 
 
 
@@ -123,6 +199,10 @@ For Category C changes, ClawdBot must provide:
 
 
 
+
+
+
+
 **What could break**: [Honest assessment of risks]
 **Does this affect my own connectivity?**: [Yes/No + explanation]
 ```
@@ -130,7 +210,15 @@ For Category C changes, ClawdBot must provide:
 
 
 
+
+
+
+
 ### Step 2: Claude Reviews
+
+
+
+
 
 
 
@@ -145,10 +233,18 @@ Claude (Opus) will check:
 
 
 
+
+
+
+
 Claude responds with:
 - **APPROVED** - Proceed as planned
 - **APPROVED WITH CHANGES** - Specific modifications required
 - **REJECTED** - Explain why, suggest alternative approach
+
+
+
+
 
 
 
@@ -158,7 +254,15 @@ Claude responds with:
 
 
 
+
+
+
+
 Chaplain executes the approved change while monitoring for issues.
+
+
+
+
 
 
 
@@ -168,7 +272,15 @@ Chaplain executes the approved change while monitoring for issues.
 
 
 
+
+
+
+
 Run the test command(s) to confirm success before proceeding.
+
+
+
+
 
 
 
@@ -178,12 +290,24 @@ Run the test command(s) to confirm success before proceeding.
 
 
 
+
+
+
+
 ## Safe Ordering Rules
 
 
 
 
+
+
+
+
 ### Protocol Changes (HTTP ↔ HTTPS)
+
+
+
+
 
 
 
@@ -199,12 +323,24 @@ Run the test command(s) to confirm success before proceeding.
 
 
 
+
+
+
+
 **Why**: If you change the server first, the client can't connect to complete further changes.
 
 
 
 
+
+
+
+
 ### Authentication Changes
+
+
+
+
 
 
 
@@ -218,7 +354,15 @@ Run the test command(s) to confirm success before proceeding.
 
 
 
+
+
+
+
 ### Service Changes
+
+
+
+
 
 
 
@@ -231,12 +375,24 @@ Run the test command(s) to confirm success before proceeding.
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## Pre-Change Checklist
+
+
+
+
 
 
 
@@ -254,7 +410,15 @@ Before ANY Category C change:
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -264,7 +428,15 @@ Before ANY Category C change:
 
 
 
+
+
+
+
 Keep these ready:
+
+
+
+
 
 
 
@@ -277,6 +449,10 @@ sudo systemctl restart clawdbot
 
 
 
+
+
+
+
 # Gateway - reset allowInsecureAuth
 sed -i 's/"allowInsecureAuth": false/"allowInsecureAuth": true/' ~/.clawdbot/clawdbot.json
 sudo systemctl restart clawdbot
@@ -284,9 +460,17 @@ sudo systemctl restart clawdbot
 
 
 
+
+
+
+
 # Cloudflared - revert to HTTP
 # Edit /etc/cloudflared/config.yml, change https:// back to http://
 sudo systemctl restart cloudflared
+
+
+
+
 
 
 
@@ -299,9 +483,17 @@ sudo systemctl start clawdbot
 
 
 
+
+
+
+
 # Full tunnel reset
 sudo systemctl restart cloudflared
 ```
+
+
+
+
 
 
 
@@ -311,7 +503,15 @@ sudo systemctl restart cloudflared
 
 
 
+
+
+
+
 ## Communication Template
+
+
+
+
 
 
 
@@ -321,8 +521,16 @@ sudo systemctl restart cloudflared
 
 
 
+
+
+
+
 ```
 I need to make a Category C change. Here's my proposal:
+
+
+
+
 
 
 
@@ -338,13 +546,25 @@ I need to make a Category C change. Here's my proposal:
 
 
 
+
+
+
+
 Please review.
 ```
 
 
 
 
+
+
+
+
 ### Claude → ClawdBot (Review Response)
+
+
+
+
 
 
 
@@ -355,7 +575,15 @@ Please review.
 
 
 
+
+
+
+
 [If approved with changes or rejected, explain why and what needs to change]
+
+
+
+
 
 
 
@@ -366,12 +594,24 @@ Please review.
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## Lessons from the TLS Incident
+
+
+
+
 
 
 
@@ -385,12 +625,24 @@ Please review.
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## Category Examples
+
+
+
+
 
 
 
@@ -408,7 +660,15 @@ Please review.
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -419,12 +679,24 @@ Please review.
 
 
 
+
+
+
+
 **Incident:** Two Proton Mail accounts deleted due to 12-month inactivity on free tier. X/Twitter account was using one of these as its email.
 
 
 
 
+
+
+
+
 **Impact:** Could not receive X/Twitter security emails. Required email change to chaplaincen@gmail.com.
+
+
+
+
 
 
 
@@ -437,7 +709,15 @@ Please review.
 
 
 
+
+
+
+
 ## Recovery Hardening (2026-02-01)
+
+
+
+
 
 
 
@@ -447,11 +727,19 @@ Please review.
 
 
 
+
+
+
+
 **Changes implemented:**
 - Encrypted config backup to Drive (daily 2 AM, GPG AES256, 5-version retention)
 - Recovery templates in git (`system/` directory)
 - Crontab self-backup (daily midnight)
 - Raw config in password manager as fallback
+
+
+
+
 
 
 

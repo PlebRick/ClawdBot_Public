@@ -65,7 +65,7 @@ I cannot set these via API — they require dashboard access.
 
 OpenRouter supports webhook notifications for spending thresholds. Rick should configure:
 - 50% alert ($50)
-- 75% alert ($75)
+- 75% alert ($75)  
 - 90% alert ($90)
 
 

@@ -3,6 +3,10 @@
 
 
 
+
+
+
+
 **Created:** January 29, 2026
 **Updated:** February 1, 2026
 **Author:** Claude (Opus) as ClawdBot Supervisor
@@ -12,7 +16,15 @@
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -22,7 +34,15 @@
 
 
 
+
+
+
+
 This document tracks potential integrations and capabilities discussed for future phases, after the current LOS foundation is solid. Items here are ideas, not commitments.
+
+
+
+
 
 
 
@@ -32,7 +52,15 @@ This document tracks potential integrations and capabilities discussed for futur
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -42,12 +70,24 @@ This document tracks potential integrations and capabilities discussed for futur
 
 
 
+
+
+
+
 ### Git Backup ✅ (January 31, 2026)
 
 
 
 
+
+
+
+
 **Status:** Complete — Full workspace backed up to private GitHub repo
+
+
+
+
 
 
 
@@ -66,7 +106,19 @@ This document tracks potential integrations and capabilities discussed for futur
 
 
 
+
+
+
+
+
+
+
+
 ### Liturgy Skill ✅ (February 7, 2026)
+
+
+
+
 
 
 
@@ -76,7 +128,15 @@ This document tracks potential integrations and capabilities discussed for futur
 
 
 
+
+
+
+
 Generates formatted .docx liturgy handouts for St. Peter's Stone Church.
+
+
+
+
 
 
 
@@ -91,12 +151,20 @@ Generates formatted .docx liturgy handouts for St. Peter's Stone Church.
 
 
 
+
+
+
+
 **Features:**
 - Automatic RCL reading lookup from date (uses lectionary npm + lectionarypage.net)
 - Responsive Call to Worship generated from Psalm reading
 - Scripture-based Benediction selection
 - Reading reorder (preaching passage last as Chaplain)
 - Fixed boilerplate: Apostles' Creed, Lord's Prayer (KJV debtor), hymn slots
+
+
+
+
 
 
 
@@ -112,12 +180,28 @@ Generates formatted .docx liturgy handouts for St. Peter's Stone Church.
 
 
 
+
+
+
+
+
+
+
+
 ### OpenRouter Multi-Model Integration ✅ (February 1, 2026)
 
 
 
 
+
+
+
+
 **Status:** Complete — Three-provider model architecture live and tested
+
+
+
+
 
 
 
@@ -137,7 +221,19 @@ Generates formatted .docx liturgy handouts for St. Peter's Stone Church.
 
 
 
+
+
+
+
+
+
+
+
 ### Web Scout Skill ✅ (January 30, 2026)
+
+
+
+
 
 
 
@@ -147,7 +243,15 @@ Generates formatted .docx liturgy handouts for St. Peter's Stone Church.
 
 
 
+
+
+
+
 Headless browser automation via Playwright, replacing the unreliable Chrome relay extension.
+
+
+
+
 
 
 
@@ -162,10 +266,18 @@ Headless browser automation via Playwright, replacing the unreliable Chrome rela
 
 
 
+
+
+
+
 **Remaining integration work (non-blocking):**
 - Integrate CNN F&G into morning brief cron
 - Integrate ITC data into weekly market report cron
 - Register in formal skill registry
+
+
+
+
 
 
 
@@ -175,12 +287,24 @@ Headless browser automation via Playwright, replacing the unreliable Chrome rela
 
 
 
+
+
+
+
 ## Content Publishing Pipeline
 
 
 
 
+
+
+
+
 ### Vision
+
+
+
+
 
 
 
@@ -197,7 +321,15 @@ Written Content (sermon, article, devotional)
 
 
 
+
+
+
+
 Rick writes once. ClawdBot distributes to multiple platforms.
+
+
+
+
 
 
 
@@ -207,7 +339,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Purpose:** Generate audio sermons and content in Rick's voice
+
+
+
+
 
 
 
@@ -221,10 +361,18 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Integration Approach:**
 - ElevenLabs has Python SDK
 - Skill wraps API calls for text-to-speech
 - Guardrail: Explicit approval + cost awareness per generation
+
+
+
+
 
 
 
@@ -238,12 +386,24 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 ### YouTube Integration
 
 
 
 
+
+
+
+
 **Purpose:** Publish sermon audio with visual to YouTube channel
+
+
+
+
 
 
 
@@ -256,6 +416,10 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Planned Format:**
 - Audio from ElevenLabs
 - Static relevant image (not video production)
@@ -264,10 +428,18 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Integration Approach:**
 - Expand Google OAuth to include YouTube upload scope
 - Skill handles: upload video, set metadata, manage captions
 - Guardrail: Explicit approval before any publish
+
+
+
+
 
 
 
@@ -281,12 +453,24 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 ### Substack Integration
 
 
 
 
+
+
+
+
 **Purpose:** Distribute written content as newsletter
+
+
+
+
 
 
 
@@ -298,10 +482,18 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Integration Approach:**
 - Option A: Substack API (if available)
 - Option B: Email-to-publish feature
 - Guardrail: Explicit approval before any publish
+
+
+
+
 
 
 
@@ -315,7 +507,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -325,7 +525,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 ### Morning Brief Enhancement
+
+
+
+
 
 
 
@@ -335,7 +543,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Enhancement:** Add CNN Fear & Greed data via Web Scout.
+
+
+
+
 
 
 
@@ -348,7 +564,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Priority:** Low — enhancement, not blocking
+
+
+
+
 
 
 
@@ -358,12 +582,24 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Current state:** Weekly report runs Fridays 4:00 AM CST.
 
 
 
 
+
+
+
+
 **Enhancement:** Add ITC data via Web Scout.
+
+
+
+
 
 
 
@@ -376,12 +612,24 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Priority:** Low — enhancement, not blocking
 
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -391,7 +639,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 ### Trading Analysis Skill
+
+
+
+
 
 
 
@@ -401,7 +657,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Blocker:** Portfolio scope undefined. What accounts? What data sources? What analysis?
+
+
+
+
 
 
 
@@ -411,7 +675,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 ### Chapel Schedule Skill
+
+
+
+
 
 
 
@@ -421,7 +693,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 **Blocker:** Workflow not documented. How does Rick currently manage chapel scheduling?
+
+
+
+
 
 
 
@@ -431,7 +711,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -441,7 +729,15 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 ### Current Understanding
+
+
+
+
 
 
 
@@ -453,12 +749,24 @@ Rick writes once. ClawdBot distributes to multiple platforms.
 
 
 
+
+
+
+
 ### CLI vs MCP Philosophy
 
 
 
 
+
+
+
+
 The MoltBot maintainer prefers CLIs over MCP because:
+
+
+
+
 
 
 
@@ -473,7 +781,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 **For ClawdBot:** Since it has shell access, wrapping CLIs in skills is often simpler than MCP integration.
+
+
+
+
 
 
 
@@ -483,12 +799,24 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 **Discussed:** Building an MCP server so Claude (Opus) could have read-only access to ClawdBot status.
 
 
 
 
+
+
+
+
 **Decision:** Deferred. Current project file approach works. Would be Category C change requiring full Safe Change Protocol.
+
+
+
+
 
 
 
@@ -500,7 +828,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -510,7 +846,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 ### Voice Assistant Integration
+
+
+
+
 
 
 
@@ -520,7 +864,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 **Status:** Not investigated
+
+
+
+
 
 
 
@@ -530,7 +882,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 **Idea:** Connect to Home Assistant or similar
+
+
+
+
 
 
 
@@ -540,7 +900,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 ### Financial Data Sources
+
+
+
+
 
 
 
@@ -550,7 +918,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 **Status:** Web Scout now provides ITC access. Additional sources TBD.
+
+
+
+
 
 
 
@@ -560,7 +936,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 **Idea:** Expanded Gmail capabilities (auto-triage, smart replies)
+
+
+
+
 
 
 
@@ -570,7 +954,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -580,7 +972,15 @@ The MoltBot maintainer prefers CLIs over MCP because:
 
 
 
+
+
+
+
 All publishing integrations (YouTube, Substack, ElevenLabs) should follow:
+
+
+
+
 
 
 
@@ -589,6 +989,10 @@ All publishing integrations (YouTube, Substack, ElevenLabs) should follow:
 1. **Publishing requires explicit approval** — No autonomous posting to public platforms
 2. **Cost-generating operations require awareness** — ElevenLabs charges per character
 3. **Preview before publish** — Content should be reviewable before going live
+
+
+
+
 
 
 
@@ -603,12 +1007,24 @@ All publishing integrations (YouTube, Substack, ElevenLabs) should follow:
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## Priority Order (Suggested)
+
+
+
+
 
 
 
@@ -625,7 +1041,15 @@ All publishing integrations (YouTube, Substack, ElevenLabs) should follow:
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -635,7 +1059,15 @@ All publishing integrations (YouTube, Substack, ElevenLabs) should follow:
 
 
 
+
+
+
+
 ### When Ready to Implement
+
+
+
+
 
 
 
@@ -650,7 +1082,15 @@ Each integration should:
 
 
 
+
+
+
+
 ### Tracking
+
+
+
+
 
 
 
@@ -663,12 +1103,24 @@ When an integration moves from "idea" to "in progress":
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## Open Questions
+
+
+
+
 
 
 
@@ -684,7 +1136,15 @@ When an integration moves from "idea" to "in progress":
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 

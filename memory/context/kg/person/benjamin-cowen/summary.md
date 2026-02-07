@@ -1,0 +1,11 @@
+# Benjamin Cowen
+
+**Type:** person | **Domains:** trading | **Aliases:** Ben Cowen
+
+## Active Facts
+
+- [role] Into The Cryptoverse host — crypto analyst
+- [note] Rick's primary crypto analysis source
+
+---
+*2 active facts | Last updated: 2026-02-06T17:20:53*

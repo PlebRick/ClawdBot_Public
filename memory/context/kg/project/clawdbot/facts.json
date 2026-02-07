@@ -1,0 +1,38 @@
+[
+  {
+    "id": "clawdbot-001",
+    "text": "Active \u2014 Rick's AI assistant running on System76 Ubuntu server",
+    "category": "status",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "clawdbot-002",
+    "text": "Gateway at ai.btctx.us, Claude API backend, custom skills architecture",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "clawdbot-003",
+    "text": "Manages calendar, tasks, Drive, memory, sermon pipeline, morning brief",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "clawdbot-004",
+    "text": "ArnoldOS is a ClawdBot skill",
+    "category": "relationship",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed",
+    "relation": {
+      "type": "part_of",
+      "target": "project/arnoldos"
+    }
+  }
+]

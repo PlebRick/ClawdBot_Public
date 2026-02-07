@@ -74,27 +74,27 @@ Item
         Notes
         Authentication method
         [OAuth / API Key / Unknown]
-
+        
 
 
         API key location (if exists)
         [path or N/A]
-
+        
 
 
         OAuth token location (if exists)
         [path or N/A]
-
+        
 
 
         Default model configured
         [model name]
-
+        
 
 
         Any provider-specific settings
         [list]
-
+        
 
 
         Cron Job LLM Audit:
@@ -105,50 +105,50 @@ Cron Job
         Approx Tokens/Run
         Morning brief (4:30 AM)
         [Yes/No]
+        
 
 
-
-
+        
 
 
         Weekly market report (Fri 4:00 AM)
         [Yes/No]
+        
 
 
-
-
+        
 
 
         Ara check-ins (11 AM, 4 PM)
         [Yes/No]
+        
 
 
-
-
+        
 
 
         Task cache (every 60s)
         [Yes/No]
+        
 
 
-
-
+        
 
 
         Today cache (every 60s)
         [Yes/No]
+        
 
 
-
-
+        
 
 
         Week cache (every 5 min)
         [Yes/No]
+        
 
 
-
-
+        
 
 
         Skill LLM Audit:
@@ -158,25 +158,25 @@ Skill
         Voice-Critical?
         Recommended Model
         arnoldos
-
+        
 
 
         No
         Grok 4.1 Fast
         sermon-writer
-
+        
 
 
         YES
         Claude Opus 4.5
         bible-brainstorm
-
+        
 
 
         YES
         Claude Opus 4.5
         web-scout
-
+        
 
 
         No
@@ -811,11 +811,11 @@ ________________
 
 Phase 4: Skill Updates — DEFERRED
 Status: DEFERRED (Supervisor decision 2026-02-01)
-Reason: ClawdBot gateway does not support per-skill model routing via SKILL.md
-        frontmatter. Skills inherit the session/agent default model. Cost savings
+Reason: ClawdBot gateway does not support per-skill model routing via SKILL.md 
+        frontmatter. Skills inherit the session/agent default model. Cost savings 
         from routing arnoldos to Grok vs Opus are minimal; complexity isn't justified.
 Revisit Trigger: Monthly OpenRouter spend >$50 OR explicit user request
-Current Approach: Opus as default for all skills. User can manually /model switch
+Current Approach: Opus as default for all skills. User can manually /model switch 
                   for specific use cases if needed.
 Original Tasks (preserved for reference):
       * [ ] Update sermon-writer/SKILL.md with model_tier: P1
@@ -1115,7 +1115,7 @@ Requests: 1,247
 
 By tier:
 • P1 (Voice): $8.50 (34 requests)
-• P2 (Coding): $6.20 (28 requests)
+• P2 (Coding): $6.20 (28 requests)  
 • P3 (Utility): $5.75 (485 requests)
 • P4 (Bulk): $3.00 (700 requests)
 

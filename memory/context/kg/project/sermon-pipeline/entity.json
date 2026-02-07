@@ -1,0 +1,14 @@
+{
+  "id": "project/sermon-pipeline",
+  "type": "project",
+  "name": "Sermon Pipeline",
+  "slug": "sermon-pipeline",
+  "aliases": [],
+  "domains": [
+    "ministry",
+    "dev"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}

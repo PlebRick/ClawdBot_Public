@@ -12,3 +12,4 @@
 */15 * * * * /home/ubuntu76/clawd/scripts/supervisor-sync.sh sync >> /home/ubuntu76/clawd/memory/logs/supervisor-sync.log 2>&1
 0 */6 * * * /home/ubuntu76/clawd/scripts/sync-public-mirror.sh >> /home/ubuntu76/clawd/logs/public-mirror-sync.log 2>&1
 5,20,35,50 * * * * /home/ubuntu76/clawd/scripts/voice-profile-sync.sh sync >> /home/ubuntu76/clawd/logs/voice-sync.log 2>&1
+7,22,37,52 * * * * /home/ubuntu76/clawd/scripts/skills-sync.sh sync >> /home/ubuntu76/clawd/logs/skills-sync.log 2>&1

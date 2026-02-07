@@ -1,0 +1,15 @@
+{
+  "id": "person/maria-arnold",
+  "type": "person",
+  "name": "Maria Arnold",
+  "slug": "maria-arnold",
+  "aliases": [
+    "Maria"
+  ],
+  "domains": [
+    "family"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}

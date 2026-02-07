@@ -1,0 +1,15 @@
+{
+  "id": "concept/molinism",
+  "type": "concept",
+  "name": "Molinism",
+  "slug": "molinism",
+  "aliases": [
+    "Middle Knowledge"
+  ],
+  "domains": [
+    "ministry"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}

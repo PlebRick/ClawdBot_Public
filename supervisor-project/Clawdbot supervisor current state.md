@@ -3,9 +3,17 @@
 
 
 
+
+
+
+
 **Last Updated:** February 6, 2026 (Remote Supervisor Station)
 **Supervisor:** Claude (Opus)
 **Principal:** Rick (Chaplain)
+
+
+
+
 
 
 
@@ -15,12 +23,24 @@
 
 
 
+
+
+
+
 ## Quick Orientation
 
 
 
 
+
+
+
+
 ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76, Ubuntu). It bridges multiple messaging platforms through a WebSocket-based Gateway. Claude (Opus) serves as supervisor for system changes after two self-inflicted outages in January 2026.
+
+
+
+
 
 
 
@@ -32,12 +52,24 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## Current Phase Status
+
+
+
+
 
 
 
@@ -59,7 +91,15 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 **Proving Period:** ArnoldOS started Jan 29, tracking reliability through ~Feb 12
+
+
+
+
 
 
 
@@ -73,12 +113,28 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
+
+
+
+
 ## Model Architecture (Multi-Provider)
 
 
 
 
+
+
+
+
 **Three-provider strategy:** Primary → Backup → Flexible Pool
+
+
+
+
 
 
 
@@ -96,11 +152,19 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 **Rules:**
 - Claude NEVER via OpenRouter — always Anthropic direct
 - Grok, Gemini Pro, Nano Banana = on-demand only (Rick's explicit command)
 - OpenRouter spend cap set in dashboard
 - Models allowlist in `agents.defaults.models` in clawdbot.json — must add new models there + restart gateway
+
+
+
+
 
 
 
@@ -116,6 +180,10 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 **Auth architecture (as of 2026-02-03):**
 - Anthropic: API key auth only (OAuth removed)
 - Google: OAuth for ArnoldOS (Calendar, Tasks, Drive)
@@ -125,12 +193,24 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 ## Active Constraints
 
 
 
 
+
+
+
+
 ### Hard Rules (No Exceptions Without Supervisor Review)
+
+
+
+
 
 
 
@@ -144,7 +224,15 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 ### Approved Autonomous Exceptions
+
+
+
+
 
 
 
@@ -158,8 +246,16 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 | Sermon Pipeline Bookkeeping | Task create/update, calendar desc update | During brainstorm/sermon sessions | Rick | 2026-01-31 |
 | Liturgy Handout Output | .docx to local outputs/liturgy/ | On-demand | Rick | 2026-02-07 |
+
+
+
+
 
 
 
@@ -169,12 +265,24 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## What's Working
+
+
+
+
 
 
 
@@ -223,12 +331,24 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## Key Decisions Log
+
+
+
+
 
 
 
@@ -271,7 +391,15 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -281,7 +409,15 @@ ClawdBot is Rick's self-hosted AI assistant running on a Linux laptop (System76,
 
 
 
+
+
+
+
 ClawdBot operates with multiple AI components:
+
+
+
+
 
 
 
@@ -300,7 +436,15 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 **Key insight:** Claude Code runs as a separate native process with NO knowledge of ClawdBot's governance (AGENTS.md, SOUL.md, etc.). It has full filesystem access and requires separate governance.
+
+
+
+
 
 
 
@@ -310,7 +454,15 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 ## Skill Locations
+
+
+
+
 
 
 
@@ -326,7 +478,15 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 **Note:** The `bible-brainstorming` skill visible to the supervisor is a Claude.ai project skill. ClawdBot has its own `bible-brainstorm` skill. Both platforms now have ministry skills as redundant capability.
+
+
+
+
 
 
 
@@ -336,7 +496,15 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 ## Web Scout Skill — Details
+
+
+
+
 
 
 
@@ -346,12 +514,24 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 **Location:** `~/clawd/skills/web-scout/`
 
 
 
 
+
+
+
+
 **Targets:**
+
+
+
+
 
 
 
@@ -366,12 +546,20 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 **Technical Architecture:**
 - Playwright (Node.js) with headless Chromium
 - Hybrid auth: cookies for Logos, Firebase tokens for ITC
 - Cookie extraction via Chrome v11 AES-128-CBC decryption (GNOME Keyring)
 - Rate limiting: 2s minimum between requests, exponential backoff on errors
 - Session expiry detection with notification to Rick
+
+
+
+
 
 
 
@@ -384,12 +572,24 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## Dashboard Command Center
+
+
+
+
 
 
 
@@ -402,7 +602,15 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 ### Phase Status
+
+
+
+
 
 
 
@@ -425,7 +633,15 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 ### Key Architecture
+
+
+
+
 
 
 
@@ -438,7 +654,15 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 ### Cron Jobs (3 new)
+
+
+
+
 
 
 
@@ -452,7 +676,15 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -462,7 +694,15 @@ ClawdBot (orchestrator on host machine)
 
 
 
+
+
+
+
 Rick maintains parallel systems intentionally:
+
+
+
+
 
 
 
@@ -476,11 +716,19 @@ Rick maintains parallel systems intentionally:
 
 
 
+
+
+
+
 **Principles:**
 - Claude.ai projects are NOT being retired
 - ClawdBot skills provide redundant capability
 - Neither replaces the other until ClawdBot proves long-term stability
 - MoltBot is a young open-source project — hedging appropriately
+
+
+
+
 
 
 
@@ -493,7 +741,15 @@ Rick maintains parallel systems intentionally:
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -503,7 +759,15 @@ Rick maintains parallel systems intentionally:
 
 
 
+
+
+
+
 Two self-inflicted outages occurred January 27-28, 2026. Full details archived; key lessons:
+
+
+
+
 
 
 
@@ -515,9 +779,17 @@ Two self-inflicted outages occurred January 27-28, 2026. Full details archived; 
 
 
 
+
+
+
+
 ### Auth Incident (Jan 28) — 10 hour outage
 - **Cause:** Escalating "fixes" without diagnosis. Set `gateway.auth.mode` to invalid value `"none"`.
 - **Lesson:** Diagnosis before intervention. Failed fix = wrong diagnosis → STOP. Login issues are almost never auth config problems (usually device pairing).
+
+
+
+
 
 
 
@@ -532,7 +804,15 @@ Two self-inflicted outages occurred January 27-28, 2026. Full details archived; 
 
 
 
+
+
+
+
 ### Safe Login Troubleshooting
+
+
+
+
 
 
 
@@ -545,7 +825,15 @@ clawdbot devices approve <id>  # Approve the request
 
 
 
+
+
+
+
 **NOT** by changing gateway.auth configuration.
+
+
+
+
 
 
 
@@ -555,12 +843,24 @@ clawdbot devices approve <id>  # Approve the request
 
 
 
+
+
+
+
 ## Architecture Quick Reference
 
 
 
 
+
+
+
+
 ### Services
+
+
+
+
 
 
 
@@ -575,7 +875,15 @@ clawdbot devices approve <id>  # Approve the request
 
 
 
+
+
+
+
 **Warning:** `~/.cloudflared/config.yml` exists but is NOT used by systemd. Always verify with `sudo systemctl cat cloudflared`.
+
+
+
+
 
 
 
@@ -584,6 +892,10 @@ clawdbot devices approve <id>  # Approve the request
 ```
 Browser → HTTPS → Cloudflare → Tunnel → HTTPS localhost:18789 → Gateway
 ```
+
+
+
+
 
 
 
@@ -597,11 +909,19 @@ Browser → HTTPS → Cloudflare → Tunnel → HTTPS localhost:18789 → Gatewa
 
 
 
+
+
+
+
 ### Essential Commands
 ```bash
 # Status
 systemctl status clawdbot
 sudo systemctl status cloudflared
+
+
+
+
 
 
 
@@ -613,8 +933,16 @@ sudo journalctl -u cloudflared -n 50 --no-pager
 
 
 
+
+
+
+
 # Recovery
 sudo systemctl stop clawdbot && pkill -9 -f clawdbot && sudo systemctl start clawdbot
+
+
+
+
 
 
 
@@ -622,6 +950,10 @@ sudo systemctl stop clawdbot && pkill -9 -f clawdbot && sudo systemctl start cla
 # Device pairing
 clawdbot devices list
 clawdbot devices approve <REQUEST_ID>
+
+
+
+
 
 
 
@@ -634,7 +966,15 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -644,7 +984,15 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 ### System Changes (Safe Change Protocol)
+
+
+
+
 
 
 
@@ -658,7 +1006,15 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 ### Claude Code Invocations (Claude Code Governance)
+
+
+
+
 
 
 
@@ -672,9 +1028,17 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 **Flag restrictions:**
 - `--full-auto`: CC-A only
 - `--yolo`: Never without supervisor + Rick approval
+
+
+
+
 
 
 
@@ -684,7 +1048,15 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 ## ClawdBot Memory Hierarchy
+
+
+
+
 
 
 
@@ -703,7 +1075,15 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 **Total searchable depth:** 155K+ chars behind 2.7K bootstrap
+
+
+
+
 
 
 
@@ -713,12 +1093,24 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 ## Supervisor Docs Ownership
 
 
 
 
+
+
+
+
 **Model established January 30, 2026:**
+
+
+
+
 
 
 
@@ -731,11 +1123,19 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 **Sync process:**
 1. ClawdBot updates docs as work happens
 2. `backup-to-github.sh` pushes to GitHub and auto-syncs changed supervisor-project files to Google Drive (`02_ClawdBot/supervisor-project/`)
 3. Before new supervisor chat, Rick copies from Drive to Claude Desktop project
 4. Manual sync also available: `bash scripts/sync-supervisor-to-drive.sh`
+
+
+
+
 
 
 
@@ -751,12 +1151,24 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 ---
 
 
 
 
+
+
+
+
 ## Related Documents
+
+
+
+
 
 
 
@@ -773,7 +1185,15 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -783,7 +1203,15 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 ---
+
+
+
+
 
 
 
@@ -793,7 +1221,15 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 ### 2026-02-03: Gateway Outage (Kimi Registration Incident)
+
+
+
+
 
 
 
@@ -808,7 +1244,15 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 **Root cause:** Kimi was operating as primary model without full awareness of Safe Change Protocol constraints. It made a Category C config change autonomously.
+
+
+
+
 
 
 
@@ -821,8 +1265,16 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 **Lesson:** Non-Opus models should not be set as primary for interactive sessions — they lack the full governance context. Use Opus as brain, cheaper models as subagents.
 ### 2026-02-03: Anthropic Direct API + OAuth Cleanup
+
+
+
+
 
 
 
@@ -837,10 +1289,18 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 **Benefits:**
 - ~20% cost savings vs OpenRouter markup
 - Simpler auth architecture
 - No more OAuth token refresh complexity for Anthropic
+
+
+
+
 
 
 

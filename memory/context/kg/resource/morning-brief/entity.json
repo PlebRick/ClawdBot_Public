@@ -1,0 +1,14 @@
+{
+  "id": "resource/morning-brief",
+  "type": "resource",
+  "name": "Morning Brief",
+  "slug": "morning-brief",
+  "aliases": [],
+  "domains": [
+    "dev",
+    "personal"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}

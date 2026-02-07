@@ -7,6 +7,10 @@ ________________
 
 
 
+
+
+
+
 Critical Distinction: Provider Tools vs Native Tools
 The gateway exposes two classes of tools with different availability:
 Provider Tools (Agent-Only)
@@ -52,6 +56,10 @@ ________________
 
 
 
+
+
+
+
 memory_get Scope Limitation
 The memory_get tool is not a general file reader. It only reads files within the memory subsystem:
 Path
@@ -78,6 +86,10 @@ ________________
 
 
 
+
+
+
+
 Cron-Cache Pattern
 Since the dashboard can't call exec to fetch fresh data, ClawdBot uses a cron-cache pattern:
 ┌─────────────┐     ┌──────────────┐     ┌─────────────┐
@@ -87,6 +99,10 @@ Since the dashboard can't call exec to fetch fresh data, ClawdBot uses a cron-ca
 │ Runs script │     │ JSON output  │     │ memory_get  │
 │ e.g. 60s    │     │              │     │ reads cache │
 └─────────────┘     └──────────────┘     └─────────────┘
+
+
+
+
 
 
 
@@ -104,6 +120,10 @@ ________________
 
 
 
+
+
+
+
 File Server Solution
 To enable full file access for the dashboard, we deployed a dedicated file server:
 Architecture
@@ -115,6 +135,10 @@ Cloudflare Tunnel (ai.btctx.us)
     ├── /files/* → File Server (:18790)
     │
     └── /* → Gateway (:18789)
+
+
+
+
 
 
 
@@ -136,7 +160,15 @@ BLOCKLIST = [
 
 
 
+
+
+
+
 ________________
+
+
+
+
 
 
 
@@ -173,6 +205,10 @@ ________________
 
 
 
+
+
+
+
 Public Mirror for Supervisor Access
 For supervisor sessions, the public GitHub mirror provides file access without ClawdBot token cost:
 Repo: github.com/PlebRick/ClawdBot_Public
@@ -181,6 +217,10 @@ Included: skills/, scripts/, memory/context/, supervisor-project/, system/, AGEN
 Excluded: Personal content (rick_profile/, USER.md, SOUL.md, sermons/, voice training)
 Usage: Fetch before building features to get current implementation state.
 ________________
+
+
+
+
 
 
 
@@ -227,6 +267,10 @@ Capability
         ❌
         ❌
         ________________
+
+
+
+
 
 
 

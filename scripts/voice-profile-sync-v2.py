@@ -46,8 +46,6 @@ FILE_MAP = {
     "reference/theological-positions": "memory/context/theological-positions.md",
     "reference/recurring-themes": "memory/context/recurring-themes.md",
     "reference/sermon-structure-templates": "memory/training/sermon-structure-templates.md",
-    "skills/sermon-writer": "skills/sermon-writer/SKILL.md",
-    "skills/bible-brainstorm": "skills/bible-brainstorm/SKILL.md",
 }
 
 DIR_MAP = {

@@ -1,0 +1,12 @@
+# Molinism
+
+**Type:** concept | **Domains:** ministry | **Aliases:** Middle Knowledge
+
+## Active Facts
+
+- [belief] God knows what any free creature would do in any circumstance
+- [note] William Lane Craig's framework — preserves genuine freedom and sovereign plan
+- [note] Rick's preferred framework for divine sovereignty and human freedom tension
+
+---
+*3 active facts | Last updated: 2026-02-06T17:20:53*

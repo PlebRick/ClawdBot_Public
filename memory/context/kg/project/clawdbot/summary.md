@@ -1,0 +1,16 @@
+# ClawdBot
+
+**Type:** project | **Domains:** dev | **Aliases:** Clawd
+
+## Active Facts
+
+- [status] Active — Rick's AI assistant running on System76 Ubuntu server
+- [note] Gateway at ai.btctx.us, Claude API backend, custom skills architecture
+- [note] Manages calendar, tasks, Drive, memory, sermon pipeline, morning brief
+
+## Relationships
+
+- part of → project/arnoldos
+
+---
+*4 active facts | Last updated: 2026-02-06T17:20:53*

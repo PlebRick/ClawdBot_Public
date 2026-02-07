@@ -1,0 +1,14 @@
+{
+  "id": "resource/voice-profile",
+  "type": "resource",
+  "name": "Voice Profile",
+  "slug": "voice-profile",
+  "aliases": [],
+  "domains": [
+    "content",
+    "dev"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}

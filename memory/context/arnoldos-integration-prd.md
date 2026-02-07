@@ -1,11 +1,11 @@
 ﻿# ArnoldOS Integration — Project Requirements Document
 
 
-**Author:** Clawd
-**Supervisor Approval:** Pending Rick review
-**Date:** 2026-01-29
-**Status:** Phase 2 — Supervised Writes ACTIVE (approved 2026-01-29)
-**Approved:** 2026-01-29 by Rick (via Opus supervisor review)
+**Author:** Clawd  
+**Supervisor Approval:** Pending Rick review  
+**Date:** 2026-01-29  
+**Status:** Phase 2 — Supervised Writes ACTIVE (approved 2026-01-29)  
+**Approved:** 2026-01-29 by Rick (via Opus supervisor review)  
 
 
 ---

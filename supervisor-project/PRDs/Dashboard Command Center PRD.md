@@ -253,7 +253,7 @@ Available via HTTP Invoke
 	web_search, web_fetch
 	apply_patch
 	cron, gateway, browser
-
+	
 
 	Provider tools (exec, read, write, etc.) are injected by the LLM provider (Anthropic) and only exist within agent chat turns — they're never registered in the Gateway's tool registry.
 Read Path: cron → file → memory_get

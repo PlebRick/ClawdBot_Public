@@ -1,0 +1,15 @@
+{
+  "id": "organization/centralia-correctional-center",
+  "type": "organization",
+  "name": "Centralia Correctional Center",
+  "slug": "centralia-correctional-center",
+  "aliases": [
+    "Centralia CC"
+  ],
+  "domains": [
+    "chapel"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}

@@ -60,23 +60,23 @@ Item
 	Notes
 	Authentication method
 	[OAuth / API Key / Unknown]
-
+	
 
 	API key location (if exists)
 	[path or N/A]
-
+	
 
 	OAuth token location (if exists)
 	[path or N/A]
-
+	
 
 	Default model configured
 	[model name]
-
+	
 
 	Any provider-specific settings
 	[list]
-
+	
 
 	Cron Job LLM Audit:
 For each cron job, determine if it uses the LLM or just runs scripts:
@@ -86,39 +86,39 @@ Cron Job
 	Approx Tokens/Run
 	Morning brief (4:30 AM)
 	[Yes/No]
+	
 
-
-
+	
 
 	Weekly market report (Fri 4:00 AM)
 	[Yes/No]
+	
 
-
-
+	
 
 	Ara check-ins (11 AM, 4 PM)
 	[Yes/No]
+	
 
-
-
+	
 
 	Task cache (every 60s)
 	[Yes/No]
+	
 
-
-
+	
 
 	Today cache (every 60s)
 	[Yes/No]
+	
 
-
-
+	
 
 	Week cache (every 5 min)
 	[Yes/No]
+	
 
-
-
+	
 
 	Skill LLM Audit:
 For each custom skill, confirm which model it currently uses:
@@ -127,22 +127,22 @@ Skill
 	Voice-Critical?
 	Recommended Model
 	arnoldos
-
+	
 
 	No
 	Grok 4.1 Fast
 	sermon-writer
-
+	
 
 	YES
 	Claude Opus 4.5
 	bible-brainstorm
-
+	
 
 	YES
 	Claude Opus 4.5
 	web-scout
-
+	
 
 	No
 	Gemini 3 Flash
@@ -906,7 +906,7 @@ Requests: 1,247
 
 By tier:
 • P1 (Voice): $8.50 (34 requests)
-• P2 (Coding): $6.20 (28 requests)
+• P2 (Coding): $6.20 (28 requests)  
 • P3 (Utility): $5.75 (485 requests)
 • P4 (Bulk): $3.00 (700 requests)
 

@@ -1,0 +1,13 @@
+{
+  "id": "person/test-dummy",
+  "type": "person",
+  "name": "Test Dummy",
+  "slug": "test-dummy",
+  "aliases": [],
+  "domains": [
+    "dev"
+  ],
+  "status": "archived",
+  "created": "2026-02-06T17:23:41",
+  "updated": "2026-02-06T17:23:52"
+}

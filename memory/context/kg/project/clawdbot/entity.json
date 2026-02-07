@@ -1,0 +1,15 @@
+{
+  "id": "project/clawdbot",
+  "type": "project",
+  "name": "ClawdBot",
+  "slug": "clawdbot",
+  "aliases": [
+    "Clawd"
+  ],
+  "domains": [
+    "dev"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}

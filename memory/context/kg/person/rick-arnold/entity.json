@@ -1,0 +1,21 @@
+{
+  "id": "person/rick-arnold",
+  "type": "person",
+  "name": "Rick Arnold",
+  "slug": "rick-arnold",
+  "aliases": [
+    "Rick"
+  ],
+  "domains": [
+    "ministry",
+    "chapel",
+    "trading",
+    "dev",
+    "family",
+    "personal",
+    "content"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}

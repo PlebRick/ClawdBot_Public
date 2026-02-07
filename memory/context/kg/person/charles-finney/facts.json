@@ -1,0 +1,26 @@
+[
+  {
+    "id": "charles-finney-001",
+    "text": "19th century revivalist preacher",
+    "category": "role",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "charles-finney-002",
+    "text": "Rick loves his preaching style and illustrations but rejects entire sanctification theology",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "charles-finney-003",
+    "text": "Used as rhetorical model, not theological one \u2014 gospeltruth.net for material",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  }
+]

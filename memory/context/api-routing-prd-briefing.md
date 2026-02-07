@@ -41,7 +41,7 @@ Rick's supervisor (likely Opus via another session) is sending a large PRD about
 
 ### Pricing Reference
 - Claude Opus 4.5 (direct): $15/M input, $75/M output
-- Claude Sonnet 4 (direct): $3/M input, $15/M output
+- Claude Sonnet 4 (direct): $3/M input, $15/M output  
 - OpenRouter adds ~5-15% markup on top of base pricing
 - Gemini Flash: essentially free tier / very cheap
 - Grok, Qwen via OR: varies

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "maria-arnold-001",
+    "text": "Rick's wife of 25+ years",
+    "category": "role",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "maria-arnold-002",
+    "text": "Met at missionary training school where she was an instructor",
+    "category": "milestone",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "maria-arnold-003",
+    "text": "Still goes on missions trips \u2014 Rick finances them",
+    "category": "activity",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "maria-arnold-004",
+    "text": "Super diligent, hardworking \u2014 they hope to serve together after retirement",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  }
+]

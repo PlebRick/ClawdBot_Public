@@ -1,0 +1,18 @@
+[
+  {
+    "id": "theological-triage-001",
+    "text": "Four buckets: Essentials, Convictions, Opinions, Questions",
+    "category": "belief",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "theological-triage-002",
+    "text": "ESV Study Bible model \u2014 Rick promotes unity, don't major on minors (Romans 14)",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  }
+]

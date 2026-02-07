@@ -1,0 +1,10 @@
+[
+  {
+    "id": "test-dummy-001",
+    "text": "Created to verify KG skill works",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T17:23:45",
+    "source": "conversation"
+  }
+]

@@ -1,9 +1,9 @@
 ﻿# Incident Report: ClawdBot Auth Cascade Failure
 
 
-**Date**: January 28, 2026
-**Duration**: ~10+ hours (07:13 CST crash → 17:28 CST recovery)
-**Severity**: Complete service outage (self-inflicted)
+**Date**: January 28, 2026  
+**Duration**: ~10+ hours (07:13 CST crash → 17:28 CST recovery)  
+**Severity**: Complete service outage (self-inflicted)  
 **Status**: Resolved
 
 
@@ -71,7 +71,7 @@ Each failure was evidence that the diagnosis was wrong. The correct response was
 ClawdBot set `gateway.auth.mode` to `"none"`, which is not a valid value.
 
 
-**Valid values**: `"token"` or `"password"`
+**Valid values**: `"token"` or `"password"`  
 **Invalid value used**: `"none"`
 
 

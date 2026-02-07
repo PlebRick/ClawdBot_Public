@@ -1,0 +1,182 @@
+[
+  {
+    "id": "rick-arnold-001",
+    "text": "Senior chaplain at Centralia Correctional Center (IDOC)",
+    "category": "role",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-002",
+    "text": "Part-time pastor at St. Peter's Stone Church \u2014 preaches bimonthly",
+    "category": "role",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-003",
+    "text": "Leads Walking in the Spirit teaching series (2026)",
+    "category": "activity",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-004",
+    "text": "Developing On Mission with the Master \u2014 Romans expository series",
+    "category": "activity",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-005",
+    "text": "Expository preaching influenced by Stott, Driscoll, Finney style",
+    "category": "skill",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-006",
+    "text": "Bible-based, Christ-centered, Spirit-filled, Mission-minded",
+    "category": "preference",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-007",
+    "text": "Prevenient grace, unlimited atonement, corporate election",
+    "category": "belief",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-008",
+    "text": "Molinism \u2014 middle knowledge framework for sovereignty and freedom",
+    "category": "belief",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-009",
+    "text": "Ordained through Evangelical Church Alliance",
+    "category": "status",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-010",
+    "text": "12 years missions: Russia, India, Afghanistan, Egypt, Malaysia, Serbia (1998-2010)",
+    "category": "milestone",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-011",
+    "text": "Serious Bitcoin/crypto investor \u2014 follows Benjamin Cowen",
+    "category": "preference",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-012",
+    "text": "Runs Ubuntu Linux server (System76) for ClawdBot infrastructure",
+    "category": "skill",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "rick-arnold-013",
+    "text": "Rick Arnold leads St. Peter's Stone Church",
+    "category": "relationship",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed",
+    "relation": {
+      "type": "leads",
+      "target": "organization/st-peter-s-stone-church"
+    }
+  },
+  {
+    "id": "rick-arnold-014",
+    "text": "Rick is senior chaplain at Centralia CC",
+    "category": "relationship",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed",
+    "relation": {
+      "type": "member_of",
+      "target": "organization/centralia-correctional-center"
+    }
+  },
+  {
+    "id": "rick-arnold-015",
+    "text": "Rick built and maintains ClawdBot",
+    "category": "relationship",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed",
+    "relation": {
+      "type": "created_by",
+      "target": "project/clawdbot"
+    }
+  },
+  {
+    "id": "rick-arnold-016",
+    "text": "Rick designed ArnoldOS life operating system",
+    "category": "relationship",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed",
+    "relation": {
+      "type": "created_by",
+      "target": "project/arnoldos"
+    }
+  },
+  {
+    "id": "rick-arnold-017",
+    "text": "Core to Rick's soteriology",
+    "category": "relationship",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed",
+    "relation": {
+      "type": "uses",
+      "target": "concept/prevenient-grace"
+    }
+  },
+  {
+    "id": "rick-arnold-018",
+    "text": "Rick's framework for sovereignty and freedom",
+    "category": "relationship",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed",
+    "relation": {
+      "type": "uses",
+      "target": "concept/molinism"
+    }
+  },
+  {
+    "id": "rick-arnold-019",
+    "text": "Rick's method for categorizing doctrines",
+    "category": "relationship",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed",
+    "relation": {
+      "type": "uses",
+      "target": "concept/theological-triage"
+    }
+  }
+]

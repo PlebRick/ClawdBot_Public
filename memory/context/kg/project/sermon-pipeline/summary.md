@@ -1,0 +1,11 @@
+# Sermon Pipeline
+
+**Type:** project | **Domains:** ministry, dev
+
+## Active Facts
+
+- [status] Active — ClawdBot skill for sermon development workflow
+- [note] Stages: lectionary reading -> research -> outline -> draft -> review -> delivery
+
+---
+*2 active facts | Last updated: 2026-02-06T17:20:53*

@@ -54,6 +54,10 @@ Browser → HTTPS → Cloudflare → Tunnel → HTTPS localhost:18789 → Gatewa
 
 
 
+
+
+
+
 Public URL: https://ai.btctx.us
 Model Architecture (Multi-Provider)
 Tier
@@ -149,6 +153,10 @@ ClawdBot proposes:
 
 
 
+
+
+
+
 Supervisor responds:
 * APPROVED — Proceed as planned
 * APPROVED WITH CHANGES — Specific modifications required
@@ -168,11 +176,19 @@ clawdbot devices approve <id>  # Approve the request
 
 
 
+
+
+
+
 NOT by changing gateway.auth configuration.
 Essential Commands
 # Status
 systemctl status clawdbot
 sudo systemctl status cloudflared
+
+
+
+
 
 
 
@@ -184,8 +200,16 @@ sudo journalctl -u cloudflared -n 50 --no-pager
 
 
 
+
+
+
+
 # Recovery
 sudo systemctl stop clawdbot && pkill -9 -f clawdbot && sudo systemctl start clawdbot
+
+
+
+
 
 
 
@@ -197,6 +221,10 @@ clawdbot devices approve <REQUEST_ID>
 
 
 
+
+
+
+
 # Test connectivity
 curl -k https://localhost:18789
 curl -I https://ai.btctx.us
@@ -204,8 +232,16 @@ curl -I https://ai.btctx.us
 
 
 
+
+
+
+
 # TUI with cert bypass
 NODE_TLS_REJECT_UNAUTHORIZED=0 clawdbot tui --url wss://127.0.0.1:18789 --password <PASSWORD>
+
+
+
+
 
 
 
@@ -217,6 +253,10 @@ Known Gotchas
 4. trustedProxies needs IPv6 — Must include both 127.0.0.1 and ::1
 5. gateway.auth.mode — Only valid values are "token" or "password" (no "none")
 ________________
+
+
+
+
 
 
 

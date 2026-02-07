@@ -26,6 +26,14 @@ Home: `/home/ubuntu76/clawd` | Rick's timezone: America/Chicago
   - `agents.defaults.model.primary` — affects all conversations
   - Any section you haven't modified before — propose the exact change first
 
+### Workspace Concurrency
+Claude Code (via code-server) shares the ~/clawd/ workspace. To prevent file conflicts:
+1. **MEMORY.md**: You own this file. Claude Code will never write to it. Claude Code writes findings to `memory/context/cc-*.md` files instead — incorporate relevant content during your normal memory management.
+2. **skills/*/SKILL.md**: If you're actively editing a skill during a session, Claude Code will check for active sessions before writing. No action needed on your part — just be aware that `.pending` files next to a SKILL.md are Claude Code's deferred edits for you to review.
+3. **scripts/supervisor/**: This directory is Claude Code's workspace. Do not write to it. If you need to add supervisor-related scripts, coordinate with Rick.
+
+This is a Category A awareness rule — no behavioral change required for your normal operations.
+
 ## Operating
 - Memory: `memory/YYYY-MM-DD.md` (daily), `MEMORY.md` (long-term, main session only)
 - Always write to files, never "mental notes"; `trash` > `rm`

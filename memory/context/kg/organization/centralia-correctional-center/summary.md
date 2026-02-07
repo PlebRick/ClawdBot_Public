@@ -1,0 +1,11 @@
+# Centralia Correctional Center
+
+**Type:** organization | **Domains:** chapel | **Aliases:** Centralia CC
+
+## Active Facts
+
+- [note] IDOC medium-security facility — Rick's current chaplain assignment
+- [note] Rick transferred here after 11 years at Pinckneyville — likes it much better
+
+---
+*2 active facts | Last updated: 2026-02-06T17:20:53*

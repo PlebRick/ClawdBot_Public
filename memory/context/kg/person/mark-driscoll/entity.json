@@ -1,0 +1,13 @@
+{
+  "id": "person/mark-driscoll",
+  "type": "person",
+  "name": "Mark Driscoll",
+  "slug": "mark-driscoll",
+  "aliases": [],
+  "domains": [
+    "ministry"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}

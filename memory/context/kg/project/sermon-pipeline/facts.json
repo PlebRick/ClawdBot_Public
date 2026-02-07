@@ -1,0 +1,18 @@
+[
+  {
+    "id": "sermon-pipeline-001",
+    "text": "Active \u2014 ClawdBot skill for sermon development workflow",
+    "category": "status",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "sermon-pipeline-002",
+    "text": "Stages: lectionary reading -> research -> outline -> draft -> review -> delivery",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  }
+]

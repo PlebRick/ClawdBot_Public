@@ -1,0 +1,18 @@
+[
+  {
+    "id": "benjamin-cowen-001",
+    "text": "Into The Cryptoverse host \u2014 crypto analyst",
+    "category": "role",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  },
+  {
+    "id": "benjamin-cowen-002",
+    "text": "Rick's primary crypto analysis source",
+    "category": "note",
+    "status": "active",
+    "created": "2026-02-06T17:20:53",
+    "source": "seed"
+  }
+]

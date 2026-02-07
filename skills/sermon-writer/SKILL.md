@@ -1,4 +1,13 @@
-﻿Sermon Preparation Workflow Guide Cost-Optimized Collaboration Between Supervisor (Claude.ai) and ClawdBot
+---
+name: sermon-writer
+description: >
+  Generate sermon manuscripts using Rick's calibrated voice and preaching style.
+  Use for drafting sermons, writing sermon outlines, or generating full manuscripts
+  from brainstorm notes. NOT for brainstorming or passage exploration (use
+  bible-brainstorm for that).
+---
+
+Sermon Preparation Workflow Guide Cost-Optimized Collaboration Between Supervisor (Claude.ai) and ClawdBot
 
 
 ________________

@@ -1,0 +1,11 @@
+# N.T. Wright
+
+**Type:** person | **Domains:** ministry | **Aliases:** Tom Wright
+
+## Active Facts
+
+- [role] New Testament scholar and theologian
+- [note] Rick appreciates Wright's covenant faithfulness, kingdom now/not-yet, resurrection of all things
+
+---
+*2 active facts | Last updated: 2026-02-06T17:20:53*

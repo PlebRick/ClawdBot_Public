@@ -1,0 +1,15 @@
+{
+  "id": "organization/st-peter-s-stone-church",
+  "type": "organization",
+  "name": "St. Peter's Stone Church",
+  "slug": "st-peter-s-stone-church",
+  "aliases": [
+    "St. Peter's"
+  ],
+  "domains": [
+    "ministry"
+  ],
+  "status": "active",
+  "created": "2026-02-06T17:20:53",
+  "updated": "2026-02-06T17:20:53"
+}
